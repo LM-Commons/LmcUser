@@ -15,7 +15,7 @@ class LaminasUserIdentityTest extends \PHPUnit_Framework_TestCase
         $helper = new ViewHelper;
         $this->helper = $helper;
 
-        $authService = $this->getMock('Zend\Authentication\AuthenticationService');
+        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
         $this->authService = $authService;
 
         $helper->setAuthService($authService);
@@ -31,11 +31,11 @@ class LaminasUserIdentityTest extends \PHPUnit_Framework_TestCase
                           ->will($this->returnValue(true));
         $this->authService->expects($this->once())
                           ->method('getIdentity')
-                          ->will($this->returnValue('zfcUser'));
+                          ->will($this->returnValue('laminasUser'));
 
         $result = $this->helper->__invoke();
 
-        $this->assertEquals('zfcUser', $result);
+        $this->assertEquals('laminasUser', $result);
     }
 
     /**

@@ -14,7 +14,7 @@
     </testsuite>
     
     <php>
-        <const name="DB_MYSQL_DSN" value="mysql:host=localhost;dbname=zfc_user" />
+        <const name="DB_MYSQL_DSN" value="mysql:host=localhost;dbname=laminas_user" />
         <const name="DB_MYSQL_USERNAME" value="root" />
         <const name="DB_MYSQL_PASSWORD" value="" />
         <const name="DB_MYSQL_SCHEMA" value="../data/schema.mysql.sql" />

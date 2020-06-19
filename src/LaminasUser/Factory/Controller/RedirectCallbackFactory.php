@@ -3,10 +3,10 @@
 namespace LaminasUser\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Application;
-use Zend\Router\RouteInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Application;
+use Laminas\Router\RouteInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Controller\RedirectCallback;
 use LaminasUser\Options\ModuleOptions;
 
@@ -21,7 +21,7 @@ class RedirectCallbackFactory implements FactoryInterface
         $application = $serviceLocator->get('Application');
 
         /* @var ModuleOptions $options */
-        $options = $serviceLocator->get('zfcuser_module_options');
+        $options = $serviceLocator->get('laminasuser_module_options');
 
         return new RedirectCallback($application, $router, $options);
     }

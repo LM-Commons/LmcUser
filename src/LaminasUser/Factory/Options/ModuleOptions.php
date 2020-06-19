@@ -3,8 +3,8 @@
 namespace LaminasUser\Factory\Options;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Options;
 
 class ModuleOptions implements FactoryInterface
@@ -13,7 +13,7 @@ class ModuleOptions implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
 
-        return new Options\ModuleOptions(isset($config['zfcuser']) ? $config['zfcuser'] : array());
+        return new Options\ModuleOptions(isset($config['laminasuser']) ? $config['laminasuser'] : array());
     }
 
     /**

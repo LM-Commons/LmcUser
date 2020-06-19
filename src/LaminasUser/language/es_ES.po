@@ -62,11 +62,11 @@ msgstr "Por favor, ingrese el siguiente texto"
 msgid "Submit"
 msgstr "Enviar"
 
-#: src/LaminasUser/language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+#: src/LaminasUser/language/msgIds.php:18 view/laminas-user/user/login.phtml:1
 msgid "Sign In"
 msgstr "Iniciar sesión"
 
-#: src/LaminasUser/language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+#: src/LaminasUser/language/msgIds.php:19 view/laminas-user/user/register.phtml:1
 msgid "Register"
 msgstr "Registrarse"
 
@@ -82,48 +82,48 @@ msgstr "Se encontró un registro coincidente"
 msgid "Authentication failed. Please try again."
 msgstr "Autenticación fallida. Por favor, intente nuevamente."
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Not registered?"
 msgstr "Aún no se ha registrado?"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Sign up!"
 msgstr "Regístrese!"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/laminas-user/user/changeemail.phtml:1
 #, php-format
 msgid "Change Email for %s"
 msgstr "Cambiar correo electrónico por %s"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/laminas-user/user/changeemail.phtml:3
 msgid "Email address changed successfully."
 msgstr ""
 "La dirección de correo electrónico ha sido cambiada correctamente."
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/laminas-user/user/changeemail.phtml:5
 msgid "Unable to update your email address. Please try again."
 msgstr ""
 "No se pudo actualizar su dirección de correo electrónico. Por favor, "
 "intente nuevamente."
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/laminas-user/user/changepassword.phtml:1
 #, php-format
 msgid "Change Password for %s"
 msgstr "Cambiar contraseña por %s"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/laminas-user/user/changepassword.phtml:3
 msgid "Password changed successfully."
 msgstr "La contraseña ha sido actualizada correctamente."
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/laminas-user/user/changepassword.phtml:5
 msgid "Unable to update your password. Please try again."
 msgstr ""
 "No se pudo actualizar su contraseña. Por favor, intente nuevamente."
 
-#: view/zfc-user/user/index.phtml:2
+#: view/laminas-user/user/index.phtml:2
 msgid "Hello"
 msgstr "Hola"
 
-#: view/zfc-user/user/index.phtml:3
+#: view/laminas-user/user/index.phtml:3
 msgid "Sign Out"
 msgstr "Cerrar sesión"

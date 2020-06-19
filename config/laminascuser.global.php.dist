@@ -1,27 +1,27 @@
 <?php
 /**
- * ZfcUser Configuration
+ * LaminasUser Configuration
  *
  * If you have a ./config/autoload/ directory set up for your project, you can
  * drop this config file in it and change the values as you wish.
  */
 $settings = array(
     /**
-     * Zend\Db\Adapter\Adapter DI Alias
+     * Laminas\Db\Adapter\Adapter DI Alias
      *
-     * Please specify the DI alias for the configured Zend\Db\Adapter\Adapter
-     * instance that ZfcUser should use.
+     * Please specify the DI alias for the configured Laminas\Db\Adapter\Adapter
+     * instance that LaminasUser should use.
      */
-    //'zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+    //'laminas_db_adapter' => 'Laminas\Db\Adapter\Adapter',
 
     /**
      * User Model Entity Class
      *
      * Name of Entity class to use. Useful for using your own entity class
-     * instead of the default one provided. Default is ZfcUser\Entity\User.
-     * The entity class should implement ZfcUser\Entity\UserInterface
+     * instead of the default one provided. Default is LaminasUser\Entity\User.
+     * The entity class should implement LaminasUser\Entity\UserInterface
      */
-    //'user_entity_class' => 'ZfcUser\Entity\User',
+    //'user_entity_class' => 'LaminasUser\Entity\User',
 
     /**
      * Enable registration
@@ -47,10 +47,10 @@ $settings = array(
      *
      * Specify the adapters that will be used to try and authenticate the user
      *
-     * Default value: array containing 'ZfcUser\Authentication\Adapter\Db' with priority 100
-     * Accepted values: array containing services that implement 'ZfcUser\Authentication\Adapter\ChainableAdapter'
+     * Default value: array containing 'LaminasUser\Authentication\Adapter\Db' with priority 100
+     * Accepted values: array containing services that implement 'LaminasUser\Authentication\Adapter\ChainableAdapter'
      */
-    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
+    'auth_adapters' => array( 100 => 'LaminasUser\Authentication\Adapter\Db' ),
 
     /**
      * Enable Display Name
@@ -115,7 +115,7 @@ $settings = array(
      * Form Captcha Options
      *
      * Currently used for the registration form, but re-usable anywhere. Use
-     * this to configure which Zend\Captcha adapter to use, and the options to
+     * this to configure which Laminas\Captcha adapter to use, and the options to
      * pass to it. The default uses the Figlet captcha.
      */
     /*'form_captcha_options' => array(
@@ -139,31 +139,31 @@ $settings = array(
     /**
 	 * Sets the view template for the user login widget
 	 *
-	 * Default value: 'zfc-user/user/login.phtml'
+	 * Default value: 'laminas-user/user/login.phtml'
      * Accepted values: string path to a view script
 	 */
-    //'user_login_widget_view_template' => 'zfc-user/user/login.phtml',
+    //'user_login_widget_view_template' => 'laminas-user/user/login.phtml',
 
     /**
      * Login Redirect Route
      *
      * Upon successful login the user will be redirected to the entered route
      *
-     * Default value: 'zfcuser'
+     * Default value: 'laminasuser'
      * Accepted values: A valid route name within your application
      *
      */
-    //'login_redirect_route' => 'zfcuser',
+    //'login_redirect_route' => 'laminasuser',
 
     /**
      * Logout Redirect Route
      *
      * Upon logging out the user will be redirected to the entered route
      *
-     * Default value: 'zfcuser/login'
+     * Default value: 'laminasuser/login'
      * Accepted values: A valid route name within your application
      */
-    //'logout_redirect_route' => 'zfcuser/login',
+    //'logout_redirect_route' => 'laminasuser/login',
 
     /**
      * Password Security
@@ -218,7 +218,7 @@ $settings = array(
     //'table_name' => 'user',
     
     /**
-     * End of ZfcUser configuration
+     * End of LaminasUser configuration
      */
 );
 
@@ -226,10 +226,10 @@ $settings = array(
  * You do not need to edit below this line
  */
 return array(
-    'zfcuser' => $settings,
+    'laminasuser' => $settings,
     'service_manager' => array(
         'aliases' => array(
-            'zfcuser_zend_db_adapter' => (isset($settings['zend_db_adapter'])) ? $settings['zend_db_adapter']: 'Zend\Db\Adapter\Adapter',
+            'laminasuser_laminas_db_adapter' => (isset($settings['laminas_db_adapter'])) ? $settings['laminas_db_adapter']: 'Laminas\Db\Adapter\Adapter',
         ),
     ),
 );

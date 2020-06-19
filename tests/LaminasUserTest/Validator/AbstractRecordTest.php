@@ -64,7 +64,7 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryWithInvalidKey()
     {
-        $options = array('key' => 'zfcUser');
+        $options = array('key' => 'laminasUser');
         $validator = new AbstractRecordExtension($options);
 
         $method = new \ReflectionMethod('LaminasUserTest\Validator\TestAsset\AbstractRecordExtension', 'query');

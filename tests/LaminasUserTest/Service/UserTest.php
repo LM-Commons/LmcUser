@@ -3,7 +3,7 @@
 namespace LaminasUserTest\Service;
 
 use LaminasUser\Service\User as Service;
-use Zend\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Bcrypt;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,19 +29,19 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $options = $this->getMock('LaminasUser\Options\ModuleOptions');
         $this->options = $options;
 
-        $serviceManager = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $serviceManager = $this->getMock('Laminas\ServiceManager\ServiceManager');
         $this->serviceManager = $serviceManager;
 
-        $eventManager = $this->getMock('Zend\EventManager\EventManager');
+        $eventManager = $this->getMock('Laminas\EventManager\EventManager');
         $this->eventManager = $eventManager;
 
-        $formHydrator = $this->getMock('Zend\Hydrator\HydratorInterface');
+        $formHydrator = $this->getMock('Laminas\Hydrator\HydratorInterface');
         $this->formHydrator = $formHydrator;
 
         $mapper = $this->getMock('LaminasUser\Mapper\UserInterface');
         $this->mapper = $mapper;
 
-        $authService = $this->getMockBuilder('Zend\Authentication\AuthenticationService')->disableOriginalConstructor()->getMock();
+        $authService = $this->getMockBuilder('Laminas\Authentication\AuthenticationService')->disableOriginalConstructor()->getMock();
         $this->authService = $authService;
 
         $service->setOptions($options);
@@ -300,7 +300,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangePasswordWithWrongOldPassword()
     {
-        $data = array('newCredential' => 'zfcUser', 'credential' => 'zfcUserOld');
+        $data = array('newCredential' => 'laminasUser', 'credential' => 'laminasUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -327,7 +327,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangePassword()
     {
-        $data = array('newCredential' => 'zfcUser', 'credential' => 'zfcUserOld');
+        $data = array('newCredential' => 'laminasUser', 'credential' => 'laminasUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -363,7 +363,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangeEmail()
     {
-        $data = array('credential' => 'zfcUser', 'newIdentity' => 'zfcUser@zfcUser.com');
+        $data = array('credential' => 'laminasUser', 'newIdentity' => 'laminasUser@laminasUser.com');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -378,7 +378,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($bcrypt->create($data['credential'])));
         $user->expects($this->any())
              ->method('setEmail')
-             ->with('zfcUser@zfcUser.com');
+             ->with('laminasUser@laminasUser.com');
 
         $this->authService->expects($this->any())
              ->method('getIdentity')
@@ -400,7 +400,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangeEmailWithWrongPassword()
     {
-        $data = array('credential' => 'zfcUserOld');
+        $data = array('credential' => 'laminasUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -429,7 +429,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
                              ->method('get')
-                             ->with('zfcuser_user_mapper')
+                             ->with('laminasuser_user_mapper')
                              ->will($this->returnValue($this->mapper));
 
         $service = new Service;
@@ -453,12 +453,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('zfcuser_auth_service')
+             ->with('laminasuser_auth_service')
              ->will($this->returnValue($this->authService));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
-        $this->assertInstanceOf('Zend\Authentication\AuthenticationService', $service->getAuthService());
+        $this->assertInstanceOf('Laminas\Authentication\AuthenticationService', $service->getAuthService());
     }
 
     /**
@@ -479,7 +479,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('zfcuser_register_form')
+             ->with('laminasuser_register_form')
              ->will($this->returnValue($form));
 
         $service = new Service;
@@ -512,7 +512,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('zfcuser_change_password_form')
+             ->with('laminasuser_change_password_form')
              ->will($this->returnValue($form));
 
         $service = new Service;
@@ -539,7 +539,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('zfcuser_module_options')
+             ->with('laminasuser_module_options')
              ->will($this->returnValue($this->options));
 
         $service = new Service;
@@ -571,12 +571,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('zfcuser_register_form_hydrator')
+             ->with('laminasuser_register_form_hydrator')
              ->will($this->returnValue($this->formHydrator));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
-        $this->assertInstanceOf('Zend\Hydrator\HydratorInterface', $service->getFormHydrator());
+        $this->assertInstanceOf('Laminas\Hydrator\HydratorInterface', $service->getFormHydrator());
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace LaminasUser\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\Authentication\AuthenticationService;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\Authentication\AuthenticationService;
 
 class LaminasUserIdentity extends AbstractHelper
 {

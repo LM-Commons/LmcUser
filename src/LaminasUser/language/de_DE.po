@@ -59,11 +59,11 @@ msgstr "Geben Sie bitte den folgenden Text ein"
 msgid "Submit"
 msgstr "Senden"
 
-#: src/LaminasUser/language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+#: src/LaminasUser/language/msgIds.php:18 view/laminas-user/user/login.phtml:1
 msgid "Sign In"
 msgstr "Anmelden"
 
-#: src/LaminasUser/language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+#: src/LaminasUser/language/msgIds.php:19 view/laminas-user/user/register.phtml:1
 msgid "Register"
 msgstr "Registrieren"
 
@@ -81,48 +81,48 @@ msgstr ""
 "Authentifizierung fehlgeschlagen. "
 "Bitte versuchen Sie es erneut."
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Not registered?"
 msgstr "Noch kein Zugang?"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Sign up!"
 msgstr "Jetzt registrieren!"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/laminas-user/user/changeemail.phtml:1
 #, php-format
 msgid "Change Email for %s"
 msgstr "E-mail ändern für %s"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/laminas-user/user/changeemail.phtml:3
 msgid "Email address changed successfully."
 msgstr "Ihre E-Mail wurde erflogreich aktualisiert."
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/laminas-user/user/changeemail.phtml:5
 msgid "Unable to update your email address. Please try again."
 msgstr ""
 "Ihre E-Mail konnte nicht erflogreich aktualisiert werden. "
 "Bitte versuchen Sie es erneut."
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/laminas-user/user/changepassword.phtml:1
 #, php-format
 msgid "Change Password for %s"
 msgstr "Passwort ändern für %s"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/laminas-user/user/changepassword.phtml:3
 msgid "Password changed successfully."
 msgstr "Ihr Passwort wurde erfolgreich aktualisiert."
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/laminas-user/user/changepassword.phtml:5
 msgid "Unable to update your password. Please try again."
 msgstr ""
 "Ihr Passwort konnte nicht erfolgreich aktualisiert werden. "
 "Bitte versuchen Sie es erneut."
 
-#: view/zfc-user/user/index.phtml:2
+#: view/laminas-user/user/index.phtml:2
 msgid "Hello"
 msgstr "Hallo"
 
-#: view/zfc-user/user/index.phtml:3
+#: view/laminas-user/user/index.phtml:3
 msgid "Sign Out"
 msgstr "Abmelden"

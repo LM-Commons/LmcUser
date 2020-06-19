@@ -2,23 +2,23 @@
 
 namespace LaminasUser\Controller;
 
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\Stdlib\Parameters;
-use Zend\View\Model\ViewModel;
+use Laminas\Form\FormInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Stdlib\ResponseInterface as Response;
+use Laminas\Stdlib\Parameters;
+use Laminas\View\Model\ViewModel;
 use LaminasUser\Service\User as UserService;
 use LaminasUser\Options\UserControllerOptionsInterface;
 
 class UserController extends AbstractActionController
 {
-    const ROUTE_CHANGEPASSWD = 'zfcuser/changepassword';
-    const ROUTE_LOGIN        = 'zfcuser/login';
-    const ROUTE_REGISTER     = 'zfcuser/register';
-    const ROUTE_CHANGEEMAIL  = 'zfcuser/changeemail';
+    const ROUTE_CHANGEPASSWD = 'laminasuser/changepassword';
+    const ROUTE_LOGIN        = 'laminasuser/login';
+    const ROUTE_REGISTER     = 'laminasuser/register';
+    const ROUTE_CHANGEEMAIL  = 'laminasuser/changeemail';
 
-    const CONTROLLER_NAME    = 'zfcuser';
+    const CONTROLLER_NAME    = 'laminasuser';
 
     /**
      * @var UserService
@@ -82,7 +82,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+        if (!$this->laminasUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute(static::ROUTE_LOGIN);
         }
         return new ViewModel();
@@ -93,7 +93,7 @@ class UserController extends AbstractActionController
      */
     public function loginAction()
     {
-        if ($this->zfcUserAuthentication()->hasIdentity()) {
+        if ($this->laminasUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
@@ -117,13 +117,13 @@ class UserController extends AbstractActionController
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
-            $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
+            $this->flashMessenger()->setNamespace('laminasuser-login-form')->addMessage($this->failedLoginMessage);
             return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
         }
 
         // clear adapters
-        $this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
-        $this->zfcUserAuthentication()->getAuthService()->clearIdentity();
+        $this->laminasUserAuthentication()->getAuthAdapter()->resetAdapters();
+        $this->laminasUserAuthentication()->getAuthService()->clearIdentity();
 
         return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
     }
@@ -133,9 +133,9 @@ class UserController extends AbstractActionController
      */
     public function logoutAction()
     {
-        $this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
-        $this->zfcUserAuthentication()->getAuthAdapter()->logoutAdapters();
-        $this->zfcUserAuthentication()->getAuthService()->clearIdentity();
+        $this->laminasUserAuthentication()->getAuthAdapter()->resetAdapters();
+        $this->laminasUserAuthentication()->getAuthAdapter()->logoutAdapters();
+        $this->laminasUserAuthentication()->getAuthService()->clearIdentity();
 
         $redirect = $this->redirectCallback;
 
@@ -147,11 +147,11 @@ class UserController extends AbstractActionController
      */
     public function authenticateAction()
     {
-        if ($this->zfcUserAuthentication()->hasIdentity()) {
+        if ($this->laminasUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
-        $adapter = $this->zfcUserAuthentication()->getAuthAdapter();
+        $adapter = $this->laminasUserAuthentication()->getAuthAdapter();
         $redirect = $this->params()->fromPost('redirect', $this->params()->fromQuery('redirect', false));
 
         $result = $adapter->prepareForAuthentication($this->getRequest());
@@ -161,10 +161,10 @@ class UserController extends AbstractActionController
             return $result;
         }
 
-        $auth = $this->zfcUserAuthentication()->getAuthService()->authenticate($adapter);
+        $auth = $this->laminasUserAuthentication()->getAuthService()->authenticate($adapter);
 
         if (!$auth->isValid()) {
-            $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
+            $this->flashMessenger()->setNamespace('laminasuser-login-form')->addMessage($this->failedLoginMessage);
             $adapter->resetAdapters();
             return $this->redirect()->toUrl(
                 $this->url()->fromRoute(static::ROUTE_LOGIN) .
@@ -183,7 +183,7 @@ class UserController extends AbstractActionController
     public function registerAction()
     {
         // if the user is logged in, we don't need to register
-        if ($this->zfcUserAuthentication()->hasIdentity()) {
+        if ($this->laminasUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
@@ -251,7 +251,7 @@ class UserController extends AbstractActionController
     public function changepasswordAction()
     {
         // if the user isn't logged in, we can't change password
-        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+        if (!$this->laminasUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
@@ -298,7 +298,7 @@ class UserController extends AbstractActionController
     public function changeEmailAction()
     {
         // if the user isn't logged in, we can't change email
-        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+        if (!$this->laminasUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
@@ -354,7 +354,7 @@ class UserController extends AbstractActionController
     public function getUserService()
     {
         if (!$this->userService) {
-            $this->userService = $this->serviceLocator->get('zfcuser_user_service');
+            $this->userService = $this->serviceLocator->get('laminasuser_user_service');
         }
         return $this->userService;
     }
@@ -368,7 +368,7 @@ class UserController extends AbstractActionController
     public function getRegisterForm()
     {
         if (!$this->registerForm) {
-            $this->setRegisterForm($this->serviceLocator->get('zfcuser_register_form'));
+            $this->setRegisterForm($this->serviceLocator->get('laminasuser_register_form'));
         }
         return $this->registerForm;
     }
@@ -381,7 +381,7 @@ class UserController extends AbstractActionController
     public function getLoginForm()
     {
         if (!$this->loginForm) {
-            $this->setLoginForm($this->serviceLocator->get('zfcuser_login_form'));
+            $this->setLoginForm($this->serviceLocator->get('laminasuser_login_form'));
         }
         return $this->loginForm;
     }
@@ -395,7 +395,7 @@ class UserController extends AbstractActionController
     public function getChangePasswordForm()
     {
         if (!$this->changePasswordForm) {
-            $this->setChangePasswordForm($this->serviceLocator->get('zfcuser_change_password_form'));
+            $this->setChangePasswordForm($this->serviceLocator->get('laminasuser_change_password_form'));
         }
         return $this->changePasswordForm;
     }
@@ -426,7 +426,7 @@ class UserController extends AbstractActionController
     public function getOptions()
     {
         if (!$this->options instanceof UserControllerOptionsInterface) {
-            $this->setOptions($this->serviceLocator->get('zfcuser_module_options'));
+            $this->setOptions($this->serviceLocator->get('laminasuser_module_options'));
         }
         return $this->options;
     }
@@ -438,7 +438,7 @@ class UserController extends AbstractActionController
     public function getChangeEmailForm()
     {
         if (!$this->changeEmailForm) {
-            $this->setChangeEmailForm($this->serviceLocator->get('zfcuser_change_email_form'));
+            $this->setChangeEmailForm($this->serviceLocator->get('laminasuser_change_email_form'));
         }
         return $this->changeEmailForm;
     }

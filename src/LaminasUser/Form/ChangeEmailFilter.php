@@ -2,7 +2,7 @@
 
 namespace LaminasUser\Form;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 use LaminasUser\Options\AuthenticationOptionsInterface;
 
 class ChangeEmailFilter extends InputFilter

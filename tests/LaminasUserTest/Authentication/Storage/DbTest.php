@@ -32,7 +32,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $db = new Db;
         $this->db = $db;
 
-        $this->storage = $this->getMock('Zend\Authentication\Storage\Session');
+        $this->storage = $this->getMock('Laminas\Authentication\Storage\Session');
         $this->mapper = $this->getMock('LaminasUser\Mapper\User');
     }
 
@@ -58,9 +58,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $reflectionClass = new \ReflectionClass('LaminasUser\Authentication\Storage\Db');
         $reflectionProperty = $reflectionClass->getProperty('resolvedIdentity');
         $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($this->db, 'zfcUser');
+        $reflectionProperty->setValue($this->db, 'laminasUser');
 
-        $this->assertSame('zfcUser', $this->db->read());
+        $this->assertSame('laminasUser', $this->db->read());
     }
 
     /**
@@ -75,7 +75,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setStorage($this->storage);
 
         $user = $this->getMock('LaminasUser\Entity\User');
-        $user->setUsername('zfcUser');
+        $user->setUsername('laminasUser');
 
         $this->mapper->expects($this->once())
                      ->method('findById')
@@ -118,7 +118,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testReadWithoutResolvedEntitySetIdentityObject()
     {
         $user = $this->getMock('LaminasUser\Entity\User');
-        $user->setUsername('zfcUser');
+        $user->setUsername('laminasUser');
 
         $this->storage->expects($this->once())
                       ->method('read')
@@ -142,11 +142,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->storage->expects($this->once())
                       ->method('write')
-                      ->with('zfcUser');
+                      ->with('laminasUser');
 
         $this->db->setStorage($this->storage);
 
-        $this->db->write('zfcUser');
+        $this->db->write('laminasUser');
 
         $this->assertNull($reflectionProperty->getValue($this->db));
     }
@@ -175,10 +175,10 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMapperWithNoMapperSet()
     {
-        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
         $sm->expects($this->once())
            ->method('get')
-           ->with('zfcuser_user_mapper')
+           ->with('laminasuser_user_mapper')
            ->will($this->returnValue($this->mapper));
 
         $this->db->setServiceManager($sm);
@@ -193,12 +193,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testSetGetMapper()
     {
         $mapper = new \LaminasUser\Mapper\User;
-        $mapper->setTableName('zfcUser');
+        $mapper->setTableName('laminasUser');
 
         $this->db->setMapper($mapper);
 
         $this->assertInstanceOf('LaminasUser\Mapper\User', $this->db->getMapper());
-        $this->assertSame('zfcUser', $this->db->getMapper()->getTableName());
+        $this->assertSame('laminasUser', $this->db->getMapper()->getTableName());
     }
 
     /**
@@ -207,11 +207,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetServicemanager()
     {
-        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
 
         $this->db->setServiceManager($sm);
 
-        $this->assertInstanceOf('Zend\ServiceManager\ServiceLocatorInterface', $this->db->getServiceManager());
+        $this->assertInstanceOf('Laminas\ServiceManager\ServiceLocatorInterface', $this->db->getServiceManager());
         $this->assertSame($sm, $this->db->getServiceManager());
     }
 
@@ -221,7 +221,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetStorageWithoutStorageSet()
     {
-        $this->assertInstanceOf('Zend\Authentication\Storage\Session', $this->db->getStorage());
+        $this->assertInstanceOf('Laminas\Authentication\Storage\Session', $this->db->getStorage());
     }
 
     /**
@@ -230,9 +230,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetStorage()
     {
-        $storage = new \Zend\Authentication\Storage\Session('LaminasUserStorage');
+        $storage = new \Laminas\Authentication\Storage\Session('LaminasUserStorage');
         $this->db->setStorage($storage);
 
-        $this->assertInstanceOf('Zend\Authentication\Storage\Session', $this->db->getStorage());
+        $this->assertInstanceOf('Laminas\Authentication\Storage\Session', $this->db->getStorage());
     }
 }

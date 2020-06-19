@@ -3,8 +3,8 @@
 namespace LaminasUser\Factory\Authentication\Storage;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Authentication\Storage\Db;
 
 class DbFactory implements FactoryInterface

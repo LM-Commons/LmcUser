@@ -59,11 +59,11 @@ msgstr "Пожалуйста, введите следующий текст"
 msgid "Submit"
 msgstr "Отправить"
 
-#: src/LaminasUser/language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+#: src/LaminasUser/language/msgIds.php:18 view/laminas-user/user/login.phtml:1
 msgid "Sign In"
 msgstr "Вход"
 
-#: src/LaminasUser/language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+#: src/LaminasUser/language/msgIds.php:19 view/laminas-user/user/register.phtml:1
 msgid "Register"
 msgstr "Регистрация"
 
@@ -81,48 +81,48 @@ msgstr ""
 "Ошибка авторизации. "
 "Пожалуйста, попробуйте еще раз."
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Not registered?"
 msgstr "Зарегистрированы?"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Sign up!"
 msgstr "Регистрация"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/laminas-user/user/changeemail.phtml:1
 #, php-format
 msgid "Change Email for %s"
 msgstr "Изменить email для %s"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/laminas-user/user/changeemail.phtml:3
 msgid "Email address changed successfully."
 msgstr "Email успешно изменен"
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/laminas-user/user/changeemail.phtml:5
 msgid "Unable to update your email address. Please try again."
 msgstr ""
 "Не могу изменить email. "
 "Пожалуйста, попробуйте еще раз."
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/laminas-user/user/changepassword.phtml:1
 #, php-format
 msgid "Change Password for %s"
 msgstr "Изменить пароль для %s"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/laminas-user/user/changepassword.phtml:3
 msgid "Password changed successfully."
 msgstr "Пароль успешно изменен"
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/laminas-user/user/changepassword.phtml:5
 msgid "Unable to update your password. Please try again."
 msgstr ""
 "Не могу изменить пароль. "
 "Пожалуйста, попробуйте еще раз."
 
-#: view/zfc-user/user/index.phtml:2
+#: view/laminas-user/user/index.phtml:2
 msgid "Hello"
 msgstr "Привет"
 
-#: view/zfc-user/user/index.phtml:3
+#: view/laminas-user/user/index.phtml:3
 msgid "Sign Out"
 msgstr "Выйти"

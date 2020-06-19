@@ -48,11 +48,11 @@
         "laminas/laminas-captcha" : "^2.6"
     },
     "suggest": {
-        "laminas/laminas-captcha" : "Zend\\Captcha if you want to use the captcha component"
+        "laminas/laminas-captcha" : "Laminas\\Captcha if you want to use the captcha component"
     },
     "autoload": {
         "psr-0": {
-            "ZfcUser": "src/"
+            "LaminasUser": "src/"
         },
         "classmap": [
             "./Module.php"

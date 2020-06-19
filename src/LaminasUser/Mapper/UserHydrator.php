@@ -2,7 +2,7 @@
 
 namespace LaminasUser\Mapper;
 
-use Zend\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethods;
 use LaminasUser\Entity\UserInterface as UserEntityInterface;
 
 class UserHydrator extends ClassMethods

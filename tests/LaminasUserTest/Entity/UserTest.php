@@ -30,8 +30,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetUsername()
     {
-        $this->user->setUsername('zfcUser');
-        $this->assertEquals('zfcUser', $this->user->getUsername());
+        $this->user->setUsername('laminasUser');
+        $this->assertEquals('laminasUser', $this->user->getUsername());
     }
 
     /**
@@ -50,8 +50,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetEmail()
     {
-        $this->user->setEmail('zfcUser@zfcUser.com');
-        $this->assertEquals('zfcUser@zfcUser.com', $this->user->getEmail());
+        $this->user->setEmail('laminasUser@laminasUser.com');
+        $this->assertEquals('laminasUser@laminasUser.com', $this->user->getEmail());
     }
 
     /**
@@ -60,8 +60,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetPassword()
     {
-        $this->user->setPassword('zfcUser');
-        $this->assertEquals('zfcUser', $this->user->getPassword());
+        $this->user->setPassword('laminasUser');
+        $this->assertEquals('laminasUser', $this->user->getPassword());
     }
 
     /**

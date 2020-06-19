@@ -2,9 +2,9 @@
 
 namespace LaminasUser\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Authentication\Adapter\AdapterChain as AuthAdapter;
 
 class LaminasUserAuthentication extends AbstractPlugin

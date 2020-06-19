@@ -3,9 +3,9 @@
 namespace LaminasUser\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Controller\RedirectCallback;
 use LaminasUser\Controller\UserController;
 
@@ -14,18 +14,18 @@ class UserControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
     {
         /* @var RedirectCallback $redirectCallback */
-        $redirectCallback = $serviceManager->get('zfcuser_redirect_callback');
+        $redirectCallback = $serviceManager->get('laminasuser_redirect_callback');
 
         /* @var UserController $controller */
         $controller = new UserController($redirectCallback);
         $controller->setServiceLocator($serviceManager);
 
-        $controller->setChangeEmailForm($serviceManager->get('zfcuser_change_email_form'));
-        $controller->setOptions($serviceManager->get('zfcuser_module_options'));
-        $controller->setChangePasswordForm($serviceManager->get('zfcuser_change_password_form'));
-        $controller->setLoginForm($serviceManager->get('zfcuser_login_form'));
-        $controller->setRegisterForm($serviceManager->get('zfcuser_register_form'));
-        $controller->setUserService($serviceManager->get('zfcuser_user_service'));
+        $controller->setChangeEmailForm($serviceManager->get('laminasuser_change_email_form'));
+        $controller->setOptions($serviceManager->get('laminasuser_module_options'));
+        $controller->setChangePasswordForm($serviceManager->get('laminasuser_change_password_form'));
+        $controller->setLoginForm($serviceManager->get('laminasuser_login_form'));
+        $controller->setRegisterForm($serviceManager->get('laminasuser_register_form'));
+        $controller->setUserService($serviceManager->get('laminasuser_user_service'));
 
         return $controller;
     }

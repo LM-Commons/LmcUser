@@ -3,10 +3,10 @@ namespace LaminasUser\Authentication\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Authentication\Adapter\AdapterChain;
 use LaminasUser\Options\ModuleOptions;
 use LaminasUser\Authentication\Adapter\Exception\OptionsNotFoundException;
@@ -76,7 +76,7 @@ class AdapterChainServiceFactory implements FactoryInterface
                 );
             }
 
-            $this->setOptions($serviceLocator->get('zfcuser_module_options'));
+            $this->setOptions($serviceLocator->get('laminasuser_module_options'));
         }
 
         return $this->options;

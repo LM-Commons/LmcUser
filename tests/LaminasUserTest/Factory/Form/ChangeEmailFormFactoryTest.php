@@ -1,8 +1,8 @@
 <?php
 namespace LaminasUserTest\Factory\Form;
 
-use Zend\Form\FormElementManager;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Form\FormElementManager;
+use Laminas\ServiceManager\ServiceManager;
 use LaminasUser\Factory\Form\ChangeEmail as ChangeEmailFactory;
 use LaminasUser\Options\ModuleOptions;
 use LaminasUser\Mapper\User as UserMapper;
@@ -13,8 +13,8 @@ class ChangeEmailFormFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $serviceManager = new ServiceManager([
             'services' => [
-                'zfcuser_module_options' => new ModuleOptions,
-                'zfcuser_user_mapper' => new UserMapper
+                'laminasuser_module_options' => new ModuleOptions,
+                'laminasuser_user_mapper' => new UserMapper
             ]
         ]);
 

@@ -3,7 +3,7 @@
 namespace LaminasUserTest\View\Helper;
 
 use LaminasUser\View\Helper\LaminasUserLoginWidget as ViewHelper;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
     {
         $this->helper = new ViewHelper;
 
-        $view = $this->getMock('Zend\View\Renderer\RendererInterface');
+        $view = $this->getMock('Laminas\View\Renderer\RendererInterface');
         $this->view = $view;
 
         $this->helper->setView($view);
@@ -27,20 +27,20 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
         $attr[] = array(
             array(
                 'render' => true,
-                'redirect' => 'zfcUser'
+                'redirect' => 'laminasUser'
             ),
             array(
                 'loginForm' => null,
-                'redirect' => 'zfcUser'
+                'redirect' => 'laminasUser'
             ),
         );
         $attr[] = array(
             array(
-                'redirect' => 'zfcUser'
+                'redirect' => 'laminasUser'
             ),
             array(
                 'loginForm' => null,
-                'redirect' => 'zfcUser'
+                'redirect' => 'laminasUser'
             ),
         );
         $attr[] = array(
@@ -63,7 +63,7 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
     public function testInvokeWithRender($option, $expect)
     {
         /**
-         * @var $viewModel \Zend\View\Model\ViewModels
+         * @var $viewModel \Laminas\View\Model\ViewModels
          */
         $viewModel = null;
 
@@ -76,11 +76,11 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke($option);
 
-        $this->assertNotInstanceOf('Zend\View\Model\ViewModel', $result);
+        $this->assertNotInstanceOf('Laminas\View\Model\ViewModel', $result);
         $this->assertInternalType('string', $result);
 
 
-        $this->assertInstanceOf('Zend\View\Model\ViewModel', $viewModel);
+        $this->assertInstanceOf('Laminas\View\Model\ViewModel', $viewModel);
         foreach ($expect as $name => $value) {
             $this->assertEquals($value, $viewModel->getVariable($name, "testDefault"));
         }
@@ -93,11 +93,11 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->helper->__invoke(array(
             'render' => false,
-            'redirect' => 'zfcUser'
+            'redirect' => 'laminasUser'
         ));
 
-        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
-        $this->assertEquals('zfcUser', $result->redirect);
+        $this->assertInstanceOf('Laminas\View\Model\ViewModel', $result);
+        $this->assertEquals('laminasUser', $result->redirect);
     }
 
     /**
@@ -117,12 +117,12 @@ class LaminasUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetViewTemplate()
     {
-        $this->helper->setViewTemplate('zfcUser');
+        $this->helper->setViewTemplate('laminasUser');
 
         $reflectionClass = new \ReflectionClass('LaminasUser\View\Helper\LaminasUserLoginWidget');
         $reflectionProperty = $reflectionClass->getProperty('viewTemplate');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals('zfcUser', $reflectionProperty->getValue($this->helper));
+        $this->assertEquals('laminasUser', $reflectionProperty->getValue($this->helper));
     }
 }
