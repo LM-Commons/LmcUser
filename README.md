@@ -1,4 +1,4 @@
-ZfcUser
+LaminasUser
 =======
 [![Build Status](https://travis-ci.org/ZF-Commons/LaminasUser.png)](https://travis-ci.org/Laminas-Commons/LaminasUser)
 [![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser/badges/quality-score.png?b=3.x)](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser)
