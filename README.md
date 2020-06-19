@@ -99,7 +99,11 @@ Navigate to http://yourproject/user and you should land on a login page.
 Migration from ZfcUser
 ----------------------
 
-...Coming Soon
+If using Zend DB update table name to laminas_user
+
+Replace all namespace references to ZfcUser to LaminasUser
+
+Update references to the lowercase key zfcuser to laminasuser
 
 
 
