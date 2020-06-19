@@ -2,7 +2,7 @@ LaminasUser
 =======
 [![Build Status](https://travis-ci.org/ZF-Commons/LaminasUser.png)](https://travis-ci.org/Laminas-Commons/LaminasUser)
 [![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser/badges/quality-score.png?b=3.x)](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser)
-
+[![Gitter](https://badges.gitter.im/LaminasCommons/community.svg)](https://gitter.im/LaminasCommons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 Based on ZfcUser by Evan Coury and the ZF-Commons team
 
 Introduction
