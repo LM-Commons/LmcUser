@@ -9,8 +9,8 @@
          backupGlobals="false"
          syntaxCheck="true"
 >
-    <testsuite name="ZfcUser Test Suite">
-        <directory>./ZfcUserTest</directory>
+    <testsuite name="LaminasUser Test Suite">
+        <directory>./LaminasUserTest</directory>
     </testsuite>
     
     <php>

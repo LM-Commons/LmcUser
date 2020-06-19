@@ -60,9 +60,9 @@ class Module implements
             'factories' => array(
                 'zfcuser_redirect_callback' => \ZfcUser\Factory\Controller\RedirectCallbackFactory::class,
                 'zfcuser_module_options' => \ZfcUser\Factory\Options\ModuleOptions::class,
-                'ZfcUser\Authentication\Adapter\AdapterChain' => \ZfcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
+                'LaminasUser\Authentication\Adapter\AdapterChain' => \ZfcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
 
-                // We alias this one because it's ZfcUser's instance of
+                // We alias this one because it's LaminasUser's instance of
                 // Zend\Authentication\AuthenticationService. We don't want to
                 // hog the FQCN service alias for a Zend\* class.
                 'zfcuser_auth_service' => \ZfcUser\Factory\AuthenticationService::class,
@@ -75,8 +75,8 @@ class Module implements
                 'zfcuser_change_password_form' => \ZfcUser\Factory\Form\ChangePassword::class,
                 'zfcuser_change_email_form' => \ZfcUser\Factory\Form\ChangeEmail::class,
 
-                'ZfcUser\Authentication\Adapter\Db' => \ZfcUser\Factory\Authentication\Adapter\DbFactory::class,
-                'ZfcUser\Authentication\Storage\Db' => \ZfcUser\Factory\Authentication\Storage\DbFactory::class,
+                'LaminasUser\Authentication\Adapter\Db' => \ZfcUser\Factory\Authentication\Adapter\DbFactory::class,
+                'LaminasUser\Authentication\Storage\Db' => \ZfcUser\Factory\Authentication\Storage\DbFactory::class,
 
                 'zfcuser_user_service' => \ZfcUser\Factory\Service\UserFactory::class,
             ),
