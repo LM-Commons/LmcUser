@@ -1,19 +1,16 @@
 ZfcUser
 =======
-[![Build Status](https://travis-ci.org/ZF-Commons/ZfcUser.png)](https://travis-ci.org/ZF-Commons/ZfcUser)
+[![Build Status](https://travis-ci.org/ZF-Commons/LaminasUser.png)](https://travis-ci.org/Laminas-Commons/LaminasUser)
 [![Code Coverage](https://scrutinizer-ci.com/g/ZF-Commons/ZfcUser/badges/coverage.png?s=7d5932c77bea64a417ac8e3da51dca6da1fcb22e)](https://scrutinizer-ci.com/g/ZF-Commons/ZfcUser/)
-[![Latest Stable Version](https://poser.pugx.org/zf-commons/zfc-user/v/stable.png)](https://packagist.org/packages/zf-commons/zfc-user)
-[![Latest Unstable Version](https://poser.pugx.org/zf-commons/zfc-user/v/unstable.png)](https://packagist.org/packages/zf-commons/zfc-user)
 
-Created by Evan Coury and the ZF-Commons team
+Based on ZfcUser by Evan Coury and the ZF-Commons team
 
 Introduction
 ------------
 
-ZfcUser is a user registration and authentication module for Zend Framework 2.
-Out of the box, ZfcUser works with Zend\Db, however alternative storage adapter
-modules are available (see below). ZfcUser provides the foundations for adding
-user authentication and registration to your ZF2 site. It is designed to be very
+LaminasUser is a user registration and authentication module for Laminas.
+LaminasUser provides the foundations for adding
+user authentication and registration to your Laminas site. It is designed to be very
 simple and easy to extend.
 
 More information and examples are available on the [ZfcUser Wiki](https://github.com/ZF-Commons/ZfcUser/wiki)
@@ -41,8 +38,7 @@ take advantage of other methods of persisting users:
 Requirements
 ------------
 
-* [Zend Framework 2](https://github.com/zendframework/zf2) (latest master)
-* [ZfcBase](https://github.com/ZF-Commons/ZfcBase) (latest master).
+* [Laminas](https://github.com/laminas/) (latest master)
 
 Features / Goals
 ----------------
