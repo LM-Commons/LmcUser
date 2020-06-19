@@ -13,7 +13,7 @@ LaminasUser provides the foundations for adding
 user authentication and registration to your Laminas site. It is designed to be very
 simple and easy to extend.
 
-More information and examples are available on the [LaminasUser Wiki](https://github.com/ZF-Commons/LaminasUser/wiki)
+More information and examples are available on the original [ZfcUser Wiki](https://github.com/ZF-Commons/ZfcUser/wiki)
 
 
 Requirements
@@ -93,6 +93,11 @@ return array(
 );
 
 ```
+
+Migration from ZfcUser
+----------------------
+
+...Coming Soon
 
 Navigate to http://yourproject/user and you should land on a login page.
 
