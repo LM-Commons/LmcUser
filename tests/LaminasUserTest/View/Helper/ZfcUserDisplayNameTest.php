@@ -17,7 +17,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
         $helper = new ViewHelper;
         $this->helper = $helper;
 
-        $authService = $this->getMock('Zend\Authentication\AuthenticationService');
+        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
         $this->authService = $authService;
 
         $user = $this->getMock('LaminasUser\Entity\User');
@@ -63,7 +63,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     {
         $this->user->expects($this->once())
                    ->method('getDisplayName')
-                   ->will($this->returnValue('zfcUser'));
+                   ->will($this->returnValue('laminasUser'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -74,7 +74,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('zfcUser', $result);
+        $this->assertEquals('laminasUser', $result);
     }
 
     /**
@@ -87,7 +87,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
                    ->will($this->returnValue(null));
         $this->user->expects($this->once())
                    ->method('getUsername')
-                   ->will($this->returnValue('zfcUser'));
+                   ->will($this->returnValue('laminasUser'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -98,7 +98,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('zfcUser', $result);
+        $this->assertEquals('laminasUser', $result);
     }
 
     /**
@@ -114,7 +114,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
                    ->will($this->returnValue(null));
         $this->user->expects($this->once())
                    ->method('getEmail')
-                   ->will($this->returnValue('zfcUser@zfcUser.com'));
+                   ->will($this->returnValue('laminasUser@laminasUser.com'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -125,7 +125,7 @@ class LaminasUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('zfcUser', $result);
+        $this->assertEquals('laminasUser', $result);
     }
 
     /**

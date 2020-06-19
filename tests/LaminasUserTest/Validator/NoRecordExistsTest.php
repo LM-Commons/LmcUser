@@ -29,10 +29,10 @@ class NoRecordExistsTest extends \PHPUnit_Framework_TestCase
     {
         $this->mapper->expects($this->once())
                      ->method('findByUsername')
-                     ->with('zfcUser')
+                     ->with('laminasUser')
                      ->will($this->returnValue(false));
 
-        $result = $this->validator->isValid('zfcUser');
+        $result = $this->validator->isValid('laminasUser');
         $this->assertTrue($result);
     }
 
@@ -43,10 +43,10 @@ class NoRecordExistsTest extends \PHPUnit_Framework_TestCase
     {
         $this->mapper->expects($this->once())
                      ->method('findByUsername')
-                     ->with('zfcUser')
-                     ->will($this->returnValue('zfcUser'));
+                     ->with('laminasUser')
+                     ->will($this->returnValue('laminasUser'));
 
-        $result = $this->validator->isValid('zfcUser');
+        $result = $this->validator->isValid('laminasUser');
         $this->assertFalse($result);
 
         $options = $this->validator->getOptions();

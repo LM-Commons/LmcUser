@@ -2,7 +2,7 @@
 
 namespace LaminasUser\Form;
 
-use Zend\Form\Element;
+use Laminas\Form\Element;
 use LaminasUser\Options\AuthenticationOptionsInterface;
 
 class Login extends ProvidesEventsForm

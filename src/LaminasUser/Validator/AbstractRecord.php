@@ -2,7 +2,7 @@
 
 namespace LaminasUser\Validator;
 
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 use LaminasUser\Mapper\UserInterface;
 
 abstract class AbstractRecord extends AbstractValidator

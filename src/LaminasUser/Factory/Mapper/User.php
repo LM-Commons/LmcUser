@@ -3,8 +3,8 @@
 namespace LaminasUser\Factory\Mapper;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use LaminasUser\Mapper;
 use LaminasUser\Options\ModuleOptions;
 
@@ -13,8 +13,8 @@ class User implements FactoryInterface
     public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         /** @var ModuleOptions $options */
-        $options = $serviceLocator->get('zfcuser_module_options');
-        $dbAdapter = $serviceLocator->get('zfcuser_zend_db_adapter');
+        $options = $serviceLocator->get('laminasuser_module_options');
+        $dbAdapter = $serviceLocator->get('laminasuser_laminas_db_adapter');
 
         $entityClass = $options->getUserEntityClass();
         $tableName = $options->getTableName();

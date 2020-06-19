@@ -64,12 +64,12 @@ msgid "Submit"
 msgstr "送信"
 
 #: src/LaminasUser/language/msgIds.php:18
-#: view/zfc-user/user/login.phtml:1
+#: view/laminas-user/user/login.phtml:1
 msgid "Sign In"
 msgstr "ログイン"
 
 #: src/LaminasUser/language/msgIds.php:19
-#: view/zfc-user/user/register.phtml:1
+#: view/laminas-user/user/register.phtml:1
 msgid "Register"
 msgstr "登録する"
 
@@ -85,45 +85,45 @@ msgstr "入力にマッチしたレコードが見つかりました"
 msgid "Authentication failed. Please try again."
 msgstr "認証に失敗しました。再度お試しください。"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Not registered?"
 msgstr "登録は済んでいますか？"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Sign up!"
 msgstr "ユーザー登録！"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/laminas-user/user/changeemail.phtml:1
 #, php-format
 msgid "Change Email for %s"
 msgstr "%s のメールアドレスを変更します"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/laminas-user/user/changeemail.phtml:3
 msgid "Email address changed successfully."
 msgstr "メールアドレスの変更に成功しました。"
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/laminas-user/user/changeemail.phtml:5
 msgid "Unable to update your email address. Please try again."
 msgstr "メールアドレスを更新できません。再度お試しください。"
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/laminas-user/user/changepassword.phtml:1
 #, php-format
 msgid "Change Password for %s"
 msgstr "%s のパスワードを変更します"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/laminas-user/user/changepassword.phtml:3
 msgid "Password changed successfully."
 msgstr "パスワードの変更に成功しました。"
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/laminas-user/user/changepassword.phtml:5
 msgid "Unable to update your password. Please try again."
 msgstr "パスワードを更新できません。再度お試しください。"
 
-#: view/zfc-user/user/index.phtml:2
+#: view/laminas-user/user/index.phtml:2
 msgid "Hello"
 msgstr "こんにちは"
 
-#: view/zfc-user/user/index.phtml:3
+#: view/laminas-user/user/index.phtml:3
 msgid "Sign Out"
 msgstr "ログアウト"
 

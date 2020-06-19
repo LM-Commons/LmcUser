@@ -2,7 +2,7 @@
 
 namespace LaminasUser\Options;
 
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 class ModuleOptions extends AbstractOptions implements
     UserControllerOptionsInterface,
@@ -21,12 +21,12 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var string
      */
-    protected $loginRedirectRoute = 'zfcuser';
+    protected $loginRedirectRoute = 'laminasuser';
 
     /**
      * @var string
      */
-    protected $logoutRedirectRoute = 'zfcuser/login';
+    protected $logoutRedirectRoute = 'laminasuser/login';
 
     /**
      * @var int
@@ -76,7 +76,7 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var string
      */
-    protected $userLoginWidgetViewTemplate = 'zfc-user/user/login.phtml';
+    protected $userLoginWidgetViewTemplate = 'laminas-user/user/login.phtml';
 
     /**
      * @var bool

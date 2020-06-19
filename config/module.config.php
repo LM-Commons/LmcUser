@@ -3,19 +3,19 @@
 return array(
     'view_manager' => array(
         'template_path_stack' => array(
-            'zfcuser' => __DIR__ . '/../view',
+            'laminasuser' => __DIR__ . '/../view',
         ),
     ),
 
     'router' => array(
         'routes' => array(
-            'zfcuser' => array(
+            'laminasuser' => array(
                 'type' => 'Literal',
                 'priority' => 1000,
                 'options' => array(
                     'route' => '/user',
                     'defaults' => array(
-                        'controller' => 'zfcuser',
+                        'controller' => 'laminasuser',
                         'action'     => 'index',
                     ),
                 ),
@@ -26,7 +26,7 @@ return array(
                         'options' => array(
                             'route' => '/login',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action'     => 'login',
                             ),
                         ),
@@ -36,7 +36,7 @@ return array(
                         'options' => array(
                             'route' => '/authenticate',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action'     => 'authenticate',
                             ),
                         ),
@@ -46,7 +46,7 @@ return array(
                         'options' => array(
                             'route' => '/logout',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action'     => 'logout',
                             ),
                         ),
@@ -56,7 +56,7 @@ return array(
                         'options' => array(
                             'route' => '/register',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action'     => 'register',
                             ),
                         ),
@@ -66,7 +66,7 @@ return array(
                         'options' => array(
                             'route' => '/change-password',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action'     => 'changepassword',
                             ),
                         ),
@@ -76,7 +76,7 @@ return array(
                         'options' => array(
                             'route' => '/change-email',
                             'defaults' => array(
-                                'controller' => 'zfcuser',
+                                'controller' => 'laminasuser',
                                 'action' => 'changeemail',
                             ),
                         ),

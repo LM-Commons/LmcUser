@@ -2,10 +2,10 @@
 
 namespace LaminasUser\Controller;
 
-use Zend\Mvc\Application;
-use Zend\Router\RouteInterface;
-use Zend\Router\Exception;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Application;
+use Laminas\Router\RouteInterface;
+use Laminas\Router\Exception;
+use Laminas\Http\PhpEnvironment\Response;
 use LaminasUser\Options\ModuleOptions;
 
 /**
@@ -101,18 +101,18 @@ class RedirectCallback
         }
 
         switch ($currentRoute) {
-            case 'zfcuser/register':
-            case 'zfcuser/login':
-            case 'zfcuser/authenticate':
+            case 'laminasuser/register':
+            case 'laminasuser/login':
+            case 'laminasuser/authenticate':
                 $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
                 return $this->router->assemble(array(), array('name' => $route));
                 break;
-            case 'zfcuser/logout':
+            case 'laminasuser/logout':
                 $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
                 return $this->router->assemble(array(), array('name' => $route));
                 break;
             default:
-                return $this->router->assemble(array(), array('name' => 'zfcuser'));
+                return $this->router->assemble(array(), array('name' => 'laminasuser'));
         }
     }
 }

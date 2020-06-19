@@ -59,11 +59,11 @@ msgstr "Proszę przepisz następujący tekst"
 msgid "Submit"
 msgstr "Prześlij"
 
-#: src/LaminasUser/language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+#: src/LaminasUser/language/msgIds.php:18 view/laminas-user/user/login.phtml:1
 msgid "Sign In"
 msgstr "Logowanie"
 
-#: src/LaminasUser/language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+#: src/LaminasUser/language/msgIds.php:19 view/laminas-user/user/register.phtml:1
 msgid "Register"
 msgstr "Rejestracja"
 
@@ -81,48 +81,48 @@ msgstr ""
 "Logowanie nie powiodło się. "
 "Proszę spróbuj ponownie."
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Not registered?"
 msgstr "Nie posiadasz konta?"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/laminas-user/user/login.phtml:31
 msgid "Sign up!"
 msgstr "Zarejestruj się!"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/laminas-user/user/changeemail.phtml:1
 #, php-format
 msgid "Change Email for %s"
 msgstr "Zmień e-mail dla %s"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/laminas-user/user/changeemail.phtml:3
 msgid "Email address changed successfully."
 msgstr "Pomyślnie zaktualizowano e-mail."
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/laminas-user/user/changeemail.phtml:5
 msgid "Unable to update your email address. Please try again."
 msgstr ""
 "Nie udało się zaktualizować Twojego adresu e-mail. "
 "Proszę spróbuj ponownie."
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/laminas-user/user/changepassword.phtml:1
 #, php-format
 msgid "Change Password for %s"
 msgstr "Zmień hasło dla %s"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/laminas-user/user/changepassword.phtml:3
 msgid "Password changed successfully."
 msgstr "Pomyślnie zmieniono hasło."
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/laminas-user/user/changepassword.phtml:5
 msgid "Unable to update your password. Please try again."
 msgstr ""
 "Nie udało się zaktualizować Twojego hasła. "
 "Proszę spróbuj ponownie."
 
-#: view/zfc-user/user/index.phtml:2
+#: view/laminas-user/user/index.phtml:2
 msgid "Hello"
 msgstr "Witaj"
 
-#: view/zfc-user/user/index.phtml:3
+#: view/laminas-user/user/index.phtml:3
 msgid "Sign Out"
 msgstr "Wyloguj"

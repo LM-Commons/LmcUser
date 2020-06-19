@@ -1,4 +1,4 @@
-<h3><?php echo sprintf($this->translate('Change Email for %s'), $this->zfcUserDisplayName()); ?></h3>
+<h3><?php echo sprintf($this->translate('Change Email for %s'), $this->laminasUserDisplayName()); ?></h3>
 <?php if ($status === true) : ?>
 <div class="alert alert-success"><?php echo $this->translate('Email address changed successfully.'); ?></div>
 <?php elseif ($status === false) : ?>
@@ -9,7 +9,7 @@
 $form = $this->changeEmailForm;
 
 $form->prepare();
-$form->setAttribute('action', $this->url('zfcuser/changeemail'));
+$form->setAttribute('action', $this->url('laminasuser/changeemail'));
 $form->setAttribute('method', 'post');
 ?>
 

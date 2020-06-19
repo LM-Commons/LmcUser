@@ -23,8 +23,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetLoginRedirectRoute()
     {
-        $this->options->setLoginRedirectRoute('zfcUserRoute');
-        $this->assertEquals('zfcUserRoute', $this->options->getLoginRedirectRoute());
+        $this->options->setLoginRedirectRoute('laminasUserRoute');
+        $this->assertEquals('laminasUserRoute', $this->options->getLoginRedirectRoute());
     }
 
     /**
@@ -32,7 +32,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLoginRedirectRoute()
     {
-        $this->assertEquals('zfcuser', $this->options->getLoginRedirectRoute());
+        $this->assertEquals('laminasuser', $this->options->getLoginRedirectRoute());
     }
 
     /**
@@ -41,8 +41,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetLogoutRedirectRoute()
     {
-        $this->options->setLogoutRedirectRoute('zfcUserRoute');
-        $this->assertEquals('zfcUserRoute', $this->options->getLogoutRedirectRoute());
+        $this->options->setLogoutRedirectRoute('laminasUserRoute');
+        $this->assertEquals('laminasUserRoute', $this->options->getLogoutRedirectRoute());
     }
 
     /**
@@ -50,7 +50,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLogoutRedirectRoute()
     {
-        $this->assertSame('zfcuser/login', $this->options->getLogoutRedirectRoute());
+        $this->assertSame('laminasuser/login', $this->options->getLogoutRedirectRoute());
     }
 
     /**
@@ -77,8 +77,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetUserLoginWidgetViewTemplate()
     {
-        $this->options->setUserLoginWidgetViewTemplate('zfcUser.phtml');
-        $this->assertEquals('zfcUser.phtml', $this->options->getUserLoginWidgetViewTemplate());
+        $this->options->setUserLoginWidgetViewTemplate('laminasUser.phtml');
+        $this->assertEquals('laminasUser.phtml', $this->options->getUserLoginWidgetViewTemplate());
     }
 
     /**
@@ -86,7 +86,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUserLoginWidgetViewTemplate()
     {
-        $this->assertEquals('zfc-user/user/login.phtml', $this->options->getUserLoginWidgetViewTemplate());
+        $this->assertEquals('laminas-user/user/login.phtml', $this->options->getUserLoginWidgetViewTemplate());
     }
 
     /**
@@ -311,8 +311,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetUserEntityClass()
     {
-        $this->options->setUserEntityClass('zfcUser');
-        $this->assertEquals('zfcUser', $this->options->getUserEntityClass());
+        $this->options->setUserEntityClass('laminasUser');
+        $this->assertEquals('laminasUser', $this->options->getUserEntityClass());
     }
 
     /**
@@ -347,8 +347,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetTableName()
     {
-        $this->options->setTableName('zfcUser');
-        $this->assertEquals('zfcUser', $this->options->getTableName());
+        $this->options->setTableName('laminasUser');
+        $this->assertEquals('laminasUser', $this->options->getTableName());
     }
 
     /**
