@@ -94,12 +94,14 @@ return array(
 
 ```
 
+Navigate to http://yourproject/user and you should land on a login page.
+
 Migration from ZfcUser
 ----------------------
 
 ...Coming Soon
 
-Navigate to http://yourproject/user and you should land on a login page.
+
 
 Password Security
 -----------------
