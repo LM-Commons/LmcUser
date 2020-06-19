@@ -91,7 +91,7 @@ Installation
     return array(
         'modules' => array(
             // ...
-            'ZfcUser',
+            'LaminasUser',
         ),
         // ...
     );
