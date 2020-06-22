@@ -31,7 +31,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasuser' => \LmcUser\Factory\Controller\UserControllerFactory::class,
+                'lmcuser' => \LmcUser\Factory\Controller\UserControllerFactory::class,
             ),
         );
     }
@@ -52,33 +52,33 @@ class Module implements
     {
         return array(
             'aliases' => array(
-                'laminasuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
+                'lmcuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
             ),
             'invokables' => array(
-                'laminasuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethods::class,
+                'lmcuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethods::class,
             ),
             'factories' => array(
-                'laminasuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
-                'laminasuser_module_options' => \LmcUser\Factory\Options\ModuleOptions::class,
+                'lmcuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
+                'lmcuser_module_options' => \LmcUser\Factory\Options\ModuleOptions::class,
                 'LmcUser\Authentication\Adapter\AdapterChain' => \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
 
                 // We alias this one because it's LmcUser's instance of
                 // Laminas\Authentication\AuthenticationService. We don't want to
                 // hog the FQCN service alias for a Laminas\* class.
-                'laminasuser_auth_service' => \LmcUser\Factory\AuthenticationService::class,
+                'lmcuser_auth_service' => \LmcUser\Factory\AuthenticationService::class,
 
-                'laminasuser_user_hydrator' => \LmcUser\Factory\UserHydrator::class,
-                'laminasuser_user_mapper' => \LmcUser\Factory\Mapper\User::class,
+                'lmcuser_user_hydrator' => \LmcUser\Factory\UserHydrator::class,
+                'lmcuser_user_mapper' => \LmcUser\Factory\Mapper\User::class,
 
-                'laminasuser_login_form' => \LmcUser\Factory\Form\Login::class,
-                'laminasuser_register_form' => \LmcUser\Factory\Form\Register::class,
-                'laminasuser_change_password_form' => \LmcUser\Factory\Form\ChangePassword::class,
-                'laminasuser_change_email_form' => \LmcUser\Factory\Form\ChangeEmail::class,
+                'lmcuser_login_form' => \LmcUser\Factory\Form\Login::class,
+                'lmcuser_register_form' => \LmcUser\Factory\Form\Register::class,
+                'lmcuser_change_password_form' => \LmcUser\Factory\Form\ChangePassword::class,
+                'lmcuser_change_email_form' => \LmcUser\Factory\Form\ChangeEmail::class,
 
                 'LmcUser\Authentication\Adapter\Db' => \LmcUser\Factory\Authentication\Adapter\DbFactory::class,
                 'LmcUser\Authentication\Storage\Db' => \LmcUser\Factory\Authentication\Storage\DbFactory::class,
 
-                'laminasuser_user_service' => \LmcUser\Factory\Service\UserFactory::class,
+                'lmcuser_user_service' => \LmcUser\Factory\Service\UserFactory::class,
             ),
         );
     }

@@ -13,7 +13,7 @@ class ModuleOptions implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
 
-        return new Options\ModuleOptions(isset($config['laminasuser']) ? $config['laminasuser'] : array());
+        return new Options\ModuleOptions(isset($config['lmcuser']) ? $config['lmcuser'] : array());
     }
 
     /**

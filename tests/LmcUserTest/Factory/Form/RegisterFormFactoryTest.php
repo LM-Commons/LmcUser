@@ -13,9 +13,9 @@ class RegisterFormFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $serviceManager = new ServiceManager;
-        $serviceManager->setService('laminasuser_module_options', new ModuleOptions);
-        $serviceManager->setService('laminasuser_user_mapper', new UserMapper);
-        $serviceManager->setService('laminasuser_register_form_hydrator', new ClassMethods());
+        $serviceManager->setService('lmcuser_module_options', new ModuleOptions);
+        $serviceManager->setService('lmcuser_user_mapper', new UserMapper);
+        $serviceManager->setService('lmcuser_register_form_hydrator', new ClassMethods());
 
         $formElementManager = new FormElementManager($serviceManager);
         $serviceManager->setService('FormElementManager', $formElementManager);

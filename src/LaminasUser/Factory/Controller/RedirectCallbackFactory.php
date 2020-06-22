@@ -21,7 +21,7 @@ class RedirectCallbackFactory implements FactoryInterface
         $application = $serviceLocator->get('Application');
 
         /* @var ModuleOptions $options */
-        $options = $serviceLocator->get('laminasuser_module_options');
+        $options = $serviceLocator->get('lmcuser_module_options');
 
         return new RedirectCallback($application, $router, $options);
     }

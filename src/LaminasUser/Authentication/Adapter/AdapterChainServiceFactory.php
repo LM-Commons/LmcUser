@@ -76,7 +76,7 @@ class AdapterChainServiceFactory implements FactoryInterface
                 );
             }
 
-            $this->setOptions($serviceLocator->get('laminasuser_module_options'));
+            $this->setOptions($serviceLocator->get('lmcuser_module_options'));
         }
 
         return $this->options;

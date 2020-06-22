@@ -149,21 +149,21 @@ $settings = array(
      *
      * Upon successful login the user will be redirected to the entered route
      *
-     * Default value: 'laminasuser'
+     * Default value: 'lmcuser'
      * Accepted values: A valid route name within your application
      *
      */
-    //'login_redirect_route' => 'laminasuser',
+    //'login_redirect_route' => 'lmcuser',
 
     /**
      * Logout Redirect Route
      *
      * Upon logging out the user will be redirected to the entered route
      *
-     * Default value: 'laminasuser/login'
+     * Default value: 'lmcuser/login'
      * Accepted values: A valid route name within your application
      */
-    //'logout_redirect_route' => 'laminasuser/login',
+    //'logout_redirect_route' => 'lmcuser/login',
 
     /**
      * Password Security
@@ -226,10 +226,10 @@ $settings = array(
  * You do not need to edit below this line
  */
 return array(
-    'laminasuser' => $settings,
+    'lmcuser' => $settings,
     'service_manager' => array(
         'aliases' => array(
-            'laminasuser_laminas_db_adapter' => (isset($settings['laminas_db_adapter'])) ? $settings['laminas_db_adapter']: 'Laminas\Db\Adapter\Adapter',
+            'lmcuser_laminas_db_adapter' => (isset($settings['laminas_db_adapter'])) ? $settings['laminas_db_adapter']: 'Laminas\Db\Adapter\Adapter',
         ),
     ),
 );

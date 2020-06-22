@@ -13,8 +13,8 @@ class User implements FactoryInterface
     public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         /** @var ModuleOptions $options */
-        $options = $serviceLocator->get('laminasuser_module_options');
-        $dbAdapter = $serviceLocator->get('laminasuser_laminas_db_adapter');
+        $options = $serviceLocator->get('lmcuser_module_options');
+        $dbAdapter = $serviceLocator->get('lmcuser_laminas_db_adapter');
 
         $entityClass = $options->getUserEntityClass();
         $tableName = $options->getTableName();

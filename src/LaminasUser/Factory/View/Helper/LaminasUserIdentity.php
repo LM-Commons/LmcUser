@@ -11,7 +11,7 @@ class LmcUserIdentity implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $viewHelper = new View\Helper\LmcUserIdentity;
-        $viewHelper->setAuthService($container->get('laminasuser_auth_service'));
+        $viewHelper->setAuthService($container->get('lmcuser_auth_service'));
 
         return $viewHelper;
     }

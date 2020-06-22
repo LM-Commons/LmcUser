@@ -55,7 +55,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $user = new \LmcUser\Entity\User;
 
         $expectArray = array(
-            'username' => 'laminasuser',
+            'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',
@@ -90,7 +90,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
         $expectArray = array();
 
         $buffer = array(
-            'username' => 'laminasuser',
+            'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',
@@ -104,7 +104,7 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
          * @see https://github.com/ZF-Commons/LmcUser/pull/421
          */
         $buffer = array(
-            'username' => 'laminasuser',
+            'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',

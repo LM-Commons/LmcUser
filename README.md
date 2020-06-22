@@ -103,7 +103,7 @@ If using Zend DB update table name to lmc_user
 
 Replace all namespace references to ZfcUser to LmcUser
 
-Update references to the lowercase key zfcuser to laminasuser
+Update references to the lowercase key zfcuser to lmcuser
 
 
 
@@ -137,8 +137,8 @@ Options
 
 The  LmcUser module has some options to allow you to quickly customize the basic
 functionality. After installing LmcUser, copy
-`./vendor/laminas-commons/lmc-user/config/laminasuser.global.php.dist` to
-`./config/autoload/laminasuser.global.php` and change the values as desired.
+`./vendor/laminas-commons/lmc-user/config/lmcuser.global.php.dist` to
+`./config/autoload/lmcuser.global.php` and change the values as desired.
 
 The following options are available:
 

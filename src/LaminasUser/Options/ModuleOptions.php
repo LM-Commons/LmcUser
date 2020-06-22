@@ -21,12 +21,12 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var string
      */
-    protected $loginRedirectRoute = 'laminasuser';
+    protected $loginRedirectRoute = 'lmcuser';
 
     /**
      * @var string
      */
-    protected $logoutRedirectRoute = 'laminasuser/login';
+    protected $logoutRedirectRoute = 'lmcuser/login';
 
     /**
      * @var int

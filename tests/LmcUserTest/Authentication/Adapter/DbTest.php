@@ -437,7 +437,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $serviceMapper = $this->getMock('Laminas\ServiceManager\ServiceManager');
         $serviceMapper->expects($this->once())
             ->method('get')
-            ->with('laminasuser_module_options')
+            ->with('lmcuser_module_options')
             ->will($this->returnValue($this->options));
 
         $this->db->setServiceManager($serviceMapper);
@@ -471,7 +471,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $serviceMapper = $this->getMock('Laminas\ServiceManager\ServiceManager');
         $serviceMapper->expects($this->once())
             ->method('get')
-            ->with('laminasuser_user_mapper')
+            ->with('lmcuser_user_mapper')
             ->will($this->returnValue($this->mapper));
 
         $this->db->setServiceManager($serviceMapper);

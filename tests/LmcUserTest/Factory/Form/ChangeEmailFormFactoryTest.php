@@ -13,8 +13,8 @@ class ChangeEmailFormFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $serviceManager = new ServiceManager([
             'services' => [
-                'laminasuser_module_options' => new ModuleOptions,
-                'laminasuser_user_mapper' => new UserMapper
+                'lmcuser_module_options' => new ModuleOptions,
+                'lmcuser_user_mapper' => new UserMapper
             ]
         ]);
 

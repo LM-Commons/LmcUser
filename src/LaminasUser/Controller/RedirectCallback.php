@@ -101,18 +101,18 @@ class RedirectCallback
         }
 
         switch ($currentRoute) {
-            case 'laminasuser/register':
-            case 'laminasuser/login':
-            case 'laminasuser/authenticate':
+            case 'lmcuser/register':
+            case 'lmcuser/login':
+            case 'lmcuser/authenticate':
                 $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
                 return $this->router->assemble(array(), array('name' => $route));
                 break;
-            case 'laminasuser/logout':
+            case 'lmcuser/logout':
                 $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
                 return $this->router->assemble(array(), array('name' => $route));
                 break;
             default:
-                return $this->router->assemble(array(), array('name' => 'laminasuser'));
+                return $this->router->assemble(array(), array('name' => 'lmcuser'));
         }
     }
 }

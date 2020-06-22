@@ -11,7 +11,7 @@ class LoginFormFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $serviceManager = new ServiceManager;
-        $serviceManager->setService('laminasuser_module_options', new ModuleOptions);
+        $serviceManager->setService('lmcuser_module_options', new ModuleOptions);
 
         $formElementManager = new FormElementManager($serviceManager);
         $serviceManager->setService('FormElementManager', $formElementManager);

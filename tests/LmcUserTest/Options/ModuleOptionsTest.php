@@ -32,7 +32,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLoginRedirectRoute()
     {
-        $this->assertEquals('laminasuser', $this->options->getLoginRedirectRoute());
+        $this->assertEquals('lmcuser', $this->options->getLoginRedirectRoute());
     }
 
     /**
@@ -50,7 +50,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLogoutRedirectRoute()
     {
-        $this->assertSame('laminasuser/login', $this->options->getLogoutRedirectRoute());
+        $this->assertSame('lmcuser/login', $this->options->getLogoutRedirectRoute());
     }
 
     /**

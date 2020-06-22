@@ -48,7 +48,7 @@ class AdapterChainServiceFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->serviceLocatorArray = array (
-            'laminasuser_module_options'=>$this->options
+            'lmcuser_module_options'=>$this->options
         );
 
         $this->serviceLocator->expects($this->any())

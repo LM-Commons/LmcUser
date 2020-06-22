@@ -139,7 +139,7 @@ class Db implements Storage\StorageInterface
     public function getMapper()
     {
         if (null === $this->mapper) {
-            $this->mapper = $this->getServiceManager()->get('laminasuser_user_mapper');
+            $this->mapper = $this->getServiceManager()->get('lmcuser_user_mapper');
         }
         return $this->mapper;
     }

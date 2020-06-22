@@ -429,7 +429,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
                              ->method('get')
-                             ->with('laminasuser_user_mapper')
+                             ->with('lmcuser_user_mapper')
                              ->will($this->returnValue($this->mapper));
 
         $service = new Service;
@@ -453,7 +453,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('laminasuser_auth_service')
+             ->with('lmcuser_auth_service')
              ->will($this->returnValue($this->authService));
 
         $service = new Service;
@@ -479,7 +479,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('laminasuser_register_form')
+             ->with('lmcuser_register_form')
              ->will($this->returnValue($form));
 
         $service = new Service;
@@ -512,7 +512,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('laminasuser_change_password_form')
+             ->with('lmcuser_change_password_form')
              ->will($this->returnValue($form));
 
         $service = new Service;
@@ -539,7 +539,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('laminasuser_module_options')
+             ->with('lmcuser_module_options')
              ->will($this->returnValue($this->options));
 
         $service = new Service;
@@ -571,7 +571,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->expects($this->once())
              ->method('get')
-             ->with('laminasuser_register_form_hydrator')
+             ->with('lmcuser_register_form_hydrator')
              ->will($this->returnValue($this->formHydrator));
 
         $service = new Service;

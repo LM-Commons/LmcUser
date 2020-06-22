@@ -167,7 +167,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         $flashMessenger->expects($this->any())
             ->method('setNamespace')
-            ->with('laminasuser-login-form')
+            ->with('lmcuser-login-form')
             ->will($this->returnSelf());
 
         $flashMessenger->expects($this->any())
@@ -451,7 +451,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
                 $flashMessenger->expects($this->once())
                     ->method('setNamespace')
-                    ->with('laminasuser-login-form')
+                    ->with('lmcuser-login-form')
                     ->will($this->returnSelf());
 
                 $flashMessenger->expects($this->once())
@@ -1041,7 +1041,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
             $flashMessenger->expects($that->any())
                 ->method('setNamespace')
-                ->with('laminasuser-login-form')
+                ->with('lmcuser-login-form')
                 ->will($that->returnSelf());
         };
         $loginFormCallback[] = function ($that, $controller) {
@@ -1052,7 +1052,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
             $flashMessenger->expects($that->any())
                 ->method('setNamespace')
-                ->with('laminasuser-login-form')
+                ->with('lmcuser-login-form')
                 ->will($that->returnSelf());
         };
 
@@ -1060,19 +1060,19 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         return array(
             // $method, $useServiceLocator, $servicePrototype, $serviceName, $loginFormCallback
-            array('UserService', true, new UserService(), 'laminasuser_user_service' ),
+            array('UserService', true, new UserService(), 'lmcuser_user_service' ),
             array('UserService', false, new UserService(), null ),
-            array('RegisterForm', true, new Form(), 'laminasuser_register_form' ),
+            array('RegisterForm', true, new Form(), 'lmcuser_register_form' ),
             array('RegisterForm', false, new Form(), null ),
-            array('ChangePasswordForm', true, new Form(), 'laminasuser_change_password_form' ),
+            array('ChangePasswordForm', true, new Form(), 'lmcuser_change_password_form' ),
             array('ChangePasswordForm', false, new Form(), null ),
-            array('ChangeEmailForm', true, new Form(), 'laminasuser_change_email_form' ),
+            array('ChangeEmailForm', true, new Form(), 'lmcuser_change_email_form' ),
             array('ChangeEmailForm', false, new Form(), null ),
-            array('LoginForm', true, new Form(), 'laminasuser_login_form', $loginFormCallback[0] ),
-            array('LoginForm', true, new Form(), 'laminasuser_login_form', $loginFormCallback[1] ),
+            array('LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[0] ),
+            array('LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[1] ),
             array('LoginForm', false, new Form(), null, $loginFormCallback[0] ),
             array('LoginForm', false, new Form(), null, $loginFormCallback[1] ),
-            array('Options', true, new ModuleOptions(), 'laminasuser_module_options' ),
+            array('Options', true, new ModuleOptions(), 'lmcuser_module_options' ),
             array('Options', false, new ModuleOptions(), null ),
         );
     }

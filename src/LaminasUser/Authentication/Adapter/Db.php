@@ -149,7 +149,7 @@ class Db extends AbstractAdapter
     public function getMapper()
     {
         if (null === $this->mapper) {
-            $this->mapper = $this->getServiceManager()->get('laminasuser_user_mapper');
+            $this->mapper = $this->getServiceManager()->get('lmcuser_user_mapper');
         }
 
         return $this->mapper;
@@ -224,7 +224,7 @@ class Db extends AbstractAdapter
     public function getOptions()
     {
         if ($this->options === null) {
-            $this->setOptions($this->getServiceManager()->get('laminasuser_module_options'));
+            $this->setOptions($this->getServiceManager()->get('lmcuser_module_options'));
         }
 
         return $this->options;

@@ -75,7 +75,7 @@ class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->router->expects($this->any())
             ->method('assemble')
-            ->with(array(), array('name' => 'laminasuser'))
+            ->with(array(), array('name' => 'lmcuser'))
             ->will($this->returnValue($url));
 
         $this->response->expects($this->once())
@@ -225,16 +225,16 @@ class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
     public function providerGetRedirectNoRedirectParam()
     {
         return array(
-            array('laminasuser/login', 'laminasuser', '/user', 'getLoginRedirectRoute'),
-            array('laminasuser/authenticate', 'laminasuser', '/user', 'getLoginRedirectRoute'),
-            array('laminasuser/logout', 'laminasuser/login', '/user/login', 'getLogoutRedirectRoute'),
-            array('testDefault', 'laminasuser', '/home', false),
+            array('lmcuser/login', 'lmcuser', '/user', 'getLoginRedirectRoute'),
+            array('lmcuser/authenticate', 'lmcuser', '/user', 'getLoginRedirectRoute'),
+            array('lmcuser/logout', 'lmcuser/login', '/user/login', 'getLogoutRedirectRoute'),
+            array('testDefault', 'lmcuser', '/home', false),
         );
     }
 
     public function testGetRedirectWithOptionOnButNoRedirect()
     {
-        $route = 'laminasuser/login';
+        $route = 'lmcuser/login';
         $redirect = false;
         $expectedResult = '/user/login';
 
@@ -263,7 +263,7 @@ class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRedirectWithOptionOnRedirectDoesntExists()
     {
-        $route = 'laminasuser/login';
+        $route = 'lmcuser/login';
         $redirect = 'doesntExists';
         $expectedResult = '/user/login';
 
