@@ -1,23 +1,23 @@
 <?php
 
-namespace LaminasUser\Factory\Form;
+namespace LmcUser\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use LaminasUser\Form;
-use LaminasUser\Validator;
+use LmcUser\Form;
+use LmcUser\Validator;
 
 class ChangeEmail implements FactoryInterface
 {
     public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
     {
-        $options = $serviceManager->get('laminasuser_module_options');
+        $options = $serviceManager->get('lmcuser_module_options');
         $form = new Form\ChangeEmail(null, $options);
 
         $form->setInputFilter(new Form\ChangeEmailFilter(
             $options,
             new Validator\NoRecordExists(array(
-                'mapper' => $serviceManager->get('laminasuser_user_mapper'),
+                'mapper' => $serviceManager->get('lmcuser_user_mapper'),
                 'key'    => 'email'
             ))
         ));

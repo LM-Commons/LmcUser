@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Mapper;
+namespace LmcUser\Mapper;
 
 use Laminas\Hydrator\ClassMethods;
-use LaminasUser\Entity\UserInterface as UserEntityInterface;
+use LmcUser\Entity\UserInterface as UserEntityInterface;
 
 class UserHydrator extends ClassMethods
 {
@@ -17,7 +17,7 @@ class UserHydrator extends ClassMethods
     public function extract($object)
     {
         if (!$object instanceof UserEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of LaminasUser\Entity\UserInterface');
+            throw new Exception\InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');
         }
 
         /* @var $object UserEntityInterface */
@@ -42,7 +42,7 @@ class UserHydrator extends ClassMethods
     public function hydrate(array $data, $object)
     {
         if (!$object instanceof UserEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of LaminasUser\Entity\UserInterface');
+            throw new Exception\InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');
         }
 
         $data = $this->mapField('user_id', 'id', $data);

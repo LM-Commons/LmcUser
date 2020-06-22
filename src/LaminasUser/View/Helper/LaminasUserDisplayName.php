@@ -1,12 +1,12 @@
 <?php
 
-namespace LaminasUser\View\Helper;
+namespace LmcUser\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 use Laminas\Authentication\AuthenticationService;
-use LaminasUser\Entity\UserInterface as User;
+use LmcUser\Entity\UserInterface as User;
 
-class LaminasUserDisplayName extends AbstractHelper
+class LmcUserDisplayName extends AbstractHelper
 {
     /**
      * @var AuthenticationService
@@ -17,8 +17,8 @@ class LaminasUserDisplayName extends AbstractHelper
      * __invoke
      *
      * @access public
-     * @param \LaminasUser\Entity\UserInterface $user
-     * @throws \LaminasUser\Exception\DomainException
+     * @param \LmcUser\Entity\UserInterface $user
+     * @throws \LmcUser\Exception\DomainException
      * @return String
      */
     public function __invoke(User $user = null)
@@ -27,7 +27,7 @@ class LaminasUserDisplayName extends AbstractHelper
             if ($this->getAuthService()->hasIdentity()) {
                 $user = $this->getAuthService()->getIdentity();
                 if (!$user instanceof User) {
-                    throw new \LaminasUser\Exception\DomainException(
+                    throw new \LmcUser\Exception\DomainException(
                         '$user is not an instance of User',
                         500
                     );
@@ -64,7 +64,7 @@ class LaminasUserDisplayName extends AbstractHelper
      * Set authService.
      *
      * @param AuthenticationService $authService
-     * @return \LaminasUser\View\Helper\LaminasUserDisplayName
+     * @return \LmcUser\View\Helper\LmcUserDisplayName
      */
     public function setAuthService(AuthenticationService $authService)
     {

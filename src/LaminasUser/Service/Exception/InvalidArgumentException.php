@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Service\Exception;
+namespace LmcUser\Service\Exception;
 
 class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {

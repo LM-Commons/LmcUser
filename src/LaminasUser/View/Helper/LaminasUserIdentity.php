@@ -1,11 +1,11 @@
 <?php
 
-namespace LaminasUser\View\Helper;
+namespace LmcUser\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 use Laminas\Authentication\AuthenticationService;
 
-class LaminasUserIdentity extends AbstractHelper
+class LmcUserIdentity extends AbstractHelper
 {
     /**
      * @var AuthenticationService
@@ -16,7 +16,7 @@ class LaminasUserIdentity extends AbstractHelper
      * __invoke
      *
      * @access public
-     * @return \LaminasUser\Entity\UserInterface
+     * @return \LmcUser\Entity\UserInterface
      */
     public function __invoke()
     {
@@ -41,7 +41,7 @@ class LaminasUserIdentity extends AbstractHelper
      * Set authService.
      *
      * @param AuthenticationService $authService
-     * @return \LaminasUser\View\Helper\LaminasUserIdentity
+     * @return \LmcUser\View\Helper\LmcUserIdentity
      */
     public function setAuthService(AuthenticationService $authService)
     {

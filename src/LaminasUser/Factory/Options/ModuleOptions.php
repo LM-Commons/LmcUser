@@ -1,11 +1,11 @@
 <?php
 
-namespace LaminasUser\Factory\Options;
+namespace LmcUser\Factory\Options;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Options;
+use LmcUser\Options;
 
 class ModuleOptions implements FactoryInterface
 {
@@ -13,7 +13,7 @@ class ModuleOptions implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
 
-        return new Options\ModuleOptions(isset($config['laminasuser']) ? $config['laminasuser'] : array());
+        return new Options\ModuleOptions(isset($config['lmcuser']) ? $config['lmcuser'] : array());
     }
 
     /**

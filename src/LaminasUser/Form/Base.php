@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
 use Laminas\Form\Element;
 

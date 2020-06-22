@@ -1,5 +1,5 @@
 <?php
-namespace LaminasUser\Db\Adapter;
+namespace LmcUser\Db\Adapter;
 
 interface MasterSlaveAdapterInterface
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace LaminasUser\Factory\Controller;
+namespace LmcUser\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Application;
 use Laminas\Router\RouteInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Controller\RedirectCallback;
-use LaminasUser\Options\ModuleOptions;
+use LmcUser\Controller\RedirectCallback;
+use LmcUser\Options\ModuleOptions;
 
 class RedirectCallbackFactory implements FactoryInterface
 {
@@ -21,7 +21,7 @@ class RedirectCallbackFactory implements FactoryInterface
         $application = $serviceLocator->get('Application');
 
         /* @var ModuleOptions $options */
-        $options = $serviceLocator->get('laminasuser_module_options');
+        $options = $serviceLocator->get('lmcuser_module_options');
 
         return new RedirectCallback($application, $router, $options);
     }

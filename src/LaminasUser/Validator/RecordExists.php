@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Validator;
+namespace LmcUser\Validator;
 
 class RecordExists extends AbstractRecord
 {

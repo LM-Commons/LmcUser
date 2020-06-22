@@ -1,5 +1,5 @@
 <?php
-namespace LaminasUser\EventManager;
+namespace LmcUser\EventManager;
 
 use Traversable;
 use Laminas\EventManager\EventManagerAwareInterface;

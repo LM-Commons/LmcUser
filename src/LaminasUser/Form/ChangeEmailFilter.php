@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
 use Laminas\InputFilter\InputFilter;
-use LaminasUser\Options\AuthenticationOptionsInterface;
+use LmcUser\Options\AuthenticationOptionsInterface;
 
 class ChangeEmailFilter extends InputFilter
 {

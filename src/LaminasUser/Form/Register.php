@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
 use Laminas\Form\Element\Captcha as Captcha;
-use LaminasUser\Options\RegistrationOptionsInterface;
+use LmcUser\Options\RegistrationOptionsInterface;
 
 class Register extends Base
 {

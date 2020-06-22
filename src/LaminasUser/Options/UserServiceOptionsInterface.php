@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasUser\Options;
+namespace LmcUser\Options;
 
-use LaminasUser\Options\RegistrationOptionsInterface;
+use LmcUser\Options\RegistrationOptionsInterface;
 
 interface UserServiceOptionsInterface extends
     RegistrationOptionsInterface,

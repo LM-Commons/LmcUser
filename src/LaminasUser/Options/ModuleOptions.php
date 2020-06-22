@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Options;
+namespace LmcUser\Options;
 
 use Laminas\Stdlib\AbstractOptions;
 
@@ -21,12 +21,12 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var string
      */
-    protected $loginRedirectRoute = 'laminasuser';
+    protected $loginRedirectRoute = 'lmcuser';
 
     /**
      * @var string
      */
-    protected $logoutRedirectRoute = 'laminasuser/login';
+    protected $logoutRedirectRoute = 'lmcuser/login';
 
     /**
      * @var int
@@ -61,7 +61,7 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var array
      */
-    protected $authAdapters = array( 100 => 'LaminasUser\Authentication\Adapter\Db' );
+    protected $authAdapters = array( 100 => 'LmcUser\Authentication\Adapter\Db' );
 
     /**
      * @var array
@@ -71,12 +71,12 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var string
      */
-    protected $userEntityClass = 'LaminasUser\Entity\User';
+    protected $userEntityClass = 'LmcUser\Entity\User';
 
     /**
      * @var string
      */
-    protected $userLoginWidgetViewTemplate = 'laminas-user/user/login.phtml';
+    protected $userLoginWidgetViewTemplate = 'lmc-user/user/login.phtml';
 
     /**
      * @var bool

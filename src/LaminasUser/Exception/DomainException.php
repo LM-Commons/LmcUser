@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Exception;
+namespace LmcUser\Exception;
 
 class DomainException extends \RuntimeException implements
     ExceptionInterface

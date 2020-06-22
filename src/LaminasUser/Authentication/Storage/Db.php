@@ -1,12 +1,12 @@
 <?php
 
-namespace LaminasUser\Authentication\Storage;
+namespace LmcUser\Authentication\Storage;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\Storage;
 use Laminas\Authentication\Storage\StorageInterface;
 use Laminas\ServiceManager\ServiceManager;
-use LaminasUser\Mapper\UserInterface as UserMapper;
+use LmcUser\Mapper\UserInterface as UserMapper;
 
 class Db implements Storage\StorageInterface
 {
@@ -139,7 +139,7 @@ class Db implements Storage\StorageInterface
     public function getMapper()
     {
         if (null === $this->mapper) {
-            $this->mapper = $this->getServiceManager()->get('laminasuser_user_mapper');
+            $this->mapper = $this->getServiceManager()->get('lmcuser_user_mapper');
         }
         return $this->mapper;
     }

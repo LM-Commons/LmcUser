@@ -1,11 +1,11 @@
 <?php
 
-namespace LaminasUser\Factory\Service;
+namespace LmcUser\Factory\Service;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Service\User;
+use LmcUser\Service\User;
 
 class UserFactory implements FactoryInterface
 {

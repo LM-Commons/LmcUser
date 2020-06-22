@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Authentication\Adapter;
+namespace LmcUser\Authentication\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\Result as AuthenticationResult;
@@ -8,9 +8,9 @@ use Laminas\EventManager\EventInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Session\Container as SessionContainer;
-use LaminasUser\Entity\UserInterface;
-use LaminasUser\Mapper\UserInterface as UserMapperInterface;
-use LaminasUser\Options\ModuleOptions;
+use LmcUser\Entity\UserInterface;
+use LmcUser\Mapper\UserInterface as UserMapperInterface;
+use LmcUser\Options\ModuleOptions;
 
 class Db extends AbstractAdapter
 {
@@ -149,7 +149,7 @@ class Db extends AbstractAdapter
     public function getMapper()
     {
         if (null === $this->mapper) {
-            $this->mapper = $this->getServiceManager()->get('laminasuser_user_mapper');
+            $this->mapper = $this->getServiceManager()->get('lmcuser_user_mapper');
         }
 
         return $this->mapper;
@@ -224,7 +224,7 @@ class Db extends AbstractAdapter
     public function getOptions()
     {
         if ($this->options === null) {
-            $this->setOptions($this->getServiceManager()->get('laminasuser_module_options'));
+            $this->setOptions($this->getServiceManager()->get('lmcuser_module_options'));
         }
 
         return $this->options;

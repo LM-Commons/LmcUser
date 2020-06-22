@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Authentication\Adapter\Exception;
+namespace LmcUser\Authentication\Adapter\Exception;
 
 use Laminas\Math\Exception\RuntimeException;
 

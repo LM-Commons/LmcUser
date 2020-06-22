@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Service;
+namespace LmcUser\Service;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
@@ -8,9 +8,9 @@ use Laminas\Form\Form;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Hydrator;
-use LaminasUser\EventManager\EventProvider;
-use LaminasUser\Mapper\UserInterface as UserMapperInterface;
-use LaminasUser\Options\UserServiceOptionsInterface;
+use LmcUser\EventManager\EventProvider;
+use LmcUser\Mapper\UserInterface as UserMapperInterface;
+use LmcUser\Options\UserServiceOptionsInterface;
 
 class User extends EventProvider
 {
@@ -59,7 +59,7 @@ class User extends EventProvider
      * createFromForm
      *
      * @param array $data
-     * @return \LaminasUser\Entity\UserInterface
+     * @return \LmcUser\Entity\UserInterface
      * @throws Exception\InvalidArgumentException
      */
     public function register(array $data)
@@ -75,7 +75,7 @@ class User extends EventProvider
         }
 
         $user = $form->getData();
-        /* @var $user \LaminasUser\Entity\UserInterface */
+        /* @var $user \LmcUser\Entity\UserInterface */
 
         $bcrypt = new Bcrypt;
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
@@ -156,7 +156,7 @@ class User extends EventProvider
     public function getUserMapper()
     {
         if (null === $this->userMapper) {
-            $this->userMapper = $this->getServiceManager()->get('laminasuser_user_mapper');
+            $this->userMapper = $this->getServiceManager()->get('lmcuser_user_mapper');
         }
         return $this->userMapper;
     }
@@ -181,7 +181,7 @@ class User extends EventProvider
     public function getAuthService()
     {
         if (null === $this->authService) {
-            $this->authService = $this->getServiceManager()->get('laminasuser_auth_service');
+            $this->authService = $this->getServiceManager()->get('lmcuser_auth_service');
         }
         return $this->authService;
     }
@@ -204,7 +204,7 @@ class User extends EventProvider
     public function getRegisterForm()
     {
         if (null === $this->registerForm) {
-            $this->registerForm = $this->getServiceManager()->get('laminasuser_register_form');
+            $this->registerForm = $this->getServiceManager()->get('lmcuser_register_form');
         }
         return $this->registerForm;
     }
@@ -225,7 +225,7 @@ class User extends EventProvider
     public function getChangePasswordForm()
     {
         if (null === $this->changePasswordForm) {
-            $this->changePasswordForm = $this->getServiceManager()->get('laminasuser_change_password_form');
+            $this->changePasswordForm = $this->getServiceManager()->get('lmcuser_change_password_form');
         }
         return $this->changePasswordForm;
     }
@@ -248,7 +248,7 @@ class User extends EventProvider
     public function getOptions()
     {
         if (!$this->options instanceof UserServiceOptionsInterface) {
-            $this->setOptions($this->getServiceManager()->get('laminasuser_module_options'));
+            $this->setOptions($this->getServiceManager()->get('lmcuser_module_options'));
         }
         return $this->options;
     }
@@ -293,7 +293,7 @@ class User extends EventProvider
     public function getFormHydrator()
     {
         if (!$this->formHydrator instanceof Hydrator\HydratorInterface) {
-            $this->setFormHydrator($this->getServiceManager()->get('laminasuser_register_form_hydrator'));
+            $this->setFormHydrator($this->getServiceManager()->get('lmcuser_register_form_hydrator'));
         }
 
         return $this->formHydrator;

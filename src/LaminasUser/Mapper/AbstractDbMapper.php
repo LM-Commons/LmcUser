@@ -1,5 +1,5 @@
 <?php
-namespace LaminasUser\Mapper;
+namespace LmcUser\Mapper;
 
 use Laminas\Db\Adapter\Adapter;
 use Laminas\Db\Adapter\Driver\ResultInterface;
@@ -9,9 +9,9 @@ use Laminas\Db\Sql\Sql;
 use Laminas\Db\Sql\TableIdentifier;
 use Laminas\Hydrator\HydratorInterface;
 use Laminas\Hydrator\ClassMethods;
-use LaminasUser\Entity\UserInterface as UserEntityInterface;
-use LaminasUser\EventManager\EventProvider;
-use LaminasUser\Db\Adapter\MasterSlaveAdapterInterface;
+use LmcUser\Entity\UserInterface as UserEntityInterface;
+use LmcUser\EventManager\EventProvider;
+use LmcUser\Db\Adapter\MasterSlaveAdapterInterface;
 
 abstract class AbstractDbMapper extends EventProvider
 {

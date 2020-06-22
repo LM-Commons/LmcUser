@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Authentication\Adapter;
+namespace LmcUser\Authentication\Adapter;
 
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Laminas\Authentication\Result as AuthenticationResult;
@@ -9,7 +9,7 @@ use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
 use Laminas\Stdlib\RequestInterface as Request;
 use Laminas\Stdlib\ResponseInterface as Response;
-use LaminasUser\Exception;
+use LmcUser\Exception;
 
 class AdapterChain implements AdapterInterface
 {

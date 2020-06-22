@@ -1,11 +1,11 @@
 <?php
 
-namespace LaminasUser\Factory\Authentication\Adapter;
+namespace LmcUser\Factory\Authentication\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Authentication\Adapter\Db;
+use LmcUser\Authentication\Adapter\Db;
 
 class DbFactory implements FactoryInterface
 {

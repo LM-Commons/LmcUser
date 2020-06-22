@@ -1,0 +1,15 @@
+<h1><?php echo $this->translate('Register'); ?></h1>
+
+<?php
+if (!$this->enableRegistration) {
+    print "Registration is disabled";
+    return;
+}
+$form = $this->registerForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('lmcuser/register'));
+$form->setAttribute('method', 'post');
+$form->setAttribute('autocomplete', 'off');
+?>
+
+<?php echo $this->partial('_form.phtml', ['form' => $form]); ?>
