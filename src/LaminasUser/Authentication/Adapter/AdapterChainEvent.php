@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Authentication\Adapter;
+namespace LmcUser\Authentication\Adapter;
 
 use Laminas\EventManager\Event;
 use Laminas\Stdlib\RequestInterface as Request;

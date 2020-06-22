@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Authentication\Adapter;
+namespace LmcUser\Authentication\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\Result as AuthenticationResult;
@@ -8,9 +8,9 @@ use Laminas\EventManager\EventInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Session\Container as SessionContainer;
-use LaminasUser\Entity\UserInterface;
-use LaminasUser\Mapper\UserInterface as UserMapperInterface;
-use LaminasUser\Options\ModuleOptions;
+use LmcUser\Entity\UserInterface;
+use LmcUser\Mapper\UserInterface as UserMapperInterface;
+use LmcUser\Options\ModuleOptions;
 
 class Db extends AbstractAdapter
 {

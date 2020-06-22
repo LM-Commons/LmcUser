@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Factory;
+namespace LmcUser\Factory;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;

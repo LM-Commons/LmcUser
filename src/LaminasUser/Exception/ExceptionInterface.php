@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Exception;
+namespace LmcUser\Exception;
 
 interface ExceptionInterface
 {

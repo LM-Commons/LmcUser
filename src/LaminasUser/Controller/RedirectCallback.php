@@ -1,12 +1,12 @@
 <?php
 
-namespace LaminasUser\Controller;
+namespace LmcUser\Controller;
 
 use Laminas\Mvc\Application;
 use Laminas\Router\RouteInterface;
 use Laminas\Router\Exception;
 use Laminas\Http\PhpEnvironment\Response;
-use LaminasUser\Options\ModuleOptions;
+use LmcUser\Options\ModuleOptions;
 
 /**
  * Buils a redirect response based on the current routing and parameters

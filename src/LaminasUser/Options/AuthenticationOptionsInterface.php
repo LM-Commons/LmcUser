@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Options;
+namespace LmcUser\Options;
 
 interface AuthenticationOptionsInterface extends PasswordOptionsInterface
 {

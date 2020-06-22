@@ -12,7 +12,7 @@ before_script:
   - composer self-update
   - composer install --dev --prefer-source;
   - wget https://scrutinizer-ci.com/ocular.phar
-  - mysql -e "create database IF NOT EXISTS laminas_user;" -uroot
+  - mysql -e "create database IF NOT EXISTS lmc_user;" -uroot
 
 script:
   - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php

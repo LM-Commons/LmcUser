@@ -1,5 +1,5 @@
 <?php
-namespace LaminasUser\Authentication\Adapter;
+namespace LmcUser\Authentication\Adapter;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -7,9 +7,9 @@ use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Authentication\Adapter\AdapterChain;
-use LaminasUser\Options\ModuleOptions;
-use LaminasUser\Authentication\Adapter\Exception\OptionsNotFoundException;
+use LmcUser\Authentication\Adapter\AdapterChain;
+use LmcUser\Options\ModuleOptions;
+use LmcUser\Authentication\Adapter\Exception\OptionsNotFoundException;
 
 class AdapterChainServiceFactory implements FactoryInterface
 {

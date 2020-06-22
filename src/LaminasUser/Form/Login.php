@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
 use Laminas\Form\Element;
-use LaminasUser\Options\AuthenticationOptionsInterface;
+use LmcUser\Options\AuthenticationOptionsInterface;
 
 class Login extends ProvidesEventsForm
 {

@@ -1,5 +1,5 @@
 <?php
-namespace LaminasUser\InputFilter;
+namespace LmcUser\InputFilter;
 
 use Laminas\EventManager\EventManagerAwareTrait;
 use Laminas\InputFilter\InputFilter;

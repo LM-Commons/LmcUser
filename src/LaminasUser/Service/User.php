@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Service;
+namespace LmcUser\Service;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
@@ -8,9 +8,9 @@ use Laminas\Form\Form;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Hydrator;
-use LaminasUser\EventManager\EventProvider;
-use LaminasUser\Mapper\UserInterface as UserMapperInterface;
-use LaminasUser\Options\UserServiceOptionsInterface;
+use LmcUser\EventManager\EventProvider;
+use LmcUser\Mapper\UserInterface as UserMapperInterface;
+use LmcUser\Options\UserServiceOptionsInterface;
 
 class User extends EventProvider
 {
@@ -59,7 +59,7 @@ class User extends EventProvider
      * createFromForm
      *
      * @param array $data
-     * @return \LaminasUser\Entity\UserInterface
+     * @return \LmcUser\Entity\UserInterface
      * @throws Exception\InvalidArgumentException
      */
     public function register(array $data)
@@ -75,7 +75,7 @@ class User extends EventProvider
         }
 
         $user = $form->getData();
-        /* @var $user \LaminasUser\Entity\UserInterface */
+        /* @var $user \LmcUser\Entity\UserInterface */
 
         $bcrypt = new Bcrypt;
         $bcrypt->setCost($this->getOptions()->getPasswordCost());

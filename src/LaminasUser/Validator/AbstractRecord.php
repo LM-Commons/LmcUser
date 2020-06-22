@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Validator;
+namespace LmcUser\Validator;
 
 use Laminas\Validator\AbstractValidator;
-use LaminasUser\Mapper\UserInterface;
+use LmcUser\Mapper\UserInterface;
 
 abstract class AbstractRecord extends AbstractValidator
 {
@@ -109,7 +109,7 @@ abstract class AbstractRecord extends AbstractValidator
                 break;
 
             default:
-                throw new \Exception('Invalid key used in LaminasUser validator');
+                throw new \Exception('Invalid key used in LmcUser validator');
                 break;
         }
 

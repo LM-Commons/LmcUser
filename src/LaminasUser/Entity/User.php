@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Entity;
+namespace LmcUser\Entity;
 
 class User implements UserInterface
 {

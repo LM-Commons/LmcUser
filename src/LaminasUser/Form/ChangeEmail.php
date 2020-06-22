@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
-use LaminasUser\Options\AuthenticationOptionsInterface;
+use LmcUser\Options\AuthenticationOptionsInterface;
 
 class ChangeEmail extends ProvidesEventsForm
 {

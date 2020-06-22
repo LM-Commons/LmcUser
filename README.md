@@ -1,16 +1,15 @@
-LaminasUser
+LmcUser
 =======
-[![Build Status](https://travis-ci.org/ZF-Commons/LaminasUser.png)](https://travis-ci.org/Laminas-Commons/LaminasUser)
-[![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser/badges/quality-score.png?b=3.x)](https://scrutinizer-ci.com/g/Laminas-Commons/LaminasUser)
+[![Build Status](https://travis-ci.org/ZF-Commons/LmcUser.png)](https://travis-ci.org/Laminas-Commons/LmcUser)
+[![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=3.x)](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser)
 [![Gitter](https://badges.gitter.im/LaminasCommons/community.svg)](https://gitter.im/LaminasCommons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 Based on ZfcUser by Evan Coury and the ZF-Commons team
 
 Introduction
 ------------
 
-LaminasUser is a user registration and authentication module for Laminas.
-LaminasUser provides the foundations for adding
+LmcUser is a user registration and authentication module for Laminas.
+LmcUser provides the foundations for adding
 user authentication and registration to your Laminas site. It is designed to be very
 simple and easy to extend.
 
@@ -45,11 +44,11 @@ Installation
 
     ```json
     "require": {  
-        "laminas-commons/laminas-user": "^4.0"  
+        "laminas-commons/lmc-user": "^4.0"  
     }  
     ```
 
-2. Now tell composer to download LaminasUser by running the command:
+2. Now tell composer to download LmcUser by running the command:
 
     ```bash
     $ php composer.phar update
@@ -64,7 +63,7 @@ Installation
     return array(
         'modules' => array(
             // ...
-            'LaminasUser',
+            'LmcUser',
         ),
         // ...
     );
@@ -100,9 +99,9 @@ Navigate to http://yourproject/user and you should land on a login page.
 Migration from ZfcUser
 ----------------------
 
-If using Zend DB update table name to laminas_user
+If using Zend DB update table name to lmc_user
 
-Replace all namespace references to ZfcUser to LaminasUser
+Replace all namespace references to ZfcUser to LmcUser
 
 Update references to the lowercase key zfcuser to laminasuser
 
@@ -136,16 +135,16 @@ suitable for computing power in 2013.
 Options
 -------
 
-The  LaminasUser module has some options to allow you to quickly customize the basic
-functionality. After installing LaminasUser, copy
-`./vendor/laminas-commons/laminas-user/config/laminasuser.global.php.dist` to
+The  LmcUser module has some options to allow you to quickly customize the basic
+functionality. After installing LmcUser, copy
+`./vendor/laminas-commons/lmc-user/config/laminasuser.global.php.dist` to
 `./config/autoload/laminasuser.global.php` and change the values as desired.
 
 The following options are available:
 
 - **user_entity_class** - Name of Entity class to use. Useful for using your own
   entity class instead of the default one provided. Default is
-  `LaminasUser\Entity\User`.
+  `LmcUser\Entity\User`.
 - **enable_username** - Boolean value, enables username field on the
   registration form. Default is `false`.
 - **auth_identity_fields** - Array value, specifies which fields a user can
@@ -218,7 +217,7 @@ module.config.php, or a dedicated recaptcha.config.php):
                         ),
                     ),
                 ),
-                'LaminasUser\Form\Register' => array(
+                'LmcUser\Form\Register' => array(
                     'parameters' => array(
                         'captcha_element'=>'recaptcha_element',
                     ),

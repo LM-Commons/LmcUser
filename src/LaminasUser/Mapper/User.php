@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasUser\Mapper;
+namespace LmcUser\Mapper;
 
-use LaminasUser\Entity\UserInterface as UserEntityInterface;
+use LmcUser\Entity\UserInterface as UserEntityInterface;
 use Laminas\Hydrator\HydratorInterface;
 
 class User extends AbstractDbMapper implements UserInterface

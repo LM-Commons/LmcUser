@@ -1,16 +1,16 @@
 <?php
 
-namespace LaminasUser\Factory\View\Helper;
+namespace LmcUser\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use LaminasUser\View;
+use LmcUser\View;
 
-class LaminasUserLoginWidget implements FactoryInterface
+class LmcUserLoginWidget implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $viewHelper = new View\Helper\LaminasUserLoginWidget;
+        $viewHelper = new View\Helper\LmcUserLoginWidget;
         $viewHelper->setViewTemplate($container->get('laminasuser_module_options')->getUserLoginWidgetViewTemplate());
         $viewHelper->setLoginForm($container->get('laminasuser_login_form'));
 

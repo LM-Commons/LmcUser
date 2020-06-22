@@ -1,13 +1,13 @@
 <?php
 
-namespace LaminasUser\Factory\Controller;
+namespace LmcUser\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Controller\ControllerManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Controller\RedirectCallback;
-use LaminasUser\Controller\UserController;
+use LmcUser\Controller\RedirectCallback;
+use LmcUser\Controller\UserController;
 
 class UserControllerFactory implements FactoryInterface
 {

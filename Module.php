@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser;
+namespace LmcUser;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 use Laminas\ModuleManager\Feature\ControllerPluginProviderInterface;
@@ -22,7 +22,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasUserAuthentication' => \LaminasUser\Factory\Controller\Plugin\LaminasUserAuthentication::class,
+                'laminasUserAuthentication' => \LmcUser\Factory\Controller\Plugin\LmcUserAuthentication::class,
             ),
         );
     }
@@ -31,7 +31,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasuser' => \LaminasUser\Factory\Controller\UserControllerFactory::class,
+                'laminasuser' => \LmcUser\Factory\Controller\UserControllerFactory::class,
             ),
         );
     }
@@ -40,9 +40,9 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasUserDisplayName' => \LaminasUser\Factory\View\Helper\LaminasUserDisplayName::class,
-                'laminasUserIdentity' => \LaminasUser\Factory\View\Helper\LaminasUserIdentity::class,
-                'laminasUserLoginWidget' => \LaminasUser\Factory\View\Helper\LaminasUserLoginWidget::class,
+                'laminasUserDisplayName' => \LmcUser\Factory\View\Helper\LmcUserDisplayName::class,
+                'laminasUserIdentity' => \LmcUser\Factory\View\Helper\LmcUserIdentity::class,
+                'laminasUserLoginWidget' => \LmcUser\Factory\View\Helper\LmcUserLoginWidget::class,
             ),
         );
 
@@ -58,27 +58,27 @@ class Module implements
                 'laminasuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethods::class,
             ),
             'factories' => array(
-                'laminasuser_redirect_callback' => \LaminasUser\Factory\Controller\RedirectCallbackFactory::class,
-                'laminasuser_module_options' => \LaminasUser\Factory\Options\ModuleOptions::class,
-                'LaminasUser\Authentication\Adapter\AdapterChain' => \LaminasUser\Authentication\Adapter\AdapterChainServiceFactory::class,
+                'laminasuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
+                'laminasuser_module_options' => \LmcUser\Factory\Options\ModuleOptions::class,
+                'LmcUser\Authentication\Adapter\AdapterChain' => \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
 
-                // We alias this one because it's LaminasUser's instance of
+                // We alias this one because it's LmcUser's instance of
                 // Laminas\Authentication\AuthenticationService. We don't want to
                 // hog the FQCN service alias for a Laminas\* class.
-                'laminasuser_auth_service' => \LaminasUser\Factory\AuthenticationService::class,
+                'laminasuser_auth_service' => \LmcUser\Factory\AuthenticationService::class,
 
-                'laminasuser_user_hydrator' => \LaminasUser\Factory\UserHydrator::class,
-                'laminasuser_user_mapper' => \LaminasUser\Factory\Mapper\User::class,
+                'laminasuser_user_hydrator' => \LmcUser\Factory\UserHydrator::class,
+                'laminasuser_user_mapper' => \LmcUser\Factory\Mapper\User::class,
 
-                'laminasuser_login_form' => \LaminasUser\Factory\Form\Login::class,
-                'laminasuser_register_form' => \LaminasUser\Factory\Form\Register::class,
-                'laminasuser_change_password_form' => \LaminasUser\Factory\Form\ChangePassword::class,
-                'laminasuser_change_email_form' => \LaminasUser\Factory\Form\ChangeEmail::class,
+                'laminasuser_login_form' => \LmcUser\Factory\Form\Login::class,
+                'laminasuser_register_form' => \LmcUser\Factory\Form\Register::class,
+                'laminasuser_change_password_form' => \LmcUser\Factory\Form\ChangePassword::class,
+                'laminasuser_change_email_form' => \LmcUser\Factory\Form\ChangeEmail::class,
 
-                'LaminasUser\Authentication\Adapter\Db' => \LaminasUser\Factory\Authentication\Adapter\DbFactory::class,
-                'LaminasUser\Authentication\Storage\Db' => \LaminasUser\Factory\Authentication\Storage\DbFactory::class,
+                'LmcUser\Authentication\Adapter\Db' => \LmcUser\Factory\Authentication\Adapter\DbFactory::class,
+                'LmcUser\Authentication\Storage\Db' => \LmcUser\Factory\Authentication\Storage\DbFactory::class,
 
-                'laminasuser_user_service' => \LaminasUser\Factory\Service\UserFactory::class,
+                'laminasuser_user_service' => \LmcUser\Factory\Service\UserFactory::class,
             ),
         );
     }

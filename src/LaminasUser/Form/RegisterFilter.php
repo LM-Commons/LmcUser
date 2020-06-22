@@ -1,9 +1,9 @@
 <?php
 
-namespace LaminasUser\Form;
+namespace LmcUser\Form;
 
-use LaminasUser\InputFilter\ProvidesEventsInputFilter;
-use LaminasUser\Options\RegistrationOptionsInterface;
+use LmcUser\InputFilter\ProvidesEventsInputFilter;
+use LmcUser\Options\RegistrationOptionsInterface;
 
 class RegisterFilter extends ProvidesEventsInputFilter
 {

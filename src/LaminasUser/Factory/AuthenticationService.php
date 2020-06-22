@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Factory;
+namespace LmcUser\Factory;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -11,8 +11,8 @@ class AuthenticationService implements FactoryInterface
     public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
         return new \Laminas\Authentication\AuthenticationService(
-            $serviceLocator->get('LaminasUser\Authentication\Storage\Db'),
-            $serviceLocator->get('LaminasUser\Authentication\Adapter\AdapterChain')
+            $serviceLocator->get('LmcUser\Authentication\Storage\Db'),
+            $serviceLocator->get('LmcUser\Authentication\Adapter\AdapterChain')
         );
     }
 

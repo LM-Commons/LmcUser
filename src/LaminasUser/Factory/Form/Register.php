@@ -1,11 +1,11 @@
 <?php
 
-namespace LaminasUser\Factory\Form;
+namespace LmcUser\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use LaminasUser\Form;
-use LaminasUser\Validator;
+use LmcUser\Form;
+use LmcUser\Validator;
 
 class Register implements FactoryInterface
 {

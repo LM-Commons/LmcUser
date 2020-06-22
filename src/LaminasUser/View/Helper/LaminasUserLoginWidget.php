@@ -1,12 +1,12 @@
 <?php
 
-namespace LaminasUser\View\Helper;
+namespace LmcUser\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
-use LaminasUser\Form\Login as LoginForm;
+use LmcUser\Form\Login as LoginForm;
 use Laminas\View\Model\ViewModel;
 
-class LaminasUserLoginWidget extends AbstractHelper
+class LmcUserLoginWidget extends AbstractHelper
 {
     /**
      * Login Form
@@ -62,7 +62,7 @@ class LaminasUserLoginWidget extends AbstractHelper
     /**
      * Inject Login Form Object
      * @param LoginForm $loginForm
-     * @return LaminasUserLoginWidget
+     * @return LmcUserLoginWidget
      */
     public function setLoginForm(LoginForm $loginForm)
     {
@@ -72,7 +72,7 @@ class LaminasUserLoginWidget extends AbstractHelper
 
     /**
      * @param string $viewTemplate
-     * @return LaminasUserLoginWidget
+     * @return LmcUserLoginWidget
      */
     public function setViewTemplate($viewTemplate)
     {

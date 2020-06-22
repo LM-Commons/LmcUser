@@ -1,12 +1,12 @@
 <?php
 
-namespace LaminasUser\Factory\Mapper;
+namespace LmcUser\Factory\Mapper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use LaminasUser\Mapper;
-use LaminasUser\Options\ModuleOptions;
+use LmcUser\Mapper;
+use LmcUser\Options\ModuleOptions;
 
 class User implements FactoryInterface
 {

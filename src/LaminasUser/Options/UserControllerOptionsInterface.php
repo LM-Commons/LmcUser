@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasUser\Options;
+namespace LmcUser\Options;
 
-use LaminasUser\Options\AuthenticationOptionsInterface;
+use LmcUser\Options\AuthenticationOptionsInterface;
 
 interface UserControllerOptionsInterface
 {

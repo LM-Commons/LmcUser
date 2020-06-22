@@ -1,6 +1,6 @@
 <?php
 
-namespace LaminasUser\Controller;
+namespace LmcUser\Controller;
 
 use Laminas\Form\FormInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
@@ -8,8 +8,8 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\Stdlib\ResponseInterface as Response;
 use Laminas\Stdlib\Parameters;
 use Laminas\View\Model\ViewModel;
-use LaminasUser\Service\User as UserService;
-use LaminasUser\Options\UserControllerOptionsInterface;
+use LmcUser\Service\User as UserService;
+use LmcUser\Options\UserControllerOptionsInterface;
 
 class UserController extends AbstractActionController
 {

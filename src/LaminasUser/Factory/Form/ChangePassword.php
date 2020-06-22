@@ -1,10 +1,10 @@
 <?php
 
-namespace LaminasUser\Factory\Form;
+namespace LmcUser\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use LaminasUser\Form;
+use LmcUser\Form;
 
 class ChangePassword implements FactoryInterface
 {
