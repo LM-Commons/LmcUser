@@ -410,7 +410,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testPreprocessCredentialWithoutCallable()
     {
         $this->db->setCredentialPreprocessor(false);
-        $this->assertSame('laminasUser', $this->db->preProcessCredential('laminasUser'));
+        $this->assertSame('lmcUser', $this->db->preProcessCredential('lmcUser'));
     }
 
     /**
@@ -455,12 +455,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testSetGetOptions()
     {
         $options = new \LmcUser\Options\ModuleOptions;
-        $options->setLoginRedirectRoute('laminasUser');
+        $options->setLoginRedirectRoute('lmcUser');
 
         $this->db->setOptions($options);
 
         $this->assertInstanceOf('LmcUser\Options\ModuleOptions', $this->db->getOptions());
-        $this->assertSame('laminasUser', $this->db->getOptions()->getLoginRedirectRoute());
+        $this->assertSame('lmcUser', $this->db->getOptions()->getLoginRedirectRoute());
     }
 
     /**
@@ -488,12 +488,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testSetGetMapper()
     {
         $mapper = new \LmcUser\Mapper\User;
-        $mapper->setTableName('laminasUser');
+        $mapper->setTableName('lmcUser');
 
         $this->db->setMapper($mapper);
 
         $this->assertInstanceOf('LmcUser\Mapper\User', $this->db->getMapper());
-        $this->assertSame('laminasUser', $this->db->getMapper()->getTableName());
+        $this->assertSame('lmcUser', $this->db->getMapper()->getTableName());
     }
 
     protected function setAuthenticationEmail()

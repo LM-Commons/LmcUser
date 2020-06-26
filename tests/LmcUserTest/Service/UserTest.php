@@ -300,7 +300,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangePasswordWithWrongOldPassword()
     {
-        $data = array('newCredential' => 'laminasUser', 'credential' => 'laminasUserOld');
+        $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -327,7 +327,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangePassword()
     {
-        $data = array('newCredential' => 'laminasUser', 'credential' => 'laminasUserOld');
+        $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -363,7 +363,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangeEmail()
     {
-        $data = array('credential' => 'laminasUser', 'newIdentity' => 'laminasUser@laminasUser.com');
+        $data = array('credential' => 'lmcUser', 'newIdentity' => 'lmcUser@lmcUser.com');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')
@@ -378,7 +378,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($bcrypt->create($data['credential'])));
         $user->expects($this->any())
              ->method('setEmail')
-             ->with('laminasUser@laminasUser.com');
+             ->with('lmcUser@lmcUser.com');
 
         $this->authService->expects($this->any())
              ->method('getIdentity')
@@ -400,7 +400,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testChangeEmailWithWrongPassword()
     {
-        $data = array('credential' => 'laminasUserOld');
+        $data = array('credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
              ->method('getPasswordCost')

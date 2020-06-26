@@ -82,7 +82,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        if (!$this->laminasUserAuthentication()->hasIdentity()) {
+        if (!$this->lmcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute(static::ROUTE_LOGIN);
         }
         return new ViewModel();
@@ -93,7 +93,7 @@ class UserController extends AbstractActionController
      */
     public function loginAction()
     {
-        if ($this->laminasUserAuthentication()->hasIdentity()) {
+        if ($this->lmcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
@@ -122,8 +122,8 @@ class UserController extends AbstractActionController
         }
 
         // clear adapters
-        $this->laminasUserAuthentication()->getAuthAdapter()->resetAdapters();
-        $this->laminasUserAuthentication()->getAuthService()->clearIdentity();
+        $this->lmcUserAuthentication()->getAuthAdapter()->resetAdapters();
+        $this->lmcUserAuthentication()->getAuthService()->clearIdentity();
 
         return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
     }
@@ -133,9 +133,9 @@ class UserController extends AbstractActionController
      */
     public function logoutAction()
     {
-        $this->laminasUserAuthentication()->getAuthAdapter()->resetAdapters();
-        $this->laminasUserAuthentication()->getAuthAdapter()->logoutAdapters();
-        $this->laminasUserAuthentication()->getAuthService()->clearIdentity();
+        $this->lmcUserAuthentication()->getAuthAdapter()->resetAdapters();
+        $this->lmcUserAuthentication()->getAuthAdapter()->logoutAdapters();
+        $this->lmcUserAuthentication()->getAuthService()->clearIdentity();
 
         $redirect = $this->redirectCallback;
 
@@ -147,11 +147,11 @@ class UserController extends AbstractActionController
      */
     public function authenticateAction()
     {
-        if ($this->laminasUserAuthentication()->hasIdentity()) {
+        if ($this->lmcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
-        $adapter = $this->laminasUserAuthentication()->getAuthAdapter();
+        $adapter = $this->lmcUserAuthentication()->getAuthAdapter();
         $redirect = $this->params()->fromPost('redirect', $this->params()->fromQuery('redirect', false));
 
         $result = $adapter->prepareForAuthentication($this->getRequest());
@@ -161,7 +161,7 @@ class UserController extends AbstractActionController
             return $result;
         }
 
-        $auth = $this->laminasUserAuthentication()->getAuthService()->authenticate($adapter);
+        $auth = $this->lmcUserAuthentication()->getAuthService()->authenticate($adapter);
 
         if (!$auth->isValid()) {
             $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
@@ -183,7 +183,7 @@ class UserController extends AbstractActionController
     public function registerAction()
     {
         // if the user is logged in, we don't need to register
-        if ($this->laminasUserAuthentication()->hasIdentity()) {
+        if ($this->lmcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
@@ -251,7 +251,7 @@ class UserController extends AbstractActionController
     public function changepasswordAction()
     {
         // if the user isn't logged in, we can't change password
-        if (!$this->laminasUserAuthentication()->hasIdentity()) {
+        if (!$this->lmcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
@@ -298,7 +298,7 @@ class UserController extends AbstractActionController
     public function changeEmailAction()
     {
         // if the user isn't logged in, we can't change email
-        if (!$this->laminasUserAuthentication()->hasIdentity()) {
+        if (!$this->lmcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }

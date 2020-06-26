@@ -63,7 +63,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     {
         $this->user->expects($this->once())
                    ->method('getDisplayName')
-                   ->will($this->returnValue('laminasUser'));
+                   ->will($this->returnValue('lmcUser'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -74,7 +74,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('laminasUser', $result);
+        $this->assertEquals('lmcUser', $result);
     }
 
     /**
@@ -87,7 +87,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
                    ->will($this->returnValue(null));
         $this->user->expects($this->once())
                    ->method('getUsername')
-                   ->will($this->returnValue('laminasUser'));
+                   ->will($this->returnValue('lmcUser'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -98,7 +98,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('laminasUser', $result);
+        $this->assertEquals('lmcUser', $result);
     }
 
     /**
@@ -114,7 +114,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
                    ->will($this->returnValue(null));
         $this->user->expects($this->once())
                    ->method('getEmail')
-                   ->will($this->returnValue('laminasUser@laminasUser.com'));
+                   ->will($this->returnValue('lmcUser@lmcUser.com'));
 
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
@@ -125,7 +125,7 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->helper->__invoke(null);
 
-        $this->assertEquals('laminasUser', $result);
+        $this->assertEquals('lmcUser', $result);
     }
 
     /**

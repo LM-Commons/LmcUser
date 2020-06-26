@@ -58,9 +58,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $reflectionClass = new \ReflectionClass('LmcUser\Authentication\Storage\Db');
         $reflectionProperty = $reflectionClass->getProperty('resolvedIdentity');
         $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($this->db, 'laminasUser');
+        $reflectionProperty->setValue($this->db, 'lmcUser');
 
-        $this->assertSame('laminasUser', $this->db->read());
+        $this->assertSame('lmcUser', $this->db->read());
     }
 
     /**
@@ -75,7 +75,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setStorage($this->storage);
 
         $user = $this->getMock('LmcUser\Entity\User');
-        $user->setUsername('laminasUser');
+        $user->setUsername('lmcUser');
 
         $this->mapper->expects($this->once())
                      ->method('findById')
@@ -118,7 +118,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testReadWithoutResolvedEntitySetIdentityObject()
     {
         $user = $this->getMock('LmcUser\Entity\User');
-        $user->setUsername('laminasUser');
+        $user->setUsername('lmcUser');
 
         $this->storage->expects($this->once())
                       ->method('read')
@@ -142,11 +142,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->storage->expects($this->once())
                       ->method('write')
-                      ->with('laminasUser');
+                      ->with('lmcUser');
 
         $this->db->setStorage($this->storage);
 
-        $this->db->write('laminasUser');
+        $this->db->write('lmcUser');
 
         $this->assertNull($reflectionProperty->getValue($this->db));
     }
@@ -193,12 +193,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testSetGetMapper()
     {
         $mapper = new \LmcUser\Mapper\User;
-        $mapper->setTableName('laminasUser');
+        $mapper->setTableName('lmcUser');
 
         $this->db->setMapper($mapper);
 
         $this->assertInstanceOf('LmcUser\Mapper\User', $this->db->getMapper());
-        $this->assertSame('laminasUser', $this->db->getMapper()->getTableName());
+        $this->assertSame('lmcUser', $this->db->getMapper()->getTableName());
     }
 
     /**

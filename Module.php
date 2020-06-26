@@ -22,7 +22,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasUserAuthentication' => \LmcUser\Factory\Controller\Plugin\LmcUserAuthentication::class,
+                'lmcUserAuthentication' => \LmcUser\Factory\Controller\Plugin\LmcUserAuthentication::class,
             ),
         );
     }
@@ -40,9 +40,9 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'laminasUserDisplayName' => \LmcUser\Factory\View\Helper\LmcUserDisplayName::class,
-                'laminasUserIdentity' => \LmcUser\Factory\View\Helper\LmcUserIdentity::class,
-                'laminasUserLoginWidget' => \LmcUser\Factory\View\Helper\LmcUserLoginWidget::class,
+                'lmcUserDisplayName' => \LmcUser\Factory\View\Helper\LmcUserDisplayName::class,
+                'lmcUserIdentity' => \LmcUser\Factory\View\Helper\LmcUserIdentity::class,
+                'lmcUserLoginWidget' => \LmcUser\Factory\View\Helper\LmcUserLoginWidget::class,
             ),
         );
 
