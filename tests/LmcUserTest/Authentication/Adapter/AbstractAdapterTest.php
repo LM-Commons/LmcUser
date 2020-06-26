@@ -33,11 +33,11 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
     public function testSetGetStorage()
     {
         $storage = new \Laminas\Authentication\Storage\Session('LmcUser');
-        $storage->write('laminasUser');
+        $storage->write('lmcUser');
         $this->adapter->setStorage($storage);
 
         $this->assertInstanceOf('Laminas\Authentication\Storage\Session', $this->adapter->getStorage());
-        $this->assertSame('laminasUser', $this->adapter->getStorage()->read());
+        $this->assertSame('lmcUser', $this->adapter->getStorage()->read());
     }
 
     /**

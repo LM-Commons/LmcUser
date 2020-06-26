@@ -24,7 +24,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     public $pluginManagerPlugins = array();
 
-    protected $laminasUserAuthenticationPlugin;
+    protected $lmcUserAuthenticationPlugin;
 
     protected $options;
 
@@ -42,7 +42,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new Controller($this->redirectCallback);
         $this->controller = $controller;
 
-        $this->laminasUserAuthenticationPlugin = $this->getMock('LmcUser\Controller\Plugin\LmcUserAuthentication');
+        $this->lmcUserAuthenticationPlugin = $this->getMock('LmcUser\Controller\Plugin\LmcUserAuthentication');
 
         $pluginManager = $this->getMockBuilder('Laminas\Mvc\Controller\PluginManager')
             ->disableOriginalConstructor()
@@ -67,7 +67,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $return = (is_callable($option['hasIdentity']))
                 ? $this->returnCallback($option['hasIdentity'])
                 : $this->returnValue($option['hasIdentity']);
-            $this->laminasUserAuthenticationPlugin->expects($this->any())
+            $this->lmcUserAuthenticationPlugin->expects($this->any())
                 ->method('hasIdentity')
                 ->will($return);
         }
@@ -77,7 +77,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ? $this->returnCallback($option['getAuthAdapter'])
                 : $this->returnValue($option['getAuthAdapter']);
 
-            $this->laminasUserAuthenticationPlugin->expects($this->any())
+            $this->lmcUserAuthenticationPlugin->expects($this->any())
                 ->method('getAuthAdapter')
                 ->will($return);
         }
@@ -87,14 +87,14 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ? $this->returnCallback($option['getAuthService'])
                 : $this->returnValue($option['getAuthService']);
 
-            $this->laminasUserAuthenticationPlugin->expects($this->any())
+            $this->lmcUserAuthenticationPlugin->expects($this->any())
                 ->method('getAuthService')
                 ->will($return);
         }
 
-        $this->pluginManagerPlugins['laminasUserAuthentication'] = $this->laminasUserAuthenticationPlugin;
+        $this->pluginManagerPlugins['lmcUserAuthentication'] = $this->lmcUserAuthenticationPlugin;
 
-        return $this->laminasUserAuthenticationPlugin;
+        return $this->lmcUserAuthenticationPlugin;
     }
 
     /**

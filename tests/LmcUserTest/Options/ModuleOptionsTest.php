@@ -23,8 +23,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetLoginRedirectRoute()
     {
-        $this->options->setLoginRedirectRoute('laminasUserRoute');
-        $this->assertEquals('laminasUserRoute', $this->options->getLoginRedirectRoute());
+        $this->options->setLoginRedirectRoute('lmcUserRoute');
+        $this->assertEquals('lmcUserRoute', $this->options->getLoginRedirectRoute());
     }
 
     /**
@@ -41,8 +41,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetLogoutRedirectRoute()
     {
-        $this->options->setLogoutRedirectRoute('laminasUserRoute');
-        $this->assertEquals('laminasUserRoute', $this->options->getLogoutRedirectRoute());
+        $this->options->setLogoutRedirectRoute('lmcUserRoute');
+        $this->assertEquals('lmcUserRoute', $this->options->getLogoutRedirectRoute());
     }
 
     /**
@@ -77,8 +77,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetUserLoginWidgetViewTemplate()
     {
-        $this->options->setUserLoginWidgetViewTemplate('laminasUser.phtml');
-        $this->assertEquals('laminasUser.phtml', $this->options->getUserLoginWidgetViewTemplate());
+        $this->options->setUserLoginWidgetViewTemplate('lmcUser.phtml');
+        $this->assertEquals('lmcUser.phtml', $this->options->getUserLoginWidgetViewTemplate());
     }
 
     /**
@@ -311,8 +311,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetUserEntityClass()
     {
-        $this->options->setUserEntityClass('laminasUser');
-        $this->assertEquals('laminasUser', $this->options->getUserEntityClass());
+        $this->options->setUserEntityClass('lmcUser');
+        $this->assertEquals('lmcUser', $this->options->getUserEntityClass());
     }
 
     /**
@@ -347,8 +347,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetTableName()
     {
-        $this->options->setTableName('laminasUser');
-        $this->assertEquals('laminasUser', $this->options->getTableName());
+        $this->options->setTableName('lmcUser');
+        $this->assertEquals('lmcUser', $this->options->getTableName());
     }
 
     /**

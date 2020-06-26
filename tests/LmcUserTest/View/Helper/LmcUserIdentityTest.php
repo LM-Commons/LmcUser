@@ -31,11 +31,11 @@ class LmcUserIdentityTest extends \PHPUnit_Framework_TestCase
                           ->will($this->returnValue(true));
         $this->authService->expects($this->once())
                           ->method('getIdentity')
-                          ->will($this->returnValue('laminasUser'));
+                          ->will($this->returnValue('lmcUser'));
 
         $result = $this->helper->__invoke();
 
-        $this->assertEquals('laminasUser', $result);
+        $this->assertEquals('lmcUser', $result);
     }
 
     /**
