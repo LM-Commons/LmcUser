@@ -44,7 +44,7 @@ Installation
 
     ```json
     "require": {  
-        "laminas-commons/lmc-user": "^4.0"  
+        "laminas-commons/lmc-user": "^3.1"  
     }  
     ```
 
