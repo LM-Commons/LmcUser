@@ -2,9 +2,11 @@
 
 namespace LmcUserTest\View\Helper;
 
+use LmcUser\Exception\DomainException;
 use LmcUser\View\Helper\LmcUserDisplayName as ViewHelper;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
+class LmcUserDisplayNameTest extends TestCase
 {
     protected $helper;
 
@@ -12,15 +14,15 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
     protected $user;
 
-    public function setUp()
+    public function setUp():void
     {
         $helper = new ViewHelper;
         $this->helper = $helper;
 
-        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $authService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $this->authService = $authService;
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $this->user = $user;
 
         $helper->setAuthService($authService);
@@ -42,10 +44,11 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LmcUser\View\Helper\LmcUserDisplayName::__invoke
-     * @expectedException LmcUser\Exception\DomainException
+     *
      */
     public function testInvokeWithoutUserButLoggedInWithWrongUserObject()
     {
+        $this->expectException(DomainException::class);
         $this->authService->expects($this->once())
                           ->method('hasIdentity')
                           ->will($this->returnValue(true));

@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\LoginFilter as Filter;
+use PHPUnit\Framework\TestCase;
 
-class LoginFilterTest extends \PHPUnit_Framework_TestCase
+class LoginFilterTest extends TestCase
 {
     /**
      * @covers LmcUser\Form\LoginFilter::__construct
      */
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getAuthIdentityFields')
                 ->will($this->returnValue(array()));
@@ -30,7 +31,7 @@ class LoginFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructIdentityEmail()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getAuthIdentityFields')
                 ->will($this->returnValue(array('email')));

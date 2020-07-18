@@ -3,8 +3,9 @@
 namespace LmcUserTest\Authentication\Storage;
 
 use LmcUser\Authentication\Storage\Db;
+use PHPUnit\Framework\TestCase;
 
-class DbTest extends \PHPUnit_Framework_TestCase
+class DbTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -27,13 +28,13 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     protected $mapper;
 
-    public function setUp()
+    public function setUp():void
     {
         $db = new Db;
         $this->db = $db;
 
-        $this->storage = $this->getMock('Laminas\Authentication\Storage\Session');
-        $this->mapper = $this->getMock('LmcUser\Mapper\User');
+        $this->storage = $this->createMock('Laminas\Authentication\Storage\Session');
+        $this->mapper = $this->createMock('LmcUser\Mapper\User');
     }
 
     /**
@@ -74,7 +75,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->db->setStorage($this->storage);
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->setUsername('lmcUser');
 
         $this->mapper->expects($this->once())
@@ -117,7 +118,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testReadWithoutResolvedEntitySetIdentityObject()
     {
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->setUsername('lmcUser');
 
         $this->storage->expects($this->once())
@@ -175,7 +176,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMapperWithNoMapperSet()
     {
-        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $sm->expects($this->once())
            ->method('get')
            ->with('lmcuser_user_mapper')
@@ -207,7 +208,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetServicemanager()
     {
-        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
 
         $this->db->setServiceManager($sm);
 

@@ -60,7 +60,7 @@ class AdapterChain implements AdapterInterface
             return ($test instanceof Response);
         }, $e);
 
-        if ($result->stopped()) {
+        if ($result && $result->stopped()) {
             if ($result->last() instanceof Response) {
                 return $result->last();
             }

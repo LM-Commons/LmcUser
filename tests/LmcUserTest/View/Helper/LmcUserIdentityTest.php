@@ -3,19 +3,20 @@
 namespace LmcUserTest\View\Helper;
 
 use LmcUser\View\Helper\LmcUserIdentity as ViewHelper;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserIdentityTest extends \PHPUnit_Framework_TestCase
+class LmcUserIdentityTest extends TestCase
 {
     protected $helper;
 
     protected $authService;
 
-    public function setUp()
+    public function setUp():void
     {
         $helper = new ViewHelper;
         $this->helper = $helper;
 
-        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $authService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $this->authService = $authService;
 
         $helper->setAuthService($authService);

@@ -3,15 +3,16 @@
 namespace LmcUserTest\Options;
 
 use LmcUser\Options\ModuleOptions as Options;
+use PHPUnit\Framework\TestCase;
 
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    public function setUp():void
     {
         $options = new Options;
         $this->options = $options;

@@ -4,8 +4,9 @@ namespace LmcUserTest\Authentication\Adapter;
 
 use Laminas\EventManager\Event;
 use LmcUser\Authentication\Adapter\Db;
+use PHPUnit\Framework\TestCase;
 
-class DbTest extends \PHPUnit_Framework_TestCase
+class DbTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -49,27 +50,27 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     protected $user;
 
-    protected function setUp()
+    protected function setUp():void
     {
-        $storage = $this->getMock('Laminas\Authentication\Storage\Session');
+        $storage = $this->createMock('Laminas\Authentication\Storage\Session');
         $this->storage = $storage;
 
-        $authEvent = $this->getMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
+        $authEvent = $this->createMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
         $this->authEvent = $authEvent;
 
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $this->options = $options;
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $this->mapper = $mapper;
 
-        $user = $this->getMock('LmcUser\Entity\UserInterface');
+        $user = $this->createMock('LmcUser\Entity\UserInterface');
         $this->user = $user;
 
         $this->db = new Db;
         $this->db->setStorage($this->storage);
 
-        $sessionManager = $this->getMock('Laminas\Session\SessionManager');
+        $sessionManager = $this->createMock('Laminas\Session\SessionManager');
         \Laminas\Session\AbstractContainer::setDefaultManager($sessionManager);
     }
 
@@ -109,9 +110,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ->method('read')
             ->will($this->returnValue(array('identity' => 'LmcUser')));
 
-        $event = new Event(null, $this->authEvent);
 
-        $result = $this->db->authenticate($event);
+        $result = $this->db->authenticate($this->authEvent);;
         $this->assertNull($result);
     }
 
@@ -137,8 +137,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->db->setOptions($this->options);
 
-        $event = new Event(null, $this->authEvent);
-        $result = $this->db->authenticate($event);
+        
+        $result = $this->db->authenticate($this->authEvent);;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -175,8 +175,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
 
-        $event = new Event(null, $this->authEvent);
-        $result = $this->db->authenticate($event);
+        
+        $result = $this->db->authenticate($this->authEvent);;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -210,8 +210,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
 
-        $event = new Event(null, $this->authEvent);
-        $result = $this->db->authenticate($event);
+        
+        $result = $this->db->authenticate($this->authEvent);;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -235,7 +235,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->user->expects($this->exactly(2))
             ->method('getPassword')
-            ->will($this->returnValue('$2a$04$5kq1mnYWbww8X.rIj7eOVOHXtvGw/peefjIcm0lDGxRTEjm9LnOae'));
+            ->will($this->returnValue('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2'));
         $this->user->expects($this->once())
                    ->method('getId')
                    ->will($this->returnValue(1));
@@ -260,8 +260,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
 
-        $event = new Event(null, $this->authEvent);
-        $result = $this->db->authenticate($event);
+        
+        $result = $this->db->authenticate($this->authEvent);;
     }
 
     /**
@@ -286,7 +286,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->user->expects($this->exactly(2))
                    ->method('getPassword')
-                   ->will($this->returnValue('$2a$04$5kq1mnYWbww8X.rIj7eOVOHXtvGw/peefjIcm0lDGxRTEjm9LnOae'));
+                   ->will($this->returnValue('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2'));
         $this->user->expects($this->once())
                    ->method('getId')
                    ->will($this->returnValue(1));
@@ -314,8 +314,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
 
-        $event = new Event(null, $this->authEvent);
-        $result = $this->db->authenticate($event);
+        
+        $result = $this->db->authenticate($this->authEvent);;
     }
 
     /**
@@ -323,12 +323,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdateUserPasswordHashWithSameCost()
     {
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('getPassword')
             ->will($this->returnValue('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm'));
 
-        $bcrypt = $this->getMock('Laminas\Crypt\Password\Bcrypt');
+        $bcrypt = $this->createMock('Laminas\Crypt\Password\Bcrypt');
         $bcrypt->expects($this->once())
             ->method('getCost')
             ->will($this->returnValue('10'));
@@ -348,7 +348,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdateUserPasswordHashWithoutSameCost()
     {
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('getPassword')
             ->will($this->returnValue('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm'));
@@ -356,7 +356,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ->method('setPassword')
             ->with('$2a$10$D41KPuDCn6iGoESjnLee/uE/2Xo985sotVySo2HKDz6gAO4hO/Gh6');
 
-        $bcrypt = $this->getMock('Laminas\Crypt\Password\Bcrypt');
+        $bcrypt = $this->createMock('Laminas\Crypt\Password\Bcrypt');
         $bcrypt->expects($this->once())
             ->method('getCost')
             ->will($this->returnValue('5'));
@@ -365,7 +365,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ->with('LmcUserNew')
             ->will($this->returnValue('$2a$10$D41KPuDCn6iGoESjnLee/uE/2Xo985sotVySo2HKDz6gAO4hO/Gh6'));
 
-        $mapper = $this->getMock('LmcUser\Mapper\User');
+        $mapper = $this->createMock('LmcUser\Mapper\User');
         $mapper->expects($this->once())
             ->method('update')
             ->with($user);
@@ -419,7 +419,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetServicemanager()
     {
-        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
 
         $this->db->setServiceManager($sm);
 
@@ -434,7 +434,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOptionsWithNoOptionsSet()
     {
-        $serviceMapper = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $serviceMapper = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $serviceMapper->expects($this->once())
             ->method('get')
             ->with('lmcuser_module_options')
@@ -468,7 +468,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMapperWithNoMapperSet()
     {
-        $serviceMapper = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $serviceMapper = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $serviceMapper->expects($this->once())
             ->method('get')
             ->with('lmcuser_user_mapper')
@@ -526,7 +526,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ->method('read')
             ->will($this->returnValue(array('is_satisfied' => false)));
 
-        $post = $this->getMock('Laminas\Stdlib\Parameters');
+        $post = $this->createMock('Laminas\Stdlib\Parameters');
         $post->expects($this->at(0))
             ->method('get')
             ->with('identity')
@@ -536,7 +536,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ->with('credential')
             ->will($this->returnValue($credential));
 
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->exactly(2))
             ->method('getPost')
             ->will($this->returnValue($post));

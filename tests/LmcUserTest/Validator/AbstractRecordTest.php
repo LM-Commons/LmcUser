@@ -2,9 +2,11 @@
 
 namespace LmcUserTest\Validator;
 
+use LmcUser\Validator\Exception\InvalidArgumentException;
 use LmcUserTest\Validator\TestAsset\AbstractRecordExtension;
+use PHPUnit\Framework\TestCase;
 
-class AbstractRecordTest extends \PHPUnit_Framework_TestCase
+class AbstractRecordTest extends TestCase
 {
     /**
      * @covers LmcUser\Validator\AbstractRecord::__construct
@@ -12,16 +14,17 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $options = array('key'=>'value');
-        new AbstractRecordExtension($options);
+        $this->assertIsObject(new AbstractRecordExtension($options));
     }
 
     /**
      * @covers LmcUser\Validator\AbstractRecord::__construct
-     * @expectedException LmcUser\Validator\Exception\InvalidArgumentException
-     * @expectedExceptionMessage No key provided
+     *
      */
     public function testConstructEmptyArray()
     {
+        $this->expectExceptionMessage("No key provided");
+        $this->expectException(InvalidArgumentException::class);
         $options = array();
         new AbstractRecordExtension($options);
     }
@@ -37,7 +40,7 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($validator->getMapper());
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $validator->setMapper($mapper);
         $this->assertSame($mapper, $validator->getMapper());
     }
@@ -59,11 +62,13 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LmcUser\Validator\AbstractRecord::query
-     * @expectedException \Exception
-     * @expectedExceptionMessage Invalid key used in LmcUser validator
+     *
+     *
      */
     public function testQueryWithInvalidKey()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Invalid key used in LmcUser validator");
         $options = array('key' => 'lmcUser');
         $validator = new AbstractRecordExtension($options);
 
@@ -81,7 +86,7 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
         $options = array('key' => 'username');
         $validator = new AbstractRecordExtension($options);
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $mapper->expects($this->once())
                ->method('findByUsername')
                ->with('test')
@@ -105,7 +110,7 @@ class AbstractRecordTest extends \PHPUnit_Framework_TestCase
         $options = array('key' => 'email');
         $validator = new AbstractRecordExtension($options);
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $mapper->expects($this->once())
             ->method('findByEmail')
             ->with('test@test.com')

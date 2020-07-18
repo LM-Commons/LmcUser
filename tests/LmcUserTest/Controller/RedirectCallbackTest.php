@@ -10,8 +10,9 @@ use Laminas\Router\RouteInterface;
 use Laminas\Router\RouteMatch;
 use LmcUser\Controller\RedirectCallback;
 use LmcUser\Options\ModuleOptions;
+use PHPUnit\Framework\TestCase;
 
-class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
+class RedirectCallbackTest extends TestCase
 {
 
     /** @var RedirectCallback */
@@ -38,7 +39,7 @@ class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
     /** @var  \PHPUnit_Framework_MockObject_MockObject|RouteMatch */
     protected $routeMatch;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->router = $this->getMockBuilder('Laminas\Router\RouteInterface')
             ->disableOriginalConstructor()
@@ -68,7 +69,7 @@ class RedirectCallbackTest extends \PHPUnit_Framework_TestCase
             ->method('getMatchedRouteName')
             ->will($this->returnValue('someRoute'));
 
-        $headers = $this->getMock('Laminas\Http\Headers');
+        $headers = $this->createMock('Laminas\Http\Headers');
         $headers->expects($this->once())
             ->method('addHeaderLine')
             ->with('Location', $url);

@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\Register as Form;
+use PHPUnit\Framework\TestCase;
 
-class RegisterTest extends \PHPUnit_Framework_TestCase
+class RegisterTest extends TestCase
 {
     /**
      * @dataProvider providerTestConstruct
      */
     public function testConstruct($useCaptcha = false)
     {
-        $options = $this->getMock('LmcUser\Options\RegistrationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
                 ->method('getEnableUsername')
                 ->will($this->returnValue(false));
@@ -51,7 +52,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetRegistrationOptions()
     {
-        $options = $this->getMock('LmcUser\Options\RegistrationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
                 ->method('getEnableUsername')
                 ->will($this->returnValue(false));
@@ -65,14 +66,14 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($options, $form->getRegistrationOptions());
 
-        $optionsNew = $this->getMock('LmcUser\Options\RegistrationOptionsInterface');
+        $optionsNew = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $form->setRegistrationOptions($optionsNew);
         $this->assertSame($optionsNew, $form->getRegistrationOptions());
     }
 
     public function testSetCaptchaElement()
     {
-        $options = $this->getMock('LmcUser\Options\RegistrationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
                 ->method('getEnableUsername')
                 ->will($this->returnValue(false));
@@ -83,7 +84,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
                 ->method('getUseRegistrationFormCaptcha')
                 ->will($this->returnValue(false));
 
-        $captcha = $this->getMock('\Laminas\Form\Element\Captcha');
+        $captcha = $this->createMock('\Laminas\Form\Element\Captcha');
         $form = new Form(null, $options);
 
         $form->setCaptchaElement($captcha);

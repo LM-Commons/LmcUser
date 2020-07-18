@@ -67,12 +67,14 @@ class Db extends AbstractAdapter
         $fields = $this->getOptions()->getAuthIdentityFields();
         while (!is_object($userObject) && count($fields) > 0) {
             $mode = array_shift($fields);
+
             switch ($mode) {
                 case 'username':
                     $userObject = $this->getMapper()->findByUsername($identity);
                     break;
                 case 'email':
                     $userObject = $this->getMapper()->findByEmail($identity);
+
                     break;
             }
         }
@@ -96,6 +98,7 @@ class Db extends AbstractAdapter
 
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
+
         if (!$bcrypt->verify($credential, $userObject->getPassword())) {
             // Password does not match
             $e->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)

@@ -3,20 +3,21 @@
 namespace LmcUserTest\Validator;
 
 use LmcUser\Validator\RecordExists as Validator;
+use PHPUnit\Framework\TestCase;
 
-class RecordExistsTest extends \PHPUnit_Framework_TestCase
+class RecordExistsTest extends TestCase
 {
     protected $validator;
 
     protected $mapper;
 
-    public function setUp()
+    public function setUp():void
     {
         $options = array('key' => 'username');
         $validator = new Validator($options);
         $this->validator = $validator;
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $this->mapper = $mapper;
 
         $validator->setMapper($mapper);

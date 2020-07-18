@@ -3,12 +3,13 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\ChangeEmailFilter as Filter;
+use PHPUnit\Framework\TestCase;
 
-class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
+class ChangeEmailFilterTest extends TestCase
 {
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getAuthIdentityFields')
                 ->will($this->returnValue(array('email')));
@@ -31,7 +32,7 @@ class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructIdentityEmail($onlyEmail)
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getAuthIdentityFields')
                 ->will($this->returnValue(($onlyEmail) ? array('email') : array('username')));
@@ -58,7 +59,7 @@ class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetEmailValidator()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getAuthIdentityFields')
                 ->will($this->returnValue(array()));

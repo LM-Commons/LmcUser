@@ -9,6 +9,7 @@ class User extends AbstractDbMapper implements UserInterface
 {
     protected $tableName  = 'user';
 
+
     public function findByEmail($email)
     {
         $select = $this->getSelect()

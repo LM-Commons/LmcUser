@@ -2,13 +2,19 @@
 
 namespace LmcUserTest\Mapper;
 
-use LmcUser\Mapper\UserHydrator as Hydrator;
+use LmcUser\Entity\UserInterface;
 
-class UserHydratorTest extends \PHPUnit_Framework_TestCase
+use LmcUser\Entity\UserInterface as UserEntityInterface;
+use LmcUser\Mapper\Exception\InvalidArgumentException;
+use LmcUser\Mapper\UserHydrator as Hydrator;
+use LmcUserTest\Authentication\Adapter\TestAsset\InvalidUserClass;
+use PHPUnit\Framework\TestCase;
+
+class UserHydratorTest extends TestCase
 {
     protected $hydrator;
 
-    public function setUp()
+    public function setUp():void
     {
         $hydrator = new Hydrator;
         $this->hydrator = $hydrator;
@@ -16,11 +22,13 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LmcUser\Mapper\UserHydrator::extract
-     * @expectedException LmcUser\Mapper\Exception\InvalidArgumentException
+     *
      */
     public function testExtractWithInvalidUserObject()
     {
-        $user = new \StdClass;
+        $this->expectException(InvalidArgumentException::class);
+        $user = $this->createMock(InvalidUserClass::class);
+
         $this->hydrator->extract($user);
     }
 
@@ -38,10 +46,11 @@ class UserHydratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LmcUser\Mapper\UserHydrator::hydrate
-     * @expectedException LmcUser\Mapper\Exception\InvalidArgumentException
+     *
      */
     public function testHydrateWithInvalidUserObject()
     {
+        $this->expectException(InvalidArgumentException::class);
         $user = new \StdClass;
         $this->hydrator->hydrate(array(), $user);
     }

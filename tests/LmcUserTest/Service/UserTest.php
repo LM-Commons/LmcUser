@@ -4,8 +4,9 @@ namespace LmcUserTest\Service;
 
 use LmcUser\Service\User as Service;
 use Laminas\Crypt\Password\Bcrypt;
+use PHPUnit\Framework\TestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     protected $service;
 
@@ -21,24 +22,24 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     protected $authService;
 
-    public function setUp()
+    public function setUp():void
     {
         $service = new Service;
         $this->service = $service;
 
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $this->options = $options;
 
-        $serviceManager = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $this->serviceManager = $serviceManager;
 
-        $eventManager = $this->getMock('Laminas\EventManager\EventManager');
+        $eventManager = $this->createMock('Laminas\EventManager\EventManager');
         $this->eventManager = $eventManager;
 
-        $formHydrator = $this->getMock('Laminas\Hydrator\HydratorInterface');
+        $formHydrator = $this->createMock('Laminas\Hydrator\HydratorInterface');
         $this->formHydrator = $formHydrator;
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $this->mapper = $mapper;
 
         $authService = $this->getMockBuilder('Laminas\Authentication\AuthenticationService')->disableOriginalConstructor()->getMock();
@@ -89,7 +90,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
              ->method('setPassword');
         $user->expects($this->once())
@@ -160,7 +161,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
              ->method('setPassword');
         $user->expects($this->once())
@@ -232,7 +233,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
              ->method('setPassword');
         $user->expects($this->once())
@@ -309,7 +310,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
              ->method('getPassword')
              ->will($this->returnValue($bcrypt->create('wrongPassword')));
@@ -336,7 +337,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
              ->method('getPassword')
              ->will($this->returnValue($bcrypt->create($data['credential'])));
@@ -372,7 +373,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
              ->method('getPassword')
              ->will($this->returnValue($bcrypt->create($data['credential'])));
@@ -409,7 +410,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
              ->method('getPassword')
              ->will($this->returnValue($bcrypt->create('wrongPassword')));

@@ -6,8 +6,9 @@ use LmcUser\Controller\Plugin\LmcUserAuthentication as Plugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use LmcUser\Authentication\Adapter\AdapterChain;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserAuthenticationTest extends \PHPUnit_Framework_TestCase
+class LmcUserAuthenticationTest extends TestCase
 {
     /**
      *
@@ -27,10 +28,10 @@ class LmcUserAuthenticationTest extends \PHPUnit_Framework_TestCase
      */
     protected $mockedAuthenticationAdapter;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->SUT = new Plugin();
-        $this->mockedAuthenticationService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $this->mockedAuthenticationService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $this->mockedAuthenticationAdapter = $this->getMockForAbstractClass('\LmcUser\Authentication\Adapter\AdapterChain');
     }
 

@@ -2,9 +2,11 @@
 
 namespace LmcUserTest\Authentication\Adapter;
 
-use LmcUserTest\Authentication\Adapter\TestAsset\AbstractAdapterExtension;
 
-class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
+use LmcUserTest\Authentication\Adapter\TestAsset\AbstractAdapterExtension;
+use PHPUnit\Framework\TestCase;
+
+class AbstractAdapterTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -13,7 +15,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected $adapter;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->adapter = new AbstractAdapterExtension();
     }

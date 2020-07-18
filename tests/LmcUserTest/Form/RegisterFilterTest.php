@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\RegisterFilter as Filter;
+use PHPUnit\Framework\TestCase;
 
-class RegisterFilterTest extends \PHPUnit_Framework_TestCase
+class RegisterFilterTest extends TestCase
 {
     /**
      * @covers LmcUser\Form\RegisterFilter::__construct
      */
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
                 ->method('getEnableUsername')
                 ->will($this->returnValue(true));
@@ -34,7 +35,7 @@ class RegisterFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetEmailValidator()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $validatorInit = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $validatorNew = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
 
@@ -47,7 +48,7 @@ class RegisterFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetUsernameValidator()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $validatorInit = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $validatorNew = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
 
@@ -60,8 +61,8 @@ class RegisterFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetOptions()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
-        $optionsNew = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
+        $optionsNew = $this->createMock('LmcUser\Options\ModuleOptions');
         $validatorInit = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $filter = new Filter($validatorInit, $validatorInit, $options);
 

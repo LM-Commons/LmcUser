@@ -7,8 +7,9 @@ use LmcUser\Entity\User as Entity;
 use Laminas\Db\ResultSet\HydratingResultSet;
 use Laminas\Db\Adapter\Adapter;
 use LmcUser\Mapper\UserHydrator;
+use PHPUnit\Framework\TestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     /** @var \LmcUser\Mapper\User */
     protected $mapper;
@@ -34,7 +35,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /** @var \Laminas\Db\Adapter\Platform\PlatformInterface */
     protected $mockedDbAdapterPlatform;
 
-    public function setUp()
+    public function setUp():void
     {
         $mapper = new Mapper;
         $mapper->setEntityPrototype(new Entity());
@@ -44,9 +45,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->setUpMockedAdapter();
 
-        $this->mockedSelect = $this->getMock('\Laminas\Db\Sql\Select', array('where'));
+        $this->mockedSelect = $this->createMock('\Laminas\Db\Sql\Select', array('where'));
 
-        $this->mockedResultSet = $this->getMock('\Laminas\Db\ResultSet\HydratingResultSet');
+        $this->mockedResultSet = $this->createMock('\Laminas\Db\ResultSet\HydratingResultSet');
 
         $this->setUpAdapter('mysql');
 //         $this->setUpAdapter('pgsql');
@@ -105,9 +106,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function setUpMockedAdapter()
     {
-        $this->mockedDbAdapterDriver = $this->getMock('Laminas\Db\Adapter\Driver\DriverInterface');
-        $this->mockedDbAdapterPlatform = $this->getMock('Laminas\Db\Adapter\Platform\PlatformInterface', array());
-        $this->mockedDbAdapterStatement= $this->getMock('Laminas\Db\Adapter\Driver\StatementInterface', array());
+        $this->mockedDbAdapterDriver = $this->createMock('Laminas\Db\Adapter\Driver\DriverInterface');
+        $this->mockedDbAdapterPlatform = $this->createMock('Laminas\Db\Adapter\Platform\PlatformInterface', array());
+        $this->mockedDbAdapterStatement= $this->createMock('Laminas\Db\Adapter\Driver\StatementInterface', array());
 
         $this->mockedDbAdapterPlatform->expects($this->any())
                                       ->method('getName')
@@ -144,11 +145,15 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function setUpMockMapperInsert($mapperMethods)
     {
-        $this->mapper = $this->getMock(get_class($this->mapper), $mapperMethods);
+        $mockBuilder=$this->getMockBuilder(get_class($this->mapper));
+        $mockBuilder->onlyMethods($mapperMethods);
+        $this->mapper = $mockBuilder->getMock();
 
         foreach ($mapperMethods as $method) {
             switch ($method) {
+
                 case 'getSelect':
+
                     $this->mapper->expects($this->once())
                                  ->method('getSelect')
                                  ->will($this->returnValue($this->mockedSelect));
@@ -201,11 +206,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTestFindBy
-     * @param string $methode
+     * @param string $method
      * @param array $args
      * @param array $expectedParams
      */
-    public function testFindBy($methode, $args, $expectedParams, $eventListener, $entityEqual)
+    public function testFindBy($method, $args, $expectedParams, $eventListener, $entityEqual)
     {
         $mockedParams =& $this->setUpMockedMapper($eventListener);
 
@@ -213,7 +218,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
              ->method('current')
              ->will($this->returnValue($entityEqual));
 
-        $return = call_user_func_array(array($this->mapper, $methode), $args);
+        $return = call_user_func_array(array($this->mapper, $method), $args);
 
         foreach ($expectedParams as $paramKey => $paramValue) {
             $this->assertArrayHasKey($paramKey, $mockedParams);
@@ -238,7 +243,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             $this->mapper->setDbAdapter($dbAdapter);
             $return = call_user_func_array(array($this->mapper, $methode), $args);
 
-            $this->assertInternalType('object', $return);
+            $this->assertIsObject($return);
             $this->assertInstanceOf('LmcUser\Entity\User', $return);
             $this->assertEquals($entityEqual, $return);
         }
