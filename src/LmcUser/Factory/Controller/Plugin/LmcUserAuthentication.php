@@ -24,7 +24,7 @@ class LmcUserAuthentication implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceManager
+     * @param  ServiceLocatorInterface $serviceManager
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceManager)

@@ -12,7 +12,11 @@ class User implements FactoryInterface
 {
     public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
     {
-        /** @var ModuleOptions $options */
+        /**
+* 
+         *
+ * @var ModuleOptions $options 
+*/
         $options = $serviceLocator->get('lmcuser_module_options');
         $dbAdapter = $serviceLocator->get('lmcuser_laminas_db_adapter');
 
@@ -31,7 +35,7 @@ class User implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)

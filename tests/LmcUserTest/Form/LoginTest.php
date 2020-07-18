@@ -8,15 +8,15 @@ use PHPUnit\Framework\TestCase;
 class LoginTest extends TestCase
 {
     /**
-     * @covers LmcUser\Form\Login::__construct
+     * @covers       LmcUser\Form\Login::__construct
      * @dataProvider providerTestConstruct
      */
     public function testConstruct($authIdentityFields = array())
     {
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue($authIdentityFields));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue($authIdentityFields));
 
         $form = new Form(null, $options);
 
@@ -45,8 +45,8 @@ class LoginTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array()));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array()));
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());

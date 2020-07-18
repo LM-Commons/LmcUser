@@ -11,7 +11,7 @@ class UserHydrator extends ClassMethodsHydrator
     /**
      * Extract values from an object
      *
-     * @param UserEntityInterface $object
+     * @param  UserEntityInterface $object
      * @return array
      * @throws Exception\InvalidArgumentException
      */
@@ -35,7 +35,7 @@ class UserHydrator extends ClassMethodsHydrator
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
+     * @param  array               $data
      * @param  UserEntityInterface $object
      * @return UserInterface
      * @throws Exception\InvalidArgumentException
@@ -52,9 +52,9 @@ class UserHydrator extends ClassMethodsHydrator
     }
 
     /**
-     * @param string $keyFrom
-     * @param string $keyTo
-     * @param array $array
+     * @param  string $keyFrom
+     * @param  string $keyTo
+     * @param  array  $array
      * @return array
      */
     protected function mapField($keyFrom, $keyTo, array $array)

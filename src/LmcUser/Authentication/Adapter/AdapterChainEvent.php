@@ -20,7 +20,7 @@ class AdapterChainEvent extends Event
     /**
      * setIdentity
      *
-     * @param mixed $identity
+     * @param  mixed $identity
      * @return AdapterChainEvent
      */
     public function setIdentity($identity = null)
@@ -47,7 +47,7 @@ class AdapterChainEvent extends Event
     /**
      * setCode
      *
-     * @param int $code
+     * @param  int $code
      * @return AdapterChainEvent
      */
     public function setCode($code = null)
@@ -69,7 +69,7 @@ class AdapterChainEvent extends Event
     /**
      * setMessages
      *
-     * @param array $messages
+     * @param  array $messages
      * @return AdapterChainEvent
      */
     public function setMessages($messages = array())
@@ -91,7 +91,7 @@ class AdapterChainEvent extends Event
     /**
      * setRequest
      *
-     * @param Request $request
+     * @param  Request $request
      * @return AdapterChainEvent
      */
     public function setRequest(Request $request)

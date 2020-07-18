@@ -36,6 +36,7 @@ class Db extends AbstractAdapter
 
     /**
      * Called when user id logged out
+     *
      * @param AdapterChainEvent $e
      */
     public function logout(AdapterChainEvent $e)
@@ -44,7 +45,7 @@ class Db extends AbstractAdapter
     }
 
     /**
-     * @param AdapterChainEvent $e
+     * @param  AdapterChainEvent $e
      * @return bool
      */
     public function authenticate(AdapterChainEvent $e)
@@ -52,15 +53,19 @@ class Db extends AbstractAdapter
         if ($this->isSatisfied()) {
             $storage = $this->getStorage()->read();
             $e->setIdentity($storage['identity'])
-              ->setCode(AuthenticationResult::SUCCESS)
-              ->setMessages(array('Authentication successful.'));
+                ->setCode(AuthenticationResult::SUCCESS)
+                ->setMessages(array('Authentication successful.'));
             return;
         }
 
         $identity   = $e->getRequest()->getPost()->get('identity');
         $credential = $e->getRequest()->getPost()->get('credential');
         $credential = $this->preProcessCredential($credential);
-        /** @var UserInterface|null $userObject */
+        /**
+* 
+         *
+ * @var UserInterface|null $userObject 
+*/
         $userObject = null;
 
         // Cycle through the configured identity sources and test each
@@ -69,19 +74,19 @@ class Db extends AbstractAdapter
             $mode = array_shift($fields);
 
             switch ($mode) {
-                case 'username':
-                    $userObject = $this->getMapper()->findByUsername($identity);
-                    break;
-                case 'email':
-                    $userObject = $this->getMapper()->findByEmail($identity);
+            case 'username':
+                $userObject = $this->getMapper()->findByUsername($identity);
+                break;
+            case 'email':
+                $userObject = $this->getMapper()->findByEmail($identity);
 
-                    break;
+                break;
             }
         }
 
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
-              ->setMessages(array('A record with the supplied identity could not be found.'));
+                ->setMessages(array('A record with the supplied identity could not be found.'));
             $this->setSatisfied(false);
             return false;
         }
@@ -90,7 +95,7 @@ class Db extends AbstractAdapter
             // Don't allow user to login if state is not in allowed list
             if (!in_array($userObject->getState(), $this->getOptions()->getAllowedLoginStates())) {
                 $e->setCode(AuthenticationResult::FAILURE_UNCATEGORIZED)
-                  ->setMessages(array('A record with the supplied identity is not active.'));
+                    ->setMessages(array('A record with the supplied identity is not active.'));
                 $this->setSatisfied(false);
                 return false;
             }
@@ -102,7 +107,7 @@ class Db extends AbstractAdapter
         if (!$bcrypt->verify($credential, $userObject->getPassword())) {
             // Password does not match
             $e->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
-              ->setMessages(array('Supplied credential is invalid.'));
+                ->setMessages(array('Supplied credential is invalid.'));
             $this->setSatisfied(false);
             return false;
         }
@@ -120,7 +125,7 @@ class Db extends AbstractAdapter
         $storage['identity'] = $e->getIdentity();
         $this->getStorage()->write($storage);
         $e->setCode(AuthenticationResult::SUCCESS)
-          ->setMessages(array('Authentication successful.'));
+            ->setMessages(array('Authentication successful.'));
     }
 
     protected function updateUserPasswordHash(UserInterface $userObject, $password, Bcrypt $bcrypt)
@@ -161,7 +166,7 @@ class Db extends AbstractAdapter
     /**
      * setMapper
      *
-     * @param UserMapperInterface $mapper
+     * @param  UserMapperInterface $mapper
      * @return Db
      */
     public function setMapper(UserMapperInterface $mapper)
@@ -184,7 +189,7 @@ class Db extends AbstractAdapter
     /**
      * Set credentialPreprocessor.
      *
-     * @param callable $credentialPreprocessor
+     * @param  callable $credentialPreprocessor
      * @return $this
      */
     public function setCredentialPreprocessor($credentialPreprocessor)

@@ -40,7 +40,7 @@ class LmcUserIdentity extends AbstractHelper
     /**
      * Set authService.
      *
-     * @param AuthenticationService $authService
+     * @param  AuthenticationService $authService
      * @return \LmcUser\View\Helper\LmcUserIdentity
      */
     public function setAuthService(AuthenticationService $authService)

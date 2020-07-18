@@ -53,7 +53,7 @@ abstract class AbstractAdapter implements ChainableAdapter
     /**
      * Set if this adapter is satisfied or not
      *
-     * @param bool $bool
+     * @param  bool $bool
      * @return AbstractAdapter
      */
     public function setSatisfied($bool = true)

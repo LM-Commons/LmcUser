@@ -76,19 +76,19 @@ class AdapterChainTest extends TestCase
     {
         $event = $this->createMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
         $event->expects($this->once())
-              ->method('getCode')
-              ->will($this->returnValue(123));
+            ->method('getCode')
+            ->will($this->returnValue(123));
         $event->expects($this->once())
-              ->method('getIdentity')
-              ->will($this->returnValue('identity'));
+            ->method('getIdentity')
+            ->will($this->returnValue('identity'));
         $event->expects($this->once())
-              ->method('getMessages')
-              ->will($this->returnValue(array()));
+            ->method('getMessages')
+            ->will($this->returnValue(array()));
 
         $this->sharedEventManager->expects($this->once())
-             ->method('getListeners')
-             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-             ->will($this->returnValue(array()));
+            ->method('getListeners')
+            ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
+            ->will($this->returnValue(array()));
 
         $this->adapterChain->setEvent($event);
         $result = $this->adapterChain->authenticate();
@@ -108,21 +108,21 @@ class AdapterChainTest extends TestCase
         for ($i=1; $i<=3; $i++) {
             $storage = $this->createMock('LmcUser\Authentication\Storage\Db');
             $storage->expects($this->once())
-                    ->method('clear');
+                ->method('clear');
 
             $adapter = $this->createMock('LmcUser\Authentication\Adapter\ChainableAdapter');
             $adapter->expects($this->once())
-                    ->method('getStorage')
-                    ->will($this->returnValue($storage));
+                ->method('getStorage')
+                ->will($this->returnValue($storage));
 
             $callback = [$adapter, 'authenticate'];
             $listeners[] = $callback;
         }
 
         $this->sharedEventManager->expects($this->once())
-             ->method('getListeners')
-             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-             ->will($this->returnValue($listeners));
+            ->method('getListeners')
+            ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
+            ->will($this->returnValue($listeners));
 
         $result = $this->adapterChain->resetAdapters();
 
@@ -150,15 +150,21 @@ class AdapterChainTest extends TestCase
         $this->event->setName('authenticate');
         $this->eventManager->expects($this->at(1))
             ->method('triggerEventUntil')
-            ->with(function ($test) {
-                return ($test instanceof Response);
-            }, $this->event)
-            ->will($this->returnCallback(function ( $callback) use ($responses) {
-                if (call_user_func($callback, $responses->last())) {
-                    $responses->setStopped(true);
-                }
-                return $responses;
-            }));
+            ->with(
+                function ($test) {
+                    return ($test instanceof Response);
+                }, $this->event
+            )
+            ->will(
+                $this->returnCallback(
+                    function ( $callback) use ($responses) {
+                        if (call_user_func($callback, $responses->last())) {
+                            $responses->setStopped(true);
+                        }
+                        return $responses;
+                    }
+                )
+            );
 
         $this->adapterChain->setEvent($this->event);
 
@@ -185,7 +191,7 @@ class AdapterChainTest extends TestCase
      * @param bool  $expected
      *
      * @dataProvider identityProvider
-     * @covers \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
+     * @covers       \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
      */
     public function testPrepareForAuthentication($identity, $expected)
     {
@@ -227,7 +233,6 @@ class AdapterChainTest extends TestCase
      * Test prepareForAuthentication() when the returned collection contains stopped.
      *
      * @covers \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
-     *
      */
     public function testPrepareForAuthenticationWithBadEventResult()
     {
@@ -314,7 +319,7 @@ class AdapterChainTest extends TestCase
      * Test the logoutAdapters method.
      *
      * @depends testGetEventWithEventSet
-     * @covers \LmcUser\Authentication\Adapter\AdapterChain::logoutAdapters
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChain::logoutAdapters
      */
     public function testLogoutAdapters()
     {

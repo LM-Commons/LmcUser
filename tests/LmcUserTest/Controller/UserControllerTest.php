@@ -106,9 +106,11 @@ class UserControllerTest extends TestCase
         $controller = $this->controller;
         $redirectRoute = $redirectRoute ?: $controller::ROUTE_LOGIN;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>$hasIdentity
-        ));
+            )
+        );
 
         $response = new Response();
 
@@ -138,9 +140,11 @@ class UserControllerTest extends TestCase
     public function testIndexActionLoggedIn()
     {
         $controller = $this->controller;
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $result = $controller->indexAction();
 
@@ -150,16 +154,18 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTrueOrFalseX2
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLoginActionValidFormRedirectFalse($isValid, $wantRedirect)
     {
         $controller = $this->controller;
         $redirectUrl = 'localhost/redirect1';
 
-        $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+        $plugin = $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $flashMessenger = $this->createMock(
             'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
@@ -216,10 +222,12 @@ class UserControllerTest extends TestCase
             $service->expects($this->once())
                 ->method('clearIdentity');
 
-            $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+            $plugin = $this->setUpLmcUserAuthenticationPlugin(
+                array(
                 'getAuthAdapter'=>$adapter,
                 'getAuthService'=>$service
-            ));
+                )
+            );
 
             $form->expects($this->once())
                 ->method('setData')
@@ -247,12 +255,16 @@ class UserControllerTest extends TestCase
             $redirect->expects($this->any())
                 ->method('toUrl')
                 ->with($route_url . $redirectQuery)
-                ->will($this->returnCallback(function ($url) use (&$response) {
-                    $response->getHeaders()->addHeaderLine('Location', $url);
-                    $response->setStatusCode(302);
+                ->will(
+                    $this->returnCallback(
+                        function ($url) use (&$response) {
+                            $response->getHeaders()->addHeaderLine('Location', $url);
+                            $response->setStatusCode(302);
 
-                    return $response;
-                }));
+                            return $response;
+                        }
+                    )
+                );
 
             $this->pluginManagerPlugins['redirect']= $redirect;
 
@@ -283,13 +295,15 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTrueOrFalse
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLoginActionIsNotPost($redirect)
     {
-        $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+        $plugin = $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $flashMessenger = $this->createMock('Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger');
 
@@ -342,7 +356,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerRedirectPostQueryMatrix
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLogoutAction($withRedirect, $post, $query)
     {
@@ -359,10 +373,12 @@ class UserControllerTest extends TestCase
         $service->expects($this->once())
             ->method('clearIdentity');
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-        ));
+            )
+        );
 
 
         $response = new Response();
@@ -380,7 +396,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTestAuthenticateAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testAuthenticateAction($wantRedirect, $post, $query, $prepareResult = false, $authValid = false)
     {
@@ -394,14 +410,22 @@ class UserControllerTest extends TestCase
             ->will($this->returnSelf());
         $params->expects($this->once())
             ->method('fromPost')
-            ->will($this->returnCallback(function ($key, $default) use ($post) {
-                return $post ?: $default;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function ($key, $default) use ($post) {
+                        return $post ?: $default;
+                    }
+                )
+            );
         $params->expects($this->once())
             ->method('fromQuery')
-            ->will($this->returnCallback(function ($key, $default) use ($query) {
-                return $query ?: $default;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function ($key, $default) use ($query) {
+                        return $query ?: $default;
+                    }
+                )
+            );
         $this->pluginManagerPlugins['params'] = $params;
 
 
@@ -418,11 +442,13 @@ class UserControllerTest extends TestCase
         $service = $this->createMock('Laminas\Authentication\AuthenticationService');
 
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false,
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-        ));
+            )
+        );
 
         if (is_bool($prepareResult)) {
             $authResult = $this->getMockBuilder('Laminas\Authentication\Result')
@@ -494,9 +520,11 @@ class UserControllerTest extends TestCase
     {
         $controller = $this->controller;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $this->options->expects($this->once())
             ->method('getEnableRegistration')
@@ -504,7 +532,7 @@ class UserControllerTest extends TestCase
 
         $result = $controller->registerAction();
 
-        $this->assertIsArray( $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('enableRegistration', $result);
         $this->assertFalse($result['enableRegistration']);
     }
@@ -512,8 +540,8 @@ class UserControllerTest extends TestCase
     /**
      *
      * @dataProvider providerTestRegisterAction
-     * @depend testActionControllHasIdentity
-     * @depend testRegisterActionIsNotAllowed
+     * @depend       testActionControllHasIdentity
+     * @depend       testRegisterActionIsNotAllowed
      */
     public function testRegisterAction($wantRedirect, $postRedirectGetReturn, $registerSuccess, $loginAfterSuccessWith)
     {
@@ -522,9 +550,11 @@ class UserControllerTest extends TestCase
         $route_url = '/user/register';
         $expectedResult = null;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $this->options->expects($this->any())
             ->method('getEnableRegistration')
@@ -664,7 +694,7 @@ class UserControllerTest extends TestCase
         }
 
         if ($expectedResult) {
-            $this->assertIsArray( $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('registerForm', $result);
             $this->assertArrayHasKey('enableRegistration', $result);
             $this->assertArrayHasKey('redirect', $result);
@@ -678,16 +708,18 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTestChangeAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testChangepasswordAction($status, $postRedirectGetReturn, $isValid, $changeSuccess)
     {
         $controller = $this->controller;
         $response = new Response();
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
             ->disableOriginalConstructor()
@@ -782,7 +814,7 @@ class UserControllerTest extends TestCase
                 );
             }
             if ($exceptedReturn) {
-                $this->assertIsArray( $result);
+                $this->assertIsArray($result);
                 $this->assertArrayHasKey('status', $result);
                 $this->assertArrayHasKey('changePasswordForm', $result);
                 $this->assertEquals($exceptedReturn, $result);
@@ -796,7 +828,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTestChangeAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testChangeEmailAction($status, $postRedirectGetReturn, $isValid, $changeSuccess)
     {
@@ -808,9 +840,11 @@ class UserControllerTest extends TestCase
 
         $controller->setUserService($userService);
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
             ->disableOriginalConstructor()
@@ -923,7 +957,7 @@ class UserControllerTest extends TestCase
             }
 
             if ($exceptedReturn) {
-                $this->assertIsArray( $result);
+                $this->assertIsArray($result);
                 $this->assertArrayHasKey('status', $result);
                 $this->assertArrayHasKey('changeEmailForm', $result);
                 $this->assertEquals($exceptedReturn, $result);
@@ -936,7 +970,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @dataProvider providerTestSetterGetterServices
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testSetterGetterServices(
         $method,
@@ -1158,9 +1192,9 @@ class UserControllerTest extends TestCase
 
     /**
      *
-     * @param mixed $objectOrClass
-     * @param string $property
-     * @param mixed $value = null
+     * @param  mixed  $objectOrClass
+     * @param  string $property
+     * @param  mixed  $value         = null
      * @return \ReflectionProperty
      */
     public function helperMakePropertyAccessable($objectOrClass, $property, $value = null)
@@ -1177,10 +1211,10 @@ class UserControllerTest extends TestCase
     public function helperMockCallbackPluginManagerGet($key)
     {
         if ($key=="flashMessenger" && !array_key_exists($key, $this->pluginManagerPlugins)) {
-//             echo "\n\n";
-//             echo '$key: ' . $key . "\n";
-//             var_dump(array_key_exists($key, $this->pluginManagerPlugins), array_keys($this->pluginManagerPlugins));
-//             exit;
+            //             echo "\n\n";
+            //             echo '$key: ' . $key . "\n";
+            //             var_dump(array_key_exists($key, $this->pluginManagerPlugins), array_keys($this->pluginManagerPlugins));
+            //             exit;
         }
         return (array_key_exists($key, $this->pluginManagerPlugins))
             ? $this->pluginManagerPlugins[$key]

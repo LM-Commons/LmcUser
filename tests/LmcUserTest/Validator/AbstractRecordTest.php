@@ -19,7 +19,6 @@ class AbstractRecordTest extends TestCase
 
     /**
      * @covers LmcUser\Validator\AbstractRecord::__construct
-     *
      */
     public function testConstructEmptyArray()
     {
@@ -62,8 +61,6 @@ class AbstractRecordTest extends TestCase
 
     /**
      * @covers LmcUser\Validator\AbstractRecord::query
-     *
-     *
      */
     public function testQueryWithInvalidKey()
     {
@@ -88,9 +85,9 @@ class AbstractRecordTest extends TestCase
 
         $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $mapper->expects($this->once())
-               ->method('findByUsername')
-               ->with('test')
-               ->will($this->returnValue('LmcUser'));
+            ->method('findByUsername')
+            ->with('test')
+            ->will($this->returnValue('LmcUser'));
 
         $validator->setMapper($mapper);
 

@@ -51,12 +51,12 @@ class LmcUserAuthenticationTest extends TestCase
         };
 
         $this->mockedAuthenticationService->expects($this->any())
-                                          ->method('hasIdentity')
-                                          ->will($this->returnCallback($callback));
+            ->method('hasIdentity')
+            ->will($this->returnCallback($callback));
 
         $this->mockedAuthenticationService->expects($this->any())
-                                          ->method('getIdentity')
-                                          ->will($this->returnCallback($callback));
+            ->method('getIdentity')
+            ->will($this->returnCallback($callback));
 
         $this->assertTrue($this->SUT->hasIdentity());
         $this->assertFalse($this->SUT->hasIdentity());

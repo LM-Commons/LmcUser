@@ -22,7 +22,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
         $this->usernameValidator = $usernameValidator;
 
         if ($this->getOptions()->getEnableUsername()) {
-            $this->add(array(
+            $this->add(
+                array(
                 'name'       => 'username',
                 'required'   => true,
                 'validators' => array(
@@ -35,10 +36,12 @@ class RegisterFilter extends ProvidesEventsInputFilter
                     ),
                     $this->usernameValidator,
                 ),
-            ));
+                )
+            );
         }
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'email',
             'required'   => true,
             'validators' => array(
@@ -47,10 +50,12 @@ class RegisterFilter extends ProvidesEventsInputFilter
                 ),
                 $this->emailValidator
             ),
-        ));
+            )
+        );
 
         if ($this->getOptions()->getEnableDisplayName()) {
-            $this->add(array(
+            $this->add(
+                array(
                 'name'       => 'display_name',
                 'required'   => true,
                 'filters'    => array(array('name' => 'StringTrim')),
@@ -63,10 +68,12 @@ class RegisterFilter extends ProvidesEventsInputFilter
                         ),
                     ),
                 ),
-            ));
+                )
+            );
         }
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'password',
             'required'   => true,
             'filters'    => array(array('name' => 'StringTrim')),
@@ -78,9 +85,11 @@ class RegisterFilter extends ProvidesEventsInputFilter
                     ),
                 ),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'passwordVerify',
             'required'   => true,
             'filters'    => array(array('name' => 'StringTrim')),
@@ -98,7 +107,8 @@ class RegisterFilter extends ProvidesEventsInputFilter
                     ),
                 ),
             ),
-        ));
+            )
+        );
     }
 
     public function getEmailValidator()

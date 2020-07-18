@@ -29,9 +29,9 @@ class RecordExistsTest extends TestCase
     public function testIsValid()
     {
         $this->mapper->expects($this->once())
-                     ->method('findByUsername')
-                     ->with('lmcUser')
-                     ->will($this->returnValue('lmcUser'));
+            ->method('findByUsername')
+            ->with('lmcUser')
+            ->will($this->returnValue('lmcUser'));
 
         $result = $this->validator->isValid('lmcUser');
         $this->assertTrue($result);
@@ -43,9 +43,9 @@ class RecordExistsTest extends TestCase
     public function testIsInvalid()
     {
         $this->mapper->expects($this->once())
-                     ->method('findByUsername')
-                     ->with('lmcUser')
-                     ->will($this->returnValue(false));
+            ->method('findByUsername')
+            ->with('lmcUser')
+            ->will($this->returnValue(false));
 
         $result = $this->validator->isValid('lmcUser');
         $this->assertFalse($result);

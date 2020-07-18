@@ -43,8 +43,8 @@ class DbTest extends TestCase
     public function testIsEmpty()
     {
         $this->storage->expects($this->once())
-                      ->method('isEmpty')
-                      ->will($this->returnValue(true));
+            ->method('isEmpty')
+            ->will($this->returnValue(true));
 
         $this->db->setStorage($this->storage);
 
@@ -70,8 +70,8 @@ class DbTest extends TestCase
     public function testReadWithoutResolvedEntitySetIdentityIntUserFound()
     {
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue(1));
+            ->method('read')
+            ->will($this->returnValue(1));
 
         $this->db->setStorage($this->storage);
 
@@ -79,9 +79,9 @@ class DbTest extends TestCase
         $user->setUsername('lmcUser');
 
         $this->mapper->expects($this->once())
-                     ->method('findById')
-                     ->with(1)
-                     ->will($this->returnValue($user));
+            ->method('findById')
+            ->with(1)
+            ->will($this->returnValue($user));
 
         $this->db->setMapper($this->mapper);
 
@@ -96,15 +96,15 @@ class DbTest extends TestCase
     public function testReadWithoutResolvedEntitySetIdentityIntUserNotFound()
     {
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue(1));
+            ->method('read')
+            ->will($this->returnValue(1));
 
         $this->db->setStorage($this->storage);
 
         $this->mapper->expects($this->once())
-                     ->method('findById')
-                     ->with(1)
-                     ->will($this->returnValue(false));
+            ->method('findById')
+            ->with(1)
+            ->will($this->returnValue(false));
 
         $this->db->setMapper($this->mapper);
 
@@ -122,8 +122,8 @@ class DbTest extends TestCase
         $user->setUsername('lmcUser');
 
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue($user));
+            ->method('read')
+            ->will($this->returnValue($user));
 
         $this->db->setStorage($this->storage);
 
@@ -142,8 +142,8 @@ class DbTest extends TestCase
         $reflectionProperty->setAccessible(true);
 
         $this->storage->expects($this->once())
-                      ->method('write')
-                      ->with('lmcUser');
+            ->method('write')
+            ->with('lmcUser');
 
         $this->db->setStorage($this->storage);
 
@@ -178,9 +178,9 @@ class DbTest extends TestCase
     {
         $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $sm->expects($this->once())
-           ->method('get')
-           ->with('lmcuser_user_mapper')
-           ->will($this->returnValue($this->mapper));
+            ->method('get')
+            ->with('lmcuser_user_mapper')
+            ->will($this->returnValue($this->mapper));
 
         $this->db->setServiceManager($sm);
 

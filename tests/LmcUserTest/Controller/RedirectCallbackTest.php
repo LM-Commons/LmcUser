@@ -15,28 +15,60 @@ use PHPUnit\Framework\TestCase;
 class RedirectCallbackTest extends TestCase
 {
 
-    /** @var RedirectCallback */
+    /**
+     * 
+     *
+     * @var RedirectCallback 
+     */
     protected $redirectCallback;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|ModuleOptions */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|ModuleOptions 
+     */
     protected $moduleOptions;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|RouteInterface */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|RouteInterface 
+     */
     protected $router;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|Application */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|Application 
+     */
     protected $application;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|Request */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|Request 
+     */
     protected $request;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|Response */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|Response 
+     */
     protected $response;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|MvcEvent */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|MvcEvent 
+     */
     protected $mvcEvent;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject|RouteMatch */
+    /**
+     * 
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject|RouteMatch 
+     */
     protected $routeMatch;
 
     public function setUp():void

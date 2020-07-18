@@ -28,11 +28,11 @@ class LmcUserIdentityTest extends TestCase
     public function testInvokeWithIdentity()
     {
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(true));
+            ->method('hasIdentity')
+            ->will($this->returnValue(true));
         $this->authService->expects($this->once())
-                          ->method('getIdentity')
-                          ->will($this->returnValue('lmcUser'));
+            ->method('getIdentity')
+            ->will($this->returnValue('lmcUser'));
 
         $result = $this->helper->__invoke();
 
@@ -45,8 +45,8 @@ class LmcUserIdentityTest extends TestCase
     public function testInvokeWithoutIdentity()
     {
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(false));
+            ->method('hasIdentity')
+            ->will($this->returnValue(false));
 
         $result = $this->helper->__invoke();
 

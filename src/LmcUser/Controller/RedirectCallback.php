@@ -14,19 +14,31 @@ use LmcUser\Options\ModuleOptions;
 class RedirectCallback
 {
 
-    /** @var RouteInterface  */
+    /**
+     * 
+     *
+     * @var RouteInterface  
+     */
     private $router;
 
-    /** @var Application */
+    /**
+     * 
+     *
+     * @var Application 
+     */
     private $application;
 
-    /** @var ModuleOptions */
+    /**
+     * 
+     *
+     * @var ModuleOptions 
+     */
     private $options;
 
     /**
-     * @param Application $application
+     * @param Application    $application
      * @param RouteInterface $router
-     * @param ModuleOptions $options
+     * @param ModuleOptions  $options
      */
     public function __construct(Application $application, RouteInterface $router, ModuleOptions $options)
     {
@@ -52,6 +64,7 @@ class RedirectCallback
     /**
      * Return the redirect from param.
      * First checks GET then POST
+     *
      * @return string
      */
     private function getRedirectRouteFromRequest()
@@ -71,7 +84,7 @@ class RedirectCallback
     }
 
     /**
-     * @param $route
+     * @param  $route
      * @return bool
      */
     private function routeExists($route)
@@ -88,8 +101,8 @@ class RedirectCallback
      * Returns the url to redirect to based on current route.
      * If $redirect is set and the option to use redirect is set to true, it will return the $redirect url.
      *
-     * @param string $currentRoute
-     * @param bool $redirect
+     * @param  string $currentRoute
+     * @param  bool   $redirect
      * @return mixed
      */
     protected function getRedirect($currentRoute, $redirect = false)
@@ -101,18 +114,18 @@ class RedirectCallback
         }
 
         switch ($currentRoute) {
-            case 'lmcuser/register':
-            case 'lmcuser/login':
-            case 'lmcuser/authenticate':
-                $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+        case 'lmcuser/register':
+        case 'lmcuser/login':
+        case 'lmcuser/authenticate':
+            $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
+            return $this->router->assemble(array(), array('name' => $route));
                 break;
-            case 'lmcuser/logout':
-                $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+        case 'lmcuser/logout':
+            $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
+            return $this->router->assemble(array(), array('name' => $route));
                 break;
-            default:
-                return $this->router->assemble(array(), array('name' => 'lmcuser'));
+        default:
+            return $this->router->assemble(array(), array('name' => 'lmcuser'));
         }
     }
 }

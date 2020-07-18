@@ -58,7 +58,7 @@ class LmcUserLoginWidgetTest extends TestCase
     }
 
     /**
-     * @covers LmcUser\View\Helper\LmcUserLoginWidget::__invoke
+     * @covers       LmcUser\View\Helper\LmcUserLoginWidget::__invoke
      * @dataProvider providerTestInvokeWithRender
      */
     public function testInvokeWithRender($option, $expect)
@@ -69,11 +69,15 @@ class LmcUserLoginWidgetTest extends TestCase
         $viewModel = null;
 
         $this->view->expects($this->at(0))
-             ->method('render')
-             ->will($this->returnCallback(function ($vm) use (&$viewModel) {
-                 $viewModel = $vm;
-                 return "test";
-             }));
+            ->method('render')
+            ->will(
+                $this->returnCallback(
+                    function ($vm) use (&$viewModel) {
+                        $viewModel = $vm;
+                        return "test";
+                    }
+                )
+            );
 
         $result = $this->helper->__invoke($option);
 
@@ -92,10 +96,12 @@ class LmcUserLoginWidgetTest extends TestCase
      */
     public function testInvokeWithoutRender()
     {
-        $result = $this->helper->__invoke(array(
+        $result = $this->helper->__invoke(
+            array(
             'render' => false,
             'redirect' => 'lmcUser'
-        ));
+            )
+        );
 
         $this->assertInstanceOf('Laminas\View\Model\ViewModel', $result);
         $this->assertEquals('lmcUser', $result->redirect);

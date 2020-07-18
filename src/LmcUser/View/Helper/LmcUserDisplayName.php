@@ -17,7 +17,7 @@ class LmcUserDisplayName extends AbstractHelper
      * __invoke
      *
      * @access public
-     * @param \LmcUser\Entity\UserInterface $user
+     * @param  \LmcUser\Entity\UserInterface $user
      * @throws \LmcUser\Exception\DomainException
      * @return String
      */
@@ -63,7 +63,7 @@ class LmcUserDisplayName extends AbstractHelper
     /**
      * Set authService.
      *
-     * @param AuthenticationService $authService
+     * @param  AuthenticationService $authService
      * @return \LmcUser\View\Helper\LmcUserDisplayName
      */
     public function setAuthService(AuthenticationService $authService)

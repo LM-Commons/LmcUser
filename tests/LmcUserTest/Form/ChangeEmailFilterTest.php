@@ -11,8 +11,8 @@ class ChangeEmailFilterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array('email')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array('email')));
 
         $validator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $filter = new Filter($options, $validator);
@@ -34,8 +34,8 @@ class ChangeEmailFilterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(($onlyEmail) ? array('email') : array('username')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(($onlyEmail) ? array('email') : array('username')));
 
         $validator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $filter = new Filter($options, $validator);
@@ -61,8 +61,8 @@ class ChangeEmailFilterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array()));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array()));
 
         $validatorInit = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $validatorNew = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();

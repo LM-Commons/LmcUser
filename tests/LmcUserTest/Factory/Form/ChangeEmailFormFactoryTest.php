@@ -12,12 +12,14 @@ class ChangeEmailFormFactoryTest extends TestCase
 {
     public function testFactory()
     {
-        $serviceManager = new ServiceManager([
+        $serviceManager = new ServiceManager(
+            [
             'services' => [
                 'lmcuser_module_options' => new ModuleOptions,
                 'lmcuser_user_mapper' => new UserMapper
             ]
-        ]);
+            ]
+        );
 
         $formElementManager = new FormElementManager($serviceManager);
         $serviceManager->setService('FormElementManager', $formElementManager);

@@ -22,7 +22,6 @@ class UserHydratorTest extends TestCase
 
     /**
      * @covers LmcUser\Mapper\UserHydrator::extract
-     *
      */
     public function testExtractWithInvalidUserObject()
     {
@@ -33,10 +32,10 @@ class UserHydratorTest extends TestCase
     }
 
     /**
-     * @covers LmcUser\Mapper\UserHydrator::extract
-     * @covers LmcUser\Mapper\UserHydrator::mapField
+     * @covers       LmcUser\Mapper\UserHydrator::extract
+     * @covers       LmcUser\Mapper\UserHydrator::mapField
      * @dataProvider dataProviderTestExtractWithValidUserObject
-     * @see https://github.com/ZF-Commons/LmcUser/pull/421
+     * @see          https://github.com/ZF-Commons/LmcUser/pull/421
      */
     public function testExtractWithValidUserObject($object, $expectArray)
     {
@@ -46,7 +45,6 @@ class UserHydratorTest extends TestCase
 
     /**
      * @covers LmcUser\Mapper\UserHydrator::hydrate
-     *
      */
     public function testHydrateWithInvalidUserObject()
     {

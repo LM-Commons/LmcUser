@@ -42,8 +42,8 @@ class AdapterChainEventTest extends TestCase
 
     /**
      * @depends testCodeAndMessages
-     * @covers \LmcUser\Authentication\Adapter\AdapterChainEvent::getIdentity
-     * @covers \LmcUser\Authentication\Adapter\AdapterChainEvent::setIdentity
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChainEvent::getIdentity
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChainEvent::setIdentity
      */
     public function testIdentity()
     {

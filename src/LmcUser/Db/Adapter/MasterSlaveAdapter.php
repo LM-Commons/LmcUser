@@ -14,10 +14,10 @@ class MasterSlaveAdapter extends Adapter implements MasterSlaveAdapterInterface
      */
     protected $slaveAdapter;
     /**
-     * @param Adapter $slaveAdapter
+     * @param Adapter                      $slaveAdapter
      * @param Driver\DriverInterface|array $driver
-     * @param Platform\PlatformInterface $platform
-     * @param ResultSet\ResultSet $queryResultPrototype
+     * @param Platform\PlatformInterface   $platform
+     * @param ResultSet\ResultSet          $queryResultPrototype
      */
     public function __construct(
         Adapter $slaveAdapter,

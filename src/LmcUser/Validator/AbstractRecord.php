@@ -59,7 +59,7 @@ abstract class AbstractRecord extends AbstractValidator
     /**
      * setMapper
      *
-     * @param UserInterface $mapper
+     * @param  UserInterface $mapper
      * @return AbstractRecord
      */
     public function setMapper(UserInterface $mapper)
@@ -92,7 +92,7 @@ abstract class AbstractRecord extends AbstractValidator
     /**
      * Grab the user from the mapper
      *
-     * @param string $value
+     * @param  string $value
      * @return mixed
      */
     protected function query($value)
@@ -100,16 +100,16 @@ abstract class AbstractRecord extends AbstractValidator
         $result = false;
 
         switch ($this->getKey()) {
-            case 'email':
-                $result = $this->getMapper()->findByEmail($value);
-                break;
+        case 'email':
+            $result = $this->getMapper()->findByEmail($value);
+            break;
 
-            case 'username':
-                $result = $this->getMapper()->findByUsername($value);
-                break;
+        case 'username':
+            $result = $this->getMapper()->findByUsername($value);
+            break;
 
-            default:
-                throw new \Exception('Invalid key used in LmcUser validator');
+        default:
+            throw new \Exception('Invalid key used in LmcUser validator');
                 break;
         }
 

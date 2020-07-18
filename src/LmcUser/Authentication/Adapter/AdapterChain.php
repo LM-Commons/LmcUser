@@ -56,9 +56,11 @@ class AdapterChain implements AdapterInterface
         $this->getEventManager()->triggerEvent($e);
 
         $e->setName('authenticate');
-        $result = $this->getEventManager()->triggerEventUntil(function ($test) {
-            return ($test instanceof Response);
-        }, $e);
+        $result = $this->getEventManager()->triggerEventUntil(
+            function ($test) {
+                return ($test instanceof Response);
+            }, $e
+        );
 
         if ($result && $result->stopped()) {
             if ($result->last() instanceof Response) {

@@ -35,7 +35,7 @@ class AdapterChainServiceFactoryTest extends TestCase
 
     public function helperServiceLocator($index)
     {
-        if(!array_key_exists($index,$this->serviceLocatorArray)){
+        if(!array_key_exists($index, $this->serviceLocatorArray)) {
 
             throw new \Exception('index '.$index.' does not exist in serviceLocatorArray');
         }
@@ -89,8 +89,8 @@ class AdapterChainServiceFactoryTest extends TestCase
         $this->serviceLocatorArray = array_merge($this->serviceLocatorArray, $adapter);
 
         $this->options->expects($this->once())
-                      ->method('getAuthAdapters')
-                      ->will($this->returnValue($adapterNames));
+            ->method('getAuthAdapters')
+            ->will($this->returnValue($adapterNames));
 
         $adapterChain = $this->factory->__invoke($this->serviceLocator, 'LmcUser\Authentication\Adapter\AdapterChain');
 
@@ -133,7 +133,6 @@ class AdapterChainServiceFactoryTest extends TestCase
 
     /**
      * @covers \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::getOptions
-     *
      */
     public function testGetOptionFailing()
     {

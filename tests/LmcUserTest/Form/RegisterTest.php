@@ -14,14 +14,14 @@ class RegisterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
-                ->method('getEnableUsername')
-                ->will($this->returnValue(false));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(false));
         $options->expects($this->once())
-                ->method('getEnableDisplayName')
-                ->will($this->returnValue(false));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(false));
         $options->expects($this->any())
-                ->method('getUseRegistrationFormCaptcha')
-                ->will($this->returnValue($useCaptcha));
+            ->method('getUseRegistrationFormCaptcha')
+            ->will($this->returnValue($useCaptcha));
         if ($useCaptcha && class_exists('\Laminas\Captcha\AbstractAdapter')) {
             $captcha = $this->getMockForAbstractClass('\Laminas\Captcha\AbstractAdapter');
 
@@ -54,14 +54,14 @@ class RegisterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
-                ->method('getEnableUsername')
-                ->will($this->returnValue(false));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(false));
         $options->expects($this->once())
-                ->method('getEnableDisplayName')
-                ->will($this->returnValue(false));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(false));
         $options->expects($this->any())
-                ->method('getUseRegistrationFormCaptcha')
-                ->will($this->returnValue(false));
+            ->method('getUseRegistrationFormCaptcha')
+            ->will($this->returnValue(false));
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getRegistrationOptions());
@@ -75,14 +75,14 @@ class RegisterTest extends TestCase
     {
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
-                ->method('getEnableUsername')
-                ->will($this->returnValue(false));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(false));
         $options->expects($this->once())
-                ->method('getEnableDisplayName')
-                ->will($this->returnValue(false));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(false));
         $options->expects($this->any())
-                ->method('getUseRegistrationFormCaptcha')
-                ->will($this->returnValue(false));
+            ->method('getUseRegistrationFormCaptcha')
+            ->will($this->returnValue(false));
 
         $captcha = $this->createMock('\Laminas\Form\Element\Captcha');
         $form = new Form(null, $options);
@@ -96,9 +96,9 @@ class RegisterTest extends TestCase
 
     /**
      *
-     * @param mixed $objectOrClass
-     * @param string $property
-     * @param mixed $value = null
+     * @param  mixed  $objectOrClass
+     * @param  string $property
+     * @param  mixed  $value         = null
      * @return \ReflectionProperty
      */
     public function helperMakePropertyAccessable($objectOrClass, $property, $value = null)

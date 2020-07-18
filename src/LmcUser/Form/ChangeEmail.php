@@ -17,7 +17,8 @@ class ChangeEmail extends ProvidesEventsForm
 
         parent::__construct($name);
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'identity',
             'options' => array(
                 'label' => '',
@@ -25,9 +26,11 @@ class ChangeEmail extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'hidden',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'newIdentity',
             'options' => array(
                 'label' => 'New Email',
@@ -35,9 +38,11 @@ class ChangeEmail extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'newIdentityVerify',
             'options' => array(
                 'label' => 'Verify New Email',
@@ -45,9 +50,11 @@ class ChangeEmail extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'credential',
             'type' => 'password',
             'options' => array(
@@ -56,21 +63,24 @@ class ChangeEmail extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'password',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'submit',
             'attributes' => array(
                 'value' => 'Submit',
                 'type'  => 'submit'
             ),
-        ));
+            )
+        );
     }
 
     /**
      * Set Authentication-related Options
      *
-     * @param AuthenticationOptionsInterface $authOptions
+     * @param  AuthenticationOptionsInterface $authOptions
      * @return ChangeEmail
      */
     public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions)

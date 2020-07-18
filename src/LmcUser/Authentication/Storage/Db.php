@@ -121,7 +121,7 @@ class Db implements Storage\StorageInterface
     /**
      * setStorage
      *
-     * @param Storage\StorageInterface $storage
+     * @param  Storage\StorageInterface $storage
      * @access public
      * @return Db
      */
@@ -147,7 +147,7 @@ class Db implements Storage\StorageInterface
     /**
      * setMapper
      *
-     * @param UserMapper $mapper
+     * @param  UserMapper $mapper
      * @return Db
      */
     public function setMapper(UserMapper $mapper)
@@ -169,7 +169,7 @@ class Db implements Storage\StorageInterface
     /**
      * Set service manager instance
      *
-     * @param ContainerInterface $locator
+     * @param  ContainerInterface $locator
      * @return void
      */
     public function setServiceManager(ContainerInterface $serviceManager)

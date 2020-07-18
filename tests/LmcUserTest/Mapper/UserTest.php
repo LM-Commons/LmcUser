@@ -11,28 +11,60 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    /** @var \LmcUser\Mapper\User */
+    /**
+     * 
+     *
+     * @var \LmcUser\Mapper\User 
+     */
     protected $mapper;
 
-    /** @var \Laminas\Db\Adapter\Adapter */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Adapter\Adapter 
+     */
     protected $mockedDbAdapter;
 
-    /** @var \Laminas\Db\Adapter\Adapter */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Adapter\Adapter 
+     */
     protected $realAdapter = array();
 
-    /** @var \Laminas\Db\Sql\Select */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Sql\Select 
+     */
     protected $mockedSelect;
 
-    /** @var \Laminas\Db\ResultSet\HydratingResultSet */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\ResultSet\HydratingResultSet 
+     */
     protected $mockedResultSet;
 
-    /** @var \Laminas\Db\Sql\Sql */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Sql\Sql 
+     */
     protected $mockedDbSql;
 
-    /** @var \Laminas\Db\Adapter\Driver\DriverInterface */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Adapter\Driver\DriverInterface 
+     */
     protected $mockedDbAdapterDriver;
 
-    /** @var \Laminas\Db\Adapter\Platform\PlatformInterface */
+    /**
+     * 
+     *
+     * @var \Laminas\Db\Adapter\Platform\PlatformInterface 
+     */
     protected $mockedDbAdapterPlatform;
 
     public function setUp():void
@@ -50,7 +82,7 @@ class UserTest extends TestCase
         $this->mockedResultSet = $this->createMock('\Laminas\Db\ResultSet\HydratingResultSet');
 
         $this->setUpAdapter('mysql');
-//         $this->setUpAdapter('pgsql');
+        //         $this->setUpAdapter('pgsql');
         $this->setUpAdapter('sqlite');
     }
 
@@ -60,10 +92,10 @@ class UserTest extends TestCase
     public function setUpAdapter($driver)
     {
         $upCase = strtoupper($driver);
-        if (!defined(sprintf('DB_%s_DSN', $upCase)) ||
-            !defined(sprintf('DB_%s_USERNAME', $upCase)) ||
-            !defined(sprintf('DB_%s_PASSWORD', $upCase)) ||
-            !defined(sprintf('DB_%s_SCHEMA', $upCase))
+        if (!defined(sprintf('DB_%s_DSN', $upCase)) 
+            || !defined(sprintf('DB_%s_USERNAME', $upCase)) 
+            || !defined(sprintf('DB_%s_PASSWORD', $upCase)) 
+            || !defined(sprintf('DB_%s_SCHEMA', $upCase))
         ) {
              return false;
         }
@@ -111,36 +143,38 @@ class UserTest extends TestCase
         $this->mockedDbAdapterStatement= $this->createMock('Laminas\Db\Adapter\Driver\StatementInterface', array());
 
         $this->mockedDbAdapterPlatform->expects($this->any())
-                                      ->method('getName')
-                                      ->will($this->returnValue('null'));
+            ->method('getName')
+            ->will($this->returnValue('null'));
 
         $this->mockedDbAdapter = $this->getMockBuilder('Laminas\Db\Adapter\Adapter')
-                                      ->setConstructorArgs(array(
+            ->setConstructorArgs(
+                array(
                                           $this->mockedDbAdapterDriver,
                                           $this->mockedDbAdapterPlatform
-                                      ))
-                                      ->getMock(array('getPlatform'));
+                                    )
+            )
+            ->getMock(array('getPlatform'));
 
         $this->mockedDbAdapter->expects($this->any())
-                              ->method('getPlatform')
-                              ->will($this->returnValue($this->mockedDbAdapterPlatform));
+            ->method('getPlatform')
+            ->will($this->returnValue($this->mockedDbAdapterPlatform));
 
         $this->mockedDbSql = $this->getMockBuilder('Laminas\Db\Sql\Sql')
-                                  ->setConstructorArgs(array($this->mockedDbAdapter))
-                                  ->setMethods(array('prepareStatementForSqlObject'))
-                                  ->getMock();
+            ->setConstructorArgs(array($this->mockedDbAdapter))
+            ->setMethods(array('prepareStatementForSqlObject'))
+            ->getMock();
         $this->mockedDbSql->expects($this->any())
-                          ->method('prepareStatementForSqlObject')
-                          ->will($this->returnValue($this->mockedDbAdapterStatement));
+            ->method('prepareStatementForSqlObject')
+            ->will($this->returnValue($this->mockedDbAdapterStatement));
 
         $this->mockedDbSqlPlatform = $this->getMockBuilder('\Laminas\Db\Sql\Platform\Platform')
-                                          ->setConstructorArgs(array($this->mockedDbAdapter))
-                                          ->getMock();
+            ->setConstructorArgs(array($this->mockedDbAdapter))
+            ->getMock();
     }
 
     /**
      *
-     * @param arra $eventListenerArray
+     * @param  arra $eventListenerArray
      * @return array
      */
     public function setUpMockMapperInsert($mapperMethods)
@@ -152,24 +186,24 @@ class UserTest extends TestCase
         foreach ($mapperMethods as $method) {
             switch ($method) {
 
-                case 'getSelect':
+            case 'getSelect':
 
-                    $this->mapper->expects($this->once())
-                                 ->method('getSelect')
-                                 ->will($this->returnValue($this->mockedSelect));
-                    break;
-                case 'initialize':
-                    $this->mapper->expects($this->once())
-                                 ->method('initialize')
-                                 ->will($this->returnValue(true));
-                    break;
+                $this->mapper->expects($this->once())
+                    ->method('getSelect')
+                    ->will($this->returnValue($this->mockedSelect));
+                break;
+            case 'initialize':
+                $this->mapper->expects($this->once())
+                    ->method('initialize')
+                    ->will($this->returnValue(true));
+                break;
             }
         }
     }
 
     /**
      *
-     * @param arra $eventListenerArray
+     * @param  arra $eventListenerArray
      * @return array
      */
     public function &setUpMockedMapper($eventListenerArray, array $mapperMethods = array())
@@ -183,16 +217,20 @@ class UserTest extends TestCase
         $this->setUpMockMapperInsert($mapperMethods);
 
         $this->mapper->expects($this->once())
-                     ->method('select')
-                     ->will($this->returnValue($this->mockedResultSet));
+            ->method('select')
+            ->will($this->returnValue($this->mockedResultSet));
 
         $mockedSelect = $this->mockedSelect;
         $this->mockedSelect->expects($this->once())
-                           ->method('where')
-                           ->will($this->returnCallback(function () use (&$returnMockedParams, $mockedSelect) {
-                               $returnMockedParams['whereArgs'] = func_get_args();
-                               return $mockedSelect;
-                           }));
+            ->method('where')
+            ->will(
+                $this->returnCallback(
+                    function () use (&$returnMockedParams, $mockedSelect) {
+                        $returnMockedParams['whereArgs'] = func_get_args();
+                        return $mockedSelect;
+                    }
+                )
+            );
 
         foreach ($eventListenerArray as $eventKey => $eventListener) {
             $this->mapper->getEventManager()->attach($eventKey, $eventListener);
@@ -206,17 +244,17 @@ class UserTest extends TestCase
 
     /**
      * @dataProvider providerTestFindBy
-     * @param string $method
-     * @param array $args
-     * @param array $expectedParams
+     * @param        string $method
+     * @param        array  $args
+     * @param        array  $expectedParams
      */
     public function testFindBy($method, $args, $expectedParams, $eventListener, $entityEqual)
     {
         $mockedParams =& $this->setUpMockedMapper($eventListener);
 
         $this->mockedResultSet->expects($this->once())
-             ->method('current')
-             ->will($this->returnValue($entityEqual));
+            ->method('current')
+            ->will($this->returnValue($entityEqual));
 
         $return = call_user_func_array(array($this->mapper, $method), $args);
 
@@ -228,7 +266,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @todo Integration test for UserMapper
+     * @todo         Integration test for UserMapper
      * @dataProvider providerTestFindBy
      */
     public function testIntegrationFindBy($methode, $args, $expectedParams, $eventListener, $entityEqual)
