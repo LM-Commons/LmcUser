@@ -59,7 +59,8 @@ class AdapterChain implements AdapterInterface
         $result = $this->getEventManager()->triggerEventUntil(
             function ($test) {
                 return ($test instanceof Response);
-            }, $e
+            },
+            $e
         );
 
         if ($result && $result->stopped()) {

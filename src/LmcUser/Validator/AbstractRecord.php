@@ -100,16 +100,16 @@ abstract class AbstractRecord extends AbstractValidator
         $result = false;
 
         switch ($this->getKey()) {
-        case 'email':
-            $result = $this->getMapper()->findByEmail($value);
-            break;
+            case 'email':
+                $result = $this->getMapper()->findByEmail($value);
+                break;
 
-        case 'username':
-            $result = $this->getMapper()->findByUsername($value);
-            break;
+            case 'username':
+                $result = $this->getMapper()->findByUsername($value);
+                break;
 
-        default:
-            throw new \Exception('Invalid key used in LmcUser validator');
+            default:
+                throw new \Exception('Invalid key used in LmcUser validator');
                 break;
         }
 

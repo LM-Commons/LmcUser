@@ -62,9 +62,9 @@ class Db extends AbstractAdapter
         $credential = $e->getRequest()->getPost()->get('credential');
         $credential = $this->preProcessCredential($credential);
         /**
-* 
+*
          *
- * @var UserInterface|null $userObject 
+ * @var UserInterface|null $userObject
 */
         $userObject = null;
 
@@ -74,13 +74,13 @@ class Db extends AbstractAdapter
             $mode = array_shift($fields);
 
             switch ($mode) {
-            case 'username':
-                $userObject = $this->getMapper()->findByUsername($identity);
-                break;
-            case 'email':
-                $userObject = $this->getMapper()->findByEmail($identity);
+                case 'username':
+                    $userObject = $this->getMapper()->findByUsername($identity);
+                    break;
+                case 'email':
+                    $userObject = $this->getMapper()->findByEmail($identity);
 
-                break;
+                    break;
             }
         }
 

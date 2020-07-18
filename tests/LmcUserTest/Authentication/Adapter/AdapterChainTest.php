@@ -153,11 +153,12 @@ class AdapterChainTest extends TestCase
             ->with(
                 function ($test) {
                     return ($test instanceof Response);
-                }, $this->event
+                },
+                $this->event
             )
             ->will(
                 $this->returnCallback(
-                    function ( $callback) use ($responses) {
+                    function ($callback) use ($responses) {
                         if (call_user_func($callback, $responses->last())) {
                             $responses->setStopped(true);
                         }

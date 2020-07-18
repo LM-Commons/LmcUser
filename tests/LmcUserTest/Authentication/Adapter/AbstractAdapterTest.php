@@ -2,7 +2,6 @@
 
 namespace LmcUserTest\Authentication\Adapter;
 
-
 use LmcUserTest\Authentication\Adapter\TestAsset\AbstractAdapterExtension;
 use PHPUnit\Framework\TestCase;
 

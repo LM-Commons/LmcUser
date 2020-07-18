@@ -35,8 +35,7 @@ class AdapterChainServiceFactoryTest extends TestCase
 
     public function helperServiceLocator($index)
     {
-        if(!array_key_exists($index, $this->serviceLocatorArray)) {
-
+        if (!array_key_exists($index, $this->serviceLocatorArray)) {
             throw new \Exception('index '.$index.' does not exist in serviceLocatorArray');
         }
         return $this->serviceLocatorArray[$index];

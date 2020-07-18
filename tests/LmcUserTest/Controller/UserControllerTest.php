@@ -508,8 +508,6 @@ class UserControllerTest extends TestCase
         }
 
         $result = $controller->authenticateAction();
-
-
     }
 
     /**

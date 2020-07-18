@@ -15,23 +15,23 @@ class RedirectCallback
 {
 
     /**
-     * 
      *
-     * @var RouteInterface  
+     *
+     * @var RouteInterface
      */
     private $router;
 
     /**
-     * 
      *
-     * @var Application 
+     *
+     * @var Application
      */
     private $application;
 
     /**
-     * 
      *
-     * @var ModuleOptions 
+     *
+     * @var ModuleOptions
      */
     private $options;
 
@@ -114,18 +114,18 @@ class RedirectCallback
         }
 
         switch ($currentRoute) {
-        case 'lmcuser/register':
-        case 'lmcuser/login':
-        case 'lmcuser/authenticate':
-            $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
-            return $this->router->assemble(array(), array('name' => $route));
+            case 'lmcuser/register':
+            case 'lmcuser/login':
+            case 'lmcuser/authenticate':
+                $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
+                return $this->router->assemble(array(), array('name' => $route));
                 break;
-        case 'lmcuser/logout':
-            $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
-            return $this->router->assemble(array(), array('name' => $route));
+            case 'lmcuser/logout':
+                $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
+                return $this->router->assemble(array(), array('name' => $route));
                 break;
-        default:
-            return $this->router->assemble(array(), array('name' => 'lmcuser'));
+            default:
+                return $this->router->assemble(array(), array('name' => 'lmcuser'));
         }
     }
 }

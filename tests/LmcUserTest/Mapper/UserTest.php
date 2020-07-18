@@ -12,58 +12,58 @@ use PHPUnit\Framework\TestCase;
 class UserTest extends TestCase
 {
     /**
-     * 
      *
-     * @var \LmcUser\Mapper\User 
+     *
+     * @var \LmcUser\Mapper\User
      */
     protected $mapper;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Adapter\Adapter 
+     *
+     * @var \Laminas\Db\Adapter\Adapter
      */
     protected $mockedDbAdapter;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Adapter\Adapter 
+     *
+     * @var \Laminas\Db\Adapter\Adapter
      */
     protected $realAdapter = array();
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Sql\Select 
+     *
+     * @var \Laminas\Db\Sql\Select
      */
     protected $mockedSelect;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\ResultSet\HydratingResultSet 
+     *
+     * @var \Laminas\Db\ResultSet\HydratingResultSet
      */
     protected $mockedResultSet;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Sql\Sql 
+     *
+     * @var \Laminas\Db\Sql\Sql
      */
     protected $mockedDbSql;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Adapter\Driver\DriverInterface 
+     *
+     * @var \Laminas\Db\Adapter\Driver\DriverInterface
      */
     protected $mockedDbAdapterDriver;
 
     /**
-     * 
      *
-     * @var \Laminas\Db\Adapter\Platform\PlatformInterface 
+     *
+     * @var \Laminas\Db\Adapter\Platform\PlatformInterface
      */
     protected $mockedDbAdapterPlatform;
 
@@ -92,9 +92,9 @@ class UserTest extends TestCase
     public function setUpAdapter($driver)
     {
         $upCase = strtoupper($driver);
-        if (!defined(sprintf('DB_%s_DSN', $upCase)) 
-            || !defined(sprintf('DB_%s_USERNAME', $upCase)) 
-            || !defined(sprintf('DB_%s_PASSWORD', $upCase)) 
+        if (!defined(sprintf('DB_%s_DSN', $upCase))
+            || !defined(sprintf('DB_%s_USERNAME', $upCase))
+            || !defined(sprintf('DB_%s_PASSWORD', $upCase))
             || !defined(sprintf('DB_%s_SCHEMA', $upCase))
         ) {
              return false;
@@ -185,18 +185,16 @@ class UserTest extends TestCase
 
         foreach ($mapperMethods as $method) {
             switch ($method) {
-
-            case 'getSelect':
-
-                $this->mapper->expects($this->once())
+                case 'getSelect':
+                    $this->mapper->expects($this->once())
                     ->method('getSelect')
                     ->will($this->returnValue($this->mockedSelect));
-                break;
-            case 'initialize':
-                $this->mapper->expects($this->once())
+                    break;
+                case 'initialize':
+                    $this->mapper->expects($this->once())
                     ->method('initialize')
                     ->will($this->returnValue(true));
-                break;
+                    break;
             }
         }
     }

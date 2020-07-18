@@ -70,7 +70,8 @@ class Login extends ProvidesEventsForm
             );
 
         $this->add(
-            $submitElement, array(
+            $submitElement,
+            array(
             'priority' => -100,
             )
         );
