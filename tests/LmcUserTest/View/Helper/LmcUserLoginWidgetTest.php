@@ -4,18 +4,19 @@ namespace LmcUserTest\View\Helper;
 
 use LmcUser\View\Helper\LmcUserLoginWidget as ViewHelper;
 use Laminas\View\Model\ViewModel;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
+class LmcUserLoginWidgetTest extends TestCase
 {
     protected $helper;
 
     protected $view;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->helper = new ViewHelper;
 
-        $view = $this->getMock('Laminas\View\Renderer\RendererInterface');
+        $view = $this->createMock('Laminas\View\Renderer\RendererInterface');
         $this->view = $view;
 
         $this->helper->setView($view);
@@ -57,7 +58,7 @@ class LmcUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LmcUser\View\Helper\LmcUserLoginWidget::__invoke
+     * @covers       LmcUser\View\Helper\LmcUserLoginWidget::__invoke
      * @dataProvider providerTestInvokeWithRender
      */
     public function testInvokeWithRender($option, $expect)
@@ -68,16 +69,20 @@ class LmcUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
         $viewModel = null;
 
         $this->view->expects($this->at(0))
-             ->method('render')
-             ->will($this->returnCallback(function ($vm) use (&$viewModel) {
-                 $viewModel = $vm;
-                 return "test";
-             }));
+            ->method('render')
+            ->will(
+                $this->returnCallback(
+                    function ($vm) use (&$viewModel) {
+                        $viewModel = $vm;
+                        return "test";
+                    }
+                )
+            );
 
         $result = $this->helper->__invoke($option);
 
         $this->assertNotInstanceOf('Laminas\View\Model\ViewModel', $result);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
 
 
         $this->assertInstanceOf('Laminas\View\Model\ViewModel', $viewModel);
@@ -91,10 +96,12 @@ class LmcUserLoginWidgetTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokeWithoutRender()
     {
-        $result = $this->helper->__invoke(array(
+        $result = $this->helper->__invoke(
+            array(
             'render' => false,
             'redirect' => 'lmcUser'
-        ));
+            )
+        );
 
         $this->assertInstanceOf('Laminas\View\Model\ViewModel', $result);
         $this->assertEquals('lmcUser', $result->redirect);

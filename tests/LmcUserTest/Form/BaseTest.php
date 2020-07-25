@@ -3,8 +3,9 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\Base as Form;
+use PHPUnit\Framework\TestCase;
 
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     public function testConstruct()
     {

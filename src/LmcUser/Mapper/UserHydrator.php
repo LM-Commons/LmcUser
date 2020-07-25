@@ -2,22 +2,23 @@
 
 namespace LmcUser\Mapper;
 
-use Laminas\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethodsHydrator;
 use LmcUser\Entity\UserInterface as UserEntityInterface;
+use LmcUser\Mapper\Exception\InvalidArgumentException;
 
-class UserHydrator extends ClassMethods
+class UserHydrator extends ClassMethodsHydrator
 {
     /**
      * Extract values from an object
      *
-     * @param UserEntityInterface $object
+     * @param  UserEntityInterface $object
      * @return array
      * @throws Exception\InvalidArgumentException
      */
-    public function extract($object)
+    public function extract($object):array
     {
         if (!$object instanceof UserEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');
+            throw new InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');
         }
 
         /* @var $object UserEntityInterface */
@@ -34,7 +35,7 @@ class UserHydrator extends ClassMethods
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
+     * @param  array               $data
      * @param  UserEntityInterface $object
      * @return UserInterface
      * @throws Exception\InvalidArgumentException
@@ -51,9 +52,9 @@ class UserHydrator extends ClassMethods
     }
 
     /**
-     * @param string $keyFrom
-     * @param string $keyTo
-     * @param array $array
+     * @param  string $keyFrom
+     * @param  string $keyTo
+     * @param  array  $array
      * @return array
      */
     protected function mapField($keyFrom, $keyTo, array $array)

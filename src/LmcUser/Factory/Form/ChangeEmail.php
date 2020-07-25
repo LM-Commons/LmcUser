@@ -14,13 +14,17 @@ class ChangeEmail implements FactoryInterface
         $options = $serviceManager->get('lmcuser_module_options');
         $form = new Form\ChangeEmail(null, $options);
 
-        $form->setInputFilter(new Form\ChangeEmailFilter(
-            $options,
-            new Validator\NoRecordExists(array(
-                'mapper' => $serviceManager->get('lmcuser_user_mapper'),
-                'key'    => 'email'
-            ))
-        ));
+        $form->setInputFilter(
+            new Form\ChangeEmailFilter(
+                $options,
+                new Validator\NoRecordExists(
+                    array(
+                    'mapper' => $serviceManager->get('lmcuser_user_mapper'),
+                    'key'    => 'email'
+                    )
+                )
+            )
+        );
 
         return $form;
     }

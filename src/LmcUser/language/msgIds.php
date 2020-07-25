@@ -1,6 +1,7 @@
 <?php
 /**
  * Ids for poedit
+ *
  * @method translate()
  */
 translate('Username');

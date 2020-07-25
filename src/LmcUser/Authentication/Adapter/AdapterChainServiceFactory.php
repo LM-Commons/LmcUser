@@ -50,7 +50,7 @@ class AdapterChainServiceFactory implements FactoryInterface
     /**
      * set options
      *
-     * @param ModuleOptions $options
+     * @param  ModuleOptions $options
      * @return AdapterChainServiceFactory
      */
     public function setOptions(ModuleOptions $options)
@@ -62,7 +62,7 @@ class AdapterChainServiceFactory implements FactoryInterface
     /**
      * get options
      *
-     * @param ServiceLocatorInterface $serviceLocator (optional) Service Locator
+     * @param  ServiceLocatorInterface $serviceLocator (optional) Service Locator
      * @return ModuleOptions $options
      * @throws OptionsNotFoundException If options tried to retrieve without being set but no SL was provided
      */

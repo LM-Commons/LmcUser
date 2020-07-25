@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\ChangeEmailFilter as Filter;
+use PHPUnit\Framework\TestCase;
 
-class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
+class ChangeEmailFilterTest extends TestCase
 {
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array('email')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array('email')));
 
         $validator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $filter = new Filter($options, $validator);
@@ -31,10 +32,10 @@ class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructIdentityEmail($onlyEmail)
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(($onlyEmail) ? array('email') : array('username')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(($onlyEmail) ? array('email') : array('username')));
 
         $validator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $filter = new Filter($options, $validator);
@@ -58,10 +59,10 @@ class ChangeEmailFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetEmailValidator()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array()));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array()));
 
         $validatorInit = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $validatorNew = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();

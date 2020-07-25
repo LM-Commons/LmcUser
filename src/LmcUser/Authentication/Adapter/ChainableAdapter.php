@@ -8,7 +8,7 @@ use Laminas\EventManager\EventInterface;
 interface ChainableAdapter
 {
     /**
-     * @param AdapterChainEvent $e
+     * @param  AdapterChainEvent $e
      * @return bool
      */
     public function authenticate(AdapterChainEvent $e);

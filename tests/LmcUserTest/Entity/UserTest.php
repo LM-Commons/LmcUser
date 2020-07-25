@@ -3,12 +3,13 @@
 namespace LmcUserTest\Entity;
 
 use LmcUser\Entity\User as Entity;
+use PHPUnit\Framework\TestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     protected $user;
 
-    public function setUp()
+    public function setUp():void
     {
         $user = new Entity;
         $this->user = $user;

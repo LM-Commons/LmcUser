@@ -2,9 +2,11 @@
 
 namespace LmcUserTest\View\Helper;
 
+use LmcUser\Exception\DomainException;
 use LmcUser\View\Helper\LmcUserDisplayName as ViewHelper;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
+class LmcUserDisplayNameTest extends TestCase
 {
     protected $helper;
 
@@ -12,15 +14,15 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
     protected $user;
 
-    public function setUp()
+    public function setUp():void
     {
         $helper = new ViewHelper;
         $this->helper = $helper;
 
-        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $authService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $this->authService = $authService;
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $this->user = $user;
 
         $helper->setAuthService($authService);
@@ -32,8 +34,8 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     public function testInvokeWithoutUserAndNotLoggedIn()
     {
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(false));
+            ->method('hasIdentity')
+            ->will($this->returnValue(false));
 
         $result = $this->helper->__invoke(null);
 
@@ -42,16 +44,16 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LmcUser\View\Helper\LmcUserDisplayName::__invoke
-     * @expectedException LmcUser\Exception\DomainException
      */
     public function testInvokeWithoutUserButLoggedInWithWrongUserObject()
     {
+        $this->expectException(DomainException::class);
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(true));
+            ->method('hasIdentity')
+            ->will($this->returnValue(true));
         $this->authService->expects($this->once())
-                          ->method('getIdentity')
-                          ->will($this->returnValue(new \StdClass));
+            ->method('getIdentity')
+            ->will($this->returnValue(new \StdClass));
 
         $this->helper->__invoke(null);
     }
@@ -62,15 +64,15 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     public function testInvokeWithoutUserButLoggedInWithDisplayName()
     {
         $this->user->expects($this->once())
-                   ->method('getDisplayName')
-                   ->will($this->returnValue('lmcUser'));
+            ->method('getDisplayName')
+            ->will($this->returnValue('lmcUser'));
 
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(true));
+            ->method('hasIdentity')
+            ->will($this->returnValue(true));
         $this->authService->expects($this->once())
-                          ->method('getIdentity')
-                          ->will($this->returnValue($this->user));
+            ->method('getIdentity')
+            ->will($this->returnValue($this->user));
 
         $result = $this->helper->__invoke(null);
 
@@ -83,18 +85,18 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     public function testInvokeWithoutUserButLoggedInWithoutDisplayNameButWithUsername()
     {
         $this->user->expects($this->once())
-                   ->method('getDisplayName')
-                   ->will($this->returnValue(null));
+            ->method('getDisplayName')
+            ->will($this->returnValue(null));
         $this->user->expects($this->once())
-                   ->method('getUsername')
-                   ->will($this->returnValue('lmcUser'));
+            ->method('getUsername')
+            ->will($this->returnValue('lmcUser'));
 
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(true));
+            ->method('hasIdentity')
+            ->will($this->returnValue(true));
         $this->authService->expects($this->once())
-                          ->method('getIdentity')
-                          ->will($this->returnValue($this->user));
+            ->method('getIdentity')
+            ->will($this->returnValue($this->user));
 
         $result = $this->helper->__invoke(null);
 
@@ -107,21 +109,21 @@ class LmcUserDisplayNameTest extends \PHPUnit_Framework_TestCase
     public function testInvokeWithoutUserButLoggedInWithoutDisplayNameAndWithOutUsernameButWithEmail()
     {
         $this->user->expects($this->once())
-                   ->method('getDisplayName')
-                   ->will($this->returnValue(null));
+            ->method('getDisplayName')
+            ->will($this->returnValue(null));
         $this->user->expects($this->once())
-                   ->method('getUsername')
-                   ->will($this->returnValue(null));
+            ->method('getUsername')
+            ->will($this->returnValue(null));
         $this->user->expects($this->once())
-                   ->method('getEmail')
-                   ->will($this->returnValue('lmcUser@lmcUser.com'));
+            ->method('getEmail')
+            ->will($this->returnValue('lmcUser@lmcUser.com'));
 
         $this->authService->expects($this->once())
-                          ->method('hasIdentity')
-                          ->will($this->returnValue(true));
+            ->method('hasIdentity')
+            ->will($this->returnValue(true));
         $this->authService->expects($this->once())
-                          ->method('getIdentity')
-                          ->will($this->returnValue($this->user));
+            ->method('getIdentity')
+            ->will($this->returnValue($this->user));
 
         $result = $this->helper->__invoke(null);
 

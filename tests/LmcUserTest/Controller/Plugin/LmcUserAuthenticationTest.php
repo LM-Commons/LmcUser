@@ -6,8 +6,9 @@ use LmcUser\Controller\Plugin\LmcUserAuthentication as Plugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use LmcUser\Authentication\Adapter\AdapterChain;
+use PHPUnit\Framework\TestCase;
 
-class LmcUserAuthenticationTest extends \PHPUnit_Framework_TestCase
+class LmcUserAuthenticationTest extends TestCase
 {
     /**
      *
@@ -27,10 +28,10 @@ class LmcUserAuthenticationTest extends \PHPUnit_Framework_TestCase
      */
     protected $mockedAuthenticationAdapter;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->SUT = new Plugin();
-        $this->mockedAuthenticationService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $this->mockedAuthenticationService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $this->mockedAuthenticationAdapter = $this->getMockForAbstractClass('\LmcUser\Authentication\Adapter\AdapterChain');
     }
 
@@ -50,12 +51,12 @@ class LmcUserAuthenticationTest extends \PHPUnit_Framework_TestCase
         };
 
         $this->mockedAuthenticationService->expects($this->any())
-                                          ->method('hasIdentity')
-                                          ->will($this->returnCallback($callback));
+            ->method('hasIdentity')
+            ->will($this->returnCallback($callback));
 
         $this->mockedAuthenticationService->expects($this->any())
-                                          ->method('getIdentity')
-                                          ->will($this->returnCallback($callback));
+            ->method('getIdentity')
+            ->will($this->returnCallback($callback));
 
         $this->assertTrue($this->SUT->hasIdentity());
         $this->assertFalse($this->SUT->hasIdentity());

@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\ChangePasswordFilter as Filter;
+use PHPUnit\Framework\TestCase;
 
-class ChangePasswordFilterTest extends \PHPUnit_Framework_TestCase
+class ChangePasswordFilterTest extends TestCase
 {
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array('email')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array('email')));
 
         $filter = new Filter($options);
 
@@ -31,10 +32,10 @@ class ChangePasswordFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructIdentityEmail($onlyEmail)
     {
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue($onlyEmail ? array('email') : array('username')));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue($onlyEmail ? array('email') : array('username')));
 
         $filter = new Filter($options);
 

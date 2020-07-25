@@ -17,7 +17,8 @@ class ChangePassword extends ProvidesEventsForm
 
         parent::__construct($name);
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'identity',
             'options' => array(
                 'label' => '',
@@ -25,9 +26,11 @@ class ChangePassword extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'hidden'
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'credential',
             'type' => 'password',
             'options' => array(
@@ -36,9 +39,11 @@ class ChangePassword extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'password',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'newCredential',
             'options' => array(
                 'label' => 'New Password',
@@ -46,9 +51,11 @@ class ChangePassword extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'password',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'newCredentialVerify',
             'type' => 'password',
             'options' => array(
@@ -57,21 +64,24 @@ class ChangePassword extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'password',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'submit',
             'attributes' => array(
                 'value' => 'Submit',
                 'type'  => 'submit'
             ),
-        ));
+            )
+        );
     }
 
     /**
      * Set Authentication-related Options
      *
-     * @param AuthenticationOptionsInterface $authOptions
+     * @param  AuthenticationOptionsInterface $authOptions
      * @return ChangePassword
      */
     public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions)

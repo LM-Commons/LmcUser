@@ -10,6 +10,7 @@ class LmcUserLoginWidget extends AbstractHelper
 {
     /**
      * Login Form
+     *
      * @var LoginForm
      */
     protected $loginForm;
@@ -22,7 +23,7 @@ class LmcUserLoginWidget extends AbstractHelper
      * __invoke
      *
      * @access public
-     * @param array $options array of options
+     * @param  array $options array of options
      * @return string
      */
     public function __invoke($options = array())
@@ -38,10 +39,12 @@ class LmcUserLoginWidget extends AbstractHelper
             $redirect = false;
         }
 
-        $vm = new ViewModel(array(
+        $vm = new ViewModel(
+            array(
             'loginForm' => $this->getLoginForm(),
             'redirect'  => $redirect,
-        ));
+            )
+        );
         $vm->setTemplate($this->viewTemplate);
         if ($render) {
             return $this->getView()->render($vm);
@@ -52,6 +55,7 @@ class LmcUserLoginWidget extends AbstractHelper
 
     /**
      * Retrieve Login Form Object
+     *
      * @return LoginForm
      */
     public function getLoginForm()
@@ -61,7 +65,8 @@ class LmcUserLoginWidget extends AbstractHelper
 
     /**
      * Inject Login Form Object
-     * @param LoginForm $loginForm
+     *
+     * @param  LoginForm $loginForm
      * @return LmcUserLoginWidget
      */
     public function setLoginForm(LoginForm $loginForm)
@@ -71,7 +76,7 @@ class LmcUserLoginWidget extends AbstractHelper
     }
 
     /**
-     * @param string $viewTemplate
+     * @param  string $viewTemplate
      * @return LmcUserLoginWidget
      */
     public function setViewTemplate($viewTemplate)

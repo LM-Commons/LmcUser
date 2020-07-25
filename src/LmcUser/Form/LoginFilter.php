@@ -23,7 +23,8 @@ class LoginFilter extends ProvidesEventsInputFilter
 
         $this->add($identityParams);
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'credential',
             'required'   => true,
             'validators' => array(
@@ -37,6 +38,7 @@ class LoginFilter extends ProvidesEventsInputFilter
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),
-        ));
+            )
+        );
     }
 }

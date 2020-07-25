@@ -4,8 +4,9 @@ namespace LmcUserTest\Service;
 
 use LmcUser\Service\User as Service;
 use Laminas\Crypt\Password\Bcrypt;
+use PHPUnit\Framework\TestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     protected $service;
 
@@ -21,24 +22,24 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     protected $authService;
 
-    public function setUp()
+    public function setUp():void
     {
         $service = new Service;
         $this->service = $service;
 
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $this->options = $options;
 
-        $serviceManager = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $serviceManager = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $this->serviceManager = $serviceManager;
 
-        $eventManager = $this->getMock('Laminas\EventManager\EventManager');
+        $eventManager = $this->createMock('Laminas\EventManager\EventManager');
         $this->eventManager = $eventManager;
 
-        $formHydrator = $this->getMock('Laminas\Hydrator\HydratorInterface');
+        $formHydrator = $this->createMock('Laminas\Hydrator\HydratorInterface');
         $this->formHydrator = $formHydrator;
 
-        $mapper = $this->getMock('LmcUser\Mapper\UserInterface');
+        $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
         $this->mapper = $mapper;
 
         $authService = $this->getMockBuilder('Laminas\Authentication\AuthenticationService')->disableOriginalConstructor()->getMock();
@@ -60,20 +61,20 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $expectArray = array('username' => 'LmcUser');
 
         $this->options->expects($this->once())
-                      ->method('getUserEntityClass')
-                      ->will($this->returnValue('LmcUser\Entity\User'));
+            ->method('getUserEntityClass')
+            ->will($this->returnValue('LmcUser\Entity\User'));
 
         $registerForm = $this->getMockBuilder('LmcUser\Form\Register')->disableOriginalConstructor()->getMock();
         $registerForm->expects($this->once())
-                     ->method('setHydrator');
+            ->method('setHydrator');
         $registerForm->expects($this->once())
-                     ->method('bind');
+            ->method('bind');
         $registerForm->expects($this->once())
-                     ->method('setData')
-                     ->with($expectArray);
+            ->method('setData')
+            ->with($expectArray);
         $registerForm->expects($this->once())
-                     ->method('isValid')
-                     ->will($this->returnValue(false));
+            ->method('isValid')
+            ->will($this->returnValue(false));
 
         $this->service->setRegisterForm($registerForm);
 
@@ -89,62 +90,62 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
-             ->method('setPassword');
+            ->method('setPassword');
         $user->expects($this->once())
-             ->method('getPassword');
+            ->method('getPassword');
         $user->expects($this->once())
-             ->method('setUsername')
-             ->with('LmcUser');
+            ->method('setUsername')
+            ->with('LmcUser');
         $user->expects($this->once())
-             ->method('setDisplayName')
-             ->with('Zfc User');
+            ->method('setDisplayName')
+            ->with('Zfc User');
         $user->expects($this->once())
-             ->method('setState')
-             ->with(1);
+            ->method('setState')
+            ->with(1);
 
         $this->options->expects($this->once())
-                      ->method('getUserEntityClass')
-                      ->will($this->returnValue('LmcUser\Entity\User'));
+            ->method('getUserEntityClass')
+            ->will($this->returnValue('LmcUser\Entity\User'));
         $this->options->expects($this->once())
-                      ->method('getPasswordCost')
-                      ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
         $this->options->expects($this->once())
-                      ->method('getEnableUsername')
-                      ->will($this->returnValue(true));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableDisplayName')
-                      ->will($this->returnValue(true));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableUserState')
-                      ->will($this->returnValue(true));
+            ->method('getEnableUserState')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getDefaultUserState')
-                      ->will($this->returnValue(1));
+            ->method('getDefaultUserState')
+            ->will($this->returnValue(1));
 
         $registerForm = $this->getMockBuilder('LmcUser\Form\Register')->disableOriginalConstructor()->getMock();
         $registerForm->expects($this->once())
-                     ->method('setHydrator');
+            ->method('setHydrator');
         $registerForm->expects($this->once())
-                     ->method('bind');
+            ->method('bind');
         $registerForm->expects($this->once())
-                     ->method('setData')
-                     ->with($expectArray);
+            ->method('setData')
+            ->with($expectArray);
         $registerForm->expects($this->once())
-                     ->method('getData')
-                     ->will($this->returnValue($user));
+            ->method('getData')
+            ->will($this->returnValue($user));
         $registerForm->expects($this->once())
-                     ->method('isValid')
-                     ->will($this->returnValue(true));
+            ->method('isValid')
+            ->will($this->returnValue(true));
 
         $this->eventManager->expects($this->exactly(2))
-                           ->method('trigger');
+            ->method('trigger');
 
         $this->mapper->expects($this->once())
-                     ->method('insert')
-                     ->with($user)
-                     ->will($this->returnValue($user));
+            ->method('insert')
+            ->with($user)
+            ->will($this->returnValue($user));
 
         $this->service->setRegisterForm($registerForm);
 
@@ -160,62 +161,62 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
-             ->method('setPassword');
+            ->method('setPassword');
         $user->expects($this->once())
-             ->method('getPassword');
+            ->method('getPassword');
         $user->expects($this->once())
-             ->method('setUsername')
-             ->with('LmcUser');
+            ->method('setUsername')
+            ->with('LmcUser');
         $user->expects($this->once())
-             ->method('setDisplayName')
-             ->with('Zfc User');
+            ->method('setDisplayName')
+            ->with('Zfc User');
         $user->expects($this->once())
-             ->method('setState')
-             ->with(0);
+            ->method('setState')
+            ->with(0);
 
         $this->options->expects($this->once())
-                      ->method('getUserEntityClass')
-                      ->will($this->returnValue('LmcUser\Entity\User'));
+            ->method('getUserEntityClass')
+            ->will($this->returnValue('LmcUser\Entity\User'));
         $this->options->expects($this->once())
-                      ->method('getPasswordCost')
-                      ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
         $this->options->expects($this->once())
-                      ->method('getEnableUsername')
-                      ->will($this->returnValue(true));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableDisplayName')
-                      ->will($this->returnValue(true));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableUserState')
-                      ->will($this->returnValue(true));
+            ->method('getEnableUserState')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getDefaultUserState')
-                      ->will($this->returnValue(0));
+            ->method('getDefaultUserState')
+            ->will($this->returnValue(0));
 
         $registerForm = $this->getMockBuilder('LmcUser\Form\Register')->disableOriginalConstructor()->getMock();
         $registerForm->expects($this->once())
-                     ->method('setHydrator');
+            ->method('setHydrator');
         $registerForm->expects($this->once())
-                     ->method('bind');
+            ->method('bind');
         $registerForm->expects($this->once())
-                     ->method('setData')
-                     ->with($expectArray);
+            ->method('setData')
+            ->with($expectArray);
         $registerForm->expects($this->once())
-                     ->method('getData')
-                     ->will($this->returnValue($user));
+            ->method('getData')
+            ->will($this->returnValue($user));
         $registerForm->expects($this->once())
-                     ->method('isValid')
-                     ->will($this->returnValue(true));
+            ->method('isValid')
+            ->will($this->returnValue(true));
 
         $this->eventManager->expects($this->exactly(2))
-                           ->method('trigger');
+            ->method('trigger');
 
         $this->mapper->expects($this->once())
-                     ->method('insert')
-                     ->with($user)
-                     ->will($this->returnValue($user));
+            ->method('insert')
+            ->with($user)
+            ->will($this->returnValue($user));
 
         $this->service->setRegisterForm($registerForm);
 
@@ -232,60 +233,60 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
-             ->method('setPassword');
+            ->method('setPassword');
         $user->expects($this->once())
-             ->method('getPassword');
+            ->method('getPassword');
         $user->expects($this->once())
-             ->method('setUsername')
-             ->with('LmcUser');
+            ->method('setUsername')
+            ->with('LmcUser');
         $user->expects($this->once())
-             ->method('setDisplayName')
-             ->with('Zfc User');
+            ->method('setDisplayName')
+            ->with('Zfc User');
         $user->expects($this->never())
-             ->method('setState');
+            ->method('setState');
 
         $this->options->expects($this->once())
-                      ->method('getUserEntityClass')
-                      ->will($this->returnValue('LmcUser\Entity\User'));
+            ->method('getUserEntityClass')
+            ->will($this->returnValue('LmcUser\Entity\User'));
         $this->options->expects($this->once())
-                      ->method('getPasswordCost')
-                      ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
         $this->options->expects($this->once())
-                      ->method('getEnableUsername')
-                      ->will($this->returnValue(true));
+            ->method('getEnableUsername')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableDisplayName')
-                      ->will($this->returnValue(true));
+            ->method('getEnableDisplayName')
+            ->will($this->returnValue(true));
         $this->options->expects($this->once())
-                      ->method('getEnableUserState')
-                      ->will($this->returnValue(false));
+            ->method('getEnableUserState')
+            ->will($this->returnValue(false));
         $this->options->expects($this->never())
-                      ->method('getDefaultUserState');
+            ->method('getDefaultUserState');
 
         $registerForm = $this->getMockBuilder('LmcUser\Form\Register')->disableOriginalConstructor()->getMock();
         $registerForm->expects($this->once())
-                     ->method('setHydrator');
+            ->method('setHydrator');
         $registerForm->expects($this->once())
-                     ->method('bind');
+            ->method('bind');
         $registerForm->expects($this->once())
-                     ->method('setData')
-                     ->with($expectArray);
+            ->method('setData')
+            ->with($expectArray);
         $registerForm->expects($this->once())
-                     ->method('getData')
-                     ->will($this->returnValue($user));
+            ->method('getData')
+            ->will($this->returnValue($user));
         $registerForm->expects($this->once())
-                     ->method('isValid')
-                     ->will($this->returnValue(true));
+            ->method('isValid')
+            ->will($this->returnValue(true));
 
         $this->eventManager->expects($this->exactly(2))
-                           ->method('trigger');
+            ->method('trigger');
 
         $this->mapper->expects($this->once())
-                     ->method('insert')
-                     ->with($user)
-                     ->will($this->returnValue($user));
+            ->method('insert')
+            ->with($user)
+            ->will($this->returnValue($user));
 
         $this->service->setRegisterForm($registerForm);
 
@@ -303,20 +304,20 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
-             ->method('getPasswordCost')
-             ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
 
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
-             ->method('getPassword')
-             ->will($this->returnValue($bcrypt->create('wrongPassword')));
+            ->method('getPassword')
+            ->will($this->returnValue($bcrypt->create('wrongPassword')));
 
         $this->authService->expects($this->any())
-                          ->method('getIdentity')
-                          ->will($this->returnValue($user));
+            ->method('getIdentity')
+            ->will($this->returnValue($user));
 
         $result = $this->service->changePassword($data);
         $this->assertFalse($result);
@@ -330,29 +331,29 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
-             ->method('getPasswordCost')
-             ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
 
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
-             ->method('getPassword')
-             ->will($this->returnValue($bcrypt->create($data['credential'])));
+            ->method('getPassword')
+            ->will($this->returnValue($bcrypt->create($data['credential'])));
         $user->expects($this->any())
-             ->method('setPassword');
+            ->method('setPassword');
 
         $this->authService->expects($this->any())
-             ->method('getIdentity')
-             ->will($this->returnValue($user));
+            ->method('getIdentity')
+            ->will($this->returnValue($user));
 
         $this->eventManager->expects($this->exactly(2))
-             ->method('trigger');
+            ->method('trigger');
 
         $this->mapper->expects($this->once())
-             ->method('update')
-             ->with($user);
+            ->method('update')
+            ->with($user);
 
         $result = $this->service->changePassword($data);
         $this->assertTrue($result);
@@ -366,30 +367,30 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $data = array('credential' => 'lmcUser', 'newIdentity' => 'lmcUser@lmcUser.com');
 
         $this->options->expects($this->any())
-             ->method('getPasswordCost')
-             ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
 
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
-             ->method('getPassword')
-             ->will($this->returnValue($bcrypt->create($data['credential'])));
+            ->method('getPassword')
+            ->will($this->returnValue($bcrypt->create($data['credential'])));
         $user->expects($this->any())
-             ->method('setEmail')
-             ->with('lmcUser@lmcUser.com');
+            ->method('setEmail')
+            ->with('lmcUser@lmcUser.com');
 
         $this->authService->expects($this->any())
-             ->method('getIdentity')
-             ->will($this->returnValue($user));
+            ->method('getIdentity')
+            ->will($this->returnValue($user));
 
         $this->eventManager->expects($this->exactly(2))
-             ->method('trigger');
+            ->method('trigger');
 
         $this->mapper->expects($this->once())
-             ->method('update')
-             ->with($user);
+            ->method('update')
+            ->with($user);
 
         $result = $this->service->changeEmail($data);
         $this->assertTrue($result);
@@ -403,20 +404,20 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $data = array('credential' => 'lmcUserOld');
 
         $this->options->expects($this->any())
-             ->method('getPasswordCost')
-             ->will($this->returnValue(4));
+            ->method('getPasswordCost')
+            ->will($this->returnValue(4));
 
         $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->options->getPasswordCost());
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->any())
-             ->method('getPassword')
-             ->will($this->returnValue($bcrypt->create('wrongPassword')));
+            ->method('getPassword')
+            ->will($this->returnValue($bcrypt->create('wrongPassword')));
 
         $this->authService->expects($this->any())
-             ->method('getIdentity')
-             ->will($this->returnValue($user));
+            ->method('getIdentity')
+            ->will($this->returnValue($user));
 
         $result = $this->service->changeEmail($data);
         $this->assertFalse($result);
@@ -428,9 +429,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGetUserMapper()
     {
         $this->serviceManager->expects($this->once())
-                             ->method('get')
-                             ->with('lmcuser_user_mapper')
-                             ->will($this->returnValue($this->mapper));
+            ->method('get')
+            ->with('lmcuser_user_mapper')
+            ->will($this->returnValue($this->mapper));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
@@ -452,9 +453,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGetAuthService()
     {
         $this->serviceManager->expects($this->once())
-             ->method('get')
-             ->with('lmcuser_auth_service')
-             ->will($this->returnValue($this->authService));
+            ->method('get')
+            ->with('lmcuser_auth_service')
+            ->will($this->returnValue($this->authService));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
@@ -478,9 +479,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $form = $this->getMockBuilder('LmcUser\Form\Register')->disableOriginalConstructor()->getMock();
 
         $this->serviceManager->expects($this->once())
-             ->method('get')
-             ->with('lmcuser_register_form')
-             ->will($this->returnValue($form));
+            ->method('get')
+            ->with('lmcuser_register_form')
+            ->will($this->returnValue($form));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
@@ -511,9 +512,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $form = $this->getMockBuilder('LmcUser\Form\ChangePassword')->disableOriginalConstructor()->getMock();
 
         $this->serviceManager->expects($this->once())
-             ->method('get')
-             ->with('lmcuser_change_password_form')
-             ->will($this->returnValue($form));
+            ->method('get')
+            ->with('lmcuser_change_password_form')
+            ->will($this->returnValue($form));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
@@ -538,9 +539,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGetOptions()
     {
         $this->serviceManager->expects($this->once())
-             ->method('get')
-             ->with('lmcuser_module_options')
-             ->will($this->returnValue($this->options));
+            ->method('get')
+            ->with('lmcuser_module_options')
+            ->will($this->returnValue($this->options));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);
@@ -570,9 +571,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGetFormHydrator()
     {
         $this->serviceManager->expects($this->once())
-             ->method('get')
-             ->with('lmcuser_register_form_hydrator')
-             ->will($this->returnValue($this->formHydrator));
+            ->method('get')
+            ->with('lmcuser_register_form_hydrator')
+            ->will($this->returnValue($this->formHydrator));
 
         $service = new Service;
         $service->setServiceManager($this->serviceManager);

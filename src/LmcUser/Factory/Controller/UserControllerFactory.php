@@ -33,7 +33,7 @@ class UserControllerFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $controllerManager
+     * @param  ServiceLocatorInterface $controllerManager
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $controllerManager)

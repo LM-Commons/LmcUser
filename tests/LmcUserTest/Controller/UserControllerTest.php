@@ -12,8 +12,9 @@ use LmcUser\Service\User as UserService;
 use Laminas\Form\Form;
 use LmcUser\Options\ModuleOptions;
 use LmcUser\Entity\User as UserIdentity;
+use PHPUnit\Framework\TestCase;
 
-class UserControllerTest extends \PHPUnit_Framework_TestCase
+class UserControllerTest extends TestCase
 {
     /**
      * @var Controller $controller
@@ -33,7 +34,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected $redirectCallback;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->redirectCallback = $this->getMockBuilder('LmcUser\Controller\RedirectCallback')
             ->disableOriginalConstructor()
@@ -42,7 +43,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new Controller($this->redirectCallback);
         $this->controller = $controller;
 
-        $this->lmcUserAuthenticationPlugin = $this->getMock('LmcUser\Controller\Plugin\LmcUserAuthentication');
+        $this->lmcUserAuthenticationPlugin = $this->createMock('LmcUser\Controller\Plugin\LmcUserAuthentication');
 
         $pluginManager = $this->getMockBuilder('Laminas\Mvc\Controller\PluginManager')
             ->disableOriginalConstructor()
@@ -54,7 +55,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->pluginManager = $pluginManager;
 
-        $options = $this->getMock('LmcUser\Options\ModuleOptions');
+        $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $this->options = $options;
 
         $controller->setPluginManager($pluginManager);
@@ -105,9 +106,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $controller = $this->controller;
         $redirectRoute = $redirectRoute ?: $controller::ROUTE_LOGIN;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>$hasIdentity
-        ));
+            )
+        );
 
         $response = new Response();
 
@@ -117,7 +120,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue($redirectRoute));
         }
 
-        $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect');
+        $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
         $redirect->expects($this->once())
             ->method('toRoute')
             ->with($redirectRoute)
@@ -137,9 +140,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     public function testIndexActionLoggedIn()
     {
         $controller = $this->controller;
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $result = $controller->indexAction();
 
@@ -149,18 +154,20 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTrueOrFalseX2
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLoginActionValidFormRedirectFalse($isValid, $wantRedirect)
     {
         $controller = $this->controller;
         $redirectUrl = 'localhost/redirect1';
 
-        $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+        $plugin = $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
-        $flashMessenger = $this->getMock(
+        $flashMessenger = $this->createMock(
             'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
         );
         $this->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -175,7 +182,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnSelf());
 
         $postArray = array('some', 'data');
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->any())
             ->method('isPost')
             ->will($this->returnValue(true));
@@ -207,18 +214,20 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         if ($isValid) {
-            $adapter = $this->getMock('LmcUser\Authentication\Adapter\AdapterChain');
+            $adapter = $this->createMock('LmcUser\Authentication\Adapter\AdapterChain');
             $adapter->expects($this->once())
                 ->method('resetAdapters');
 
-            $service = $this->getMock('Laminas\Authentication\AuthenticationService');
+            $service = $this->createMock('Laminas\Authentication\AuthenticationService');
             $service->expects($this->once())
                 ->method('clearIdentity');
 
-            $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+            $plugin = $this->setUpLmcUserAuthenticationPlugin(
+                array(
                 'getAuthAdapter'=>$adapter,
                 'getAuthService'=>$service
-            ));
+                )
+            );
 
             $form->expects($this->once())
                 ->method('setData')
@@ -242,22 +251,26 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $route_url = "/user/login";
 
 
-            $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect', array('toUrl'));
+            $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect', array('toUrl'));
             $redirect->expects($this->any())
                 ->method('toUrl')
                 ->with($route_url . $redirectQuery)
-                ->will($this->returnCallback(function ($url) use (&$response) {
-                    $response->getHeaders()->addHeaderLine('Location', $url);
-                    $response->setStatusCode(302);
+                ->will(
+                    $this->returnCallback(
+                        function ($url) use (&$response) {
+                            $response->getHeaders()->addHeaderLine('Location', $url);
+                            $response->setStatusCode(302);
 
-                    return $response;
-                }));
+                            return $response;
+                        }
+                    )
+                );
 
             $this->pluginManagerPlugins['redirect']= $redirect;
 
 
             $response = new Response();
-            $url = $this->getMock('Laminas\Mvc\Controller\Plugin\Url', array('fromRoute'));
+            $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url', array('fromRoute'));
             $url->expects($this->once())
                 ->method('fromRoute')
                 ->with($controller::ROUTE_LOGIN)
@@ -282,19 +295,21 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTrueOrFalse
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLoginActionIsNotPost($redirect)
     {
-        $plugin = $this->setUpLmcUserAuthenticationPlugin(array(
+        $plugin = $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
-        $flashMessenger = $this->getMock('Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger');
+        $flashMessenger = $this->createMock('Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger');
 
         $this->pluginManagerPlugins['flashMessenger'] = $flashMessenger;
 
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->once())
             ->method('isPost')
             ->will($this->returnValue(false));
@@ -341,27 +356,29 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerRedirectPostQueryMatrix
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testLogoutAction($withRedirect, $post, $query)
     {
         $controller = $this->controller;
 
-        $adapter = $this->getMock('LmcUser\Authentication\Adapter\AdapterChain');
+        $adapter = $this->createMock('LmcUser\Authentication\Adapter\AdapterChain');
         $adapter->expects($this->once())
             ->method('resetAdapters');
 
         $adapter->expects($this->once())
             ->method('logoutAdapters');
 
-        $service = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $service = $this->createMock('Laminas\Authentication\AuthenticationService');
         $service->expects($this->once())
             ->method('clearIdentity');
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-        ));
+            )
+        );
 
 
         $response = new Response();
@@ -376,14 +393,10 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response, $result);
     }
 
-    public function testLoginRedirectFailsWithUrl()
-    {
-
-    }
 
     /**
      * @dataProvider providerTestAuthenticateAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testAuthenticateAction($wantRedirect, $post, $query, $prepareResult = false, $authValid = false)
     {
@@ -391,41 +404,51 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $response = new Response();
         $hasRedirect = !(is_null($query) && is_null($post));
 
-        $params = $this->getMock('Laminas\Mvc\Controller\Plugin\Params');
+        $params = $this->createMock('Laminas\Mvc\Controller\Plugin\Params');
         $params->expects($this->any())
             ->method('__invoke')
             ->will($this->returnSelf());
         $params->expects($this->once())
             ->method('fromPost')
-            ->will($this->returnCallback(function ($key, $default) use ($post) {
-                return $post ?: $default;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function ($key, $default) use ($post) {
+                        return $post ?: $default;
+                    }
+                )
+            );
         $params->expects($this->once())
             ->method('fromQuery')
-            ->will($this->returnCallback(function ($key, $default) use ($query) {
-                return $query ?: $default;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function ($key, $default) use ($query) {
+                        return $query ?: $default;
+                    }
+                )
+            );
         $this->pluginManagerPlugins['params'] = $params;
 
 
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $this->helperMakePropertyAccessable($controller, 'request', $request);
 
 
-        $adapter = $this->getMock('LmcUser\Authentication\Adapter\AdapterChain');
+        $adapter = $this->createMock('LmcUser\Authentication\Adapter\AdapterChain');
         $adapter->expects($this->once())
             ->method('prepareForAuthentication')
             ->with($request)
             ->will($this->returnValue($prepareResult));
 
-        $service = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $service = $this->createMock('Laminas\Authentication\AuthenticationService');
 
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false,
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-        ));
+            )
+        );
 
         if (is_bool($prepareResult)) {
             $authResult = $this->getMockBuilder('Laminas\Authentication\Result')
@@ -440,11 +463,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->with($adapter)
                 ->will($this->returnValue($authResult));
 
-            $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect');
+            $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
             $this->pluginManagerPlugins['redirect'] = $redirect;
 
             if (!$authValid) {
-                $flashMessenger = $this->getMock(
+                $flashMessenger = $this->createMock(
                     'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
                 );
                 $this->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -468,7 +491,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                     ->with('user/login' . $redirectQuery)
                     ->will($this->returnValue($response));
 
-                $url = $this->getMock('Laminas\Mvc\Controller\Plugin\Url');
+                $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url');
                 $url->expects($this->once())
                     ->method('fromRoute')
                     ->with($controller::ROUTE_LOGIN)
@@ -485,8 +508,6 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         $result = $controller->authenticateAction();
-
-
     }
 
     /**
@@ -497,9 +518,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     {
         $controller = $this->controller;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $this->options->expects($this->once())
             ->method('getEnableRegistration')
@@ -507,7 +530,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         $result = $controller->registerAction();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('enableRegistration', $result);
         $this->assertFalse($result['enableRegistration']);
     }
@@ -515,8 +538,8 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @dataProvider providerTestRegisterAction
-     * @depend testActionControllHasIdentity
-     * @depend testRegisterActionIsNotAllowed
+     * @depend       testActionControllHasIdentity
+     * @depend       testRegisterActionIsNotAllowed
      */
     public function testRegisterAction($wantRedirect, $postRedirectGetReturn, $registerSuccess, $loginAfterSuccessWith)
     {
@@ -525,18 +548,20 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $route_url = '/user/register';
         $expectedResult = null;
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>false
-        ));
+            )
+        );
 
         $this->options->expects($this->any())
             ->method('getEnableRegistration')
             ->will($this->returnValue(true));
 
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $this->helperMakePropertyAccessable($controller, 'request', $request);
 
-        $userService = $this->getMock('LmcUser\Service\User');
+        $userService = $this->createMock('LmcUser\Service\User');
         $controller->setUserService($userService);
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
@@ -559,7 +584,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         }
 
 
-        $url = $this->getMock('Laminas\Mvc\Controller\Plugin\Url');
+        $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url');
         $url->expects($this->at(0))
             ->method('fromRoute')
             ->with($controller::ROUTE_REGISTER)
@@ -567,7 +592,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->pluginManagerPlugins['url']= $url;
 
-        $prg = $this->getMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
+        $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
         $this->pluginManagerPlugins['prg'] = $prg;
 
         $redirectQuery = $wantRedirect ? '?redirect=' . rawurlencode($redirectUrl) : '';
@@ -620,7 +645,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
                 $redirectQuery = $redirectUrl ? '?redirect='. rawurlencode($redirectUrl) : '';
 
-                $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect');
+                $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
                 $redirect->expects($this->once())
                     ->method('toUrl')
                     ->with($route_url . $redirectQuery)
@@ -667,7 +692,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         if ($expectedResult) {
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('registerForm', $result);
             $this->assertArrayHasKey('enableRegistration', $result);
             $this->assertArrayHasKey('redirect', $result);
@@ -681,16 +706,18 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTestChangeAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testChangepasswordAction($status, $postRedirectGetReturn, $isValid, $changeSuccess)
     {
         $controller = $this->controller;
         $response = new Response();
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
             ->disableOriginalConstructor()
@@ -700,7 +727,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $controller->setChangePasswordForm($form);
 
 
-        $flashMessenger = $this->getMock(
+        $flashMessenger = $this->createMock(
             'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
         );
         $this->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -715,7 +742,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($status ? array('test') : array()));
 
 
-        $prg = $this->getMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
+        $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
         $this->pluginManagerPlugins['prg'] = $prg;
 
 
@@ -734,7 +761,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue((bool) $isValid));
 
             if ($isValid) {
-                $userService = $this->getMock('LmcUser\Service\User');
+                $userService = $this->createMock('LmcUser\Service\User');
 
                 $controller->setUserService($userService);
 
@@ -754,7 +781,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                         ->with(true);
 
 
-                    $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect');
+                    $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
                     $redirect->expects($this->once())
                         ->method('toRoute')
                         ->with($controller::ROUTE_CHANGEPASSWD)
@@ -785,7 +812,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 );
             }
             if ($exceptedReturn) {
-                $this->assertInternalType('array', $result);
+                $this->assertIsArray($result);
                 $this->assertArrayHasKey('status', $result);
                 $this->assertArrayHasKey('changePasswordForm', $result);
                 $this->assertEquals($exceptedReturn, $result);
@@ -799,21 +826,23 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTestChangeAction
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testChangeEmailAction($status, $postRedirectGetReturn, $isValid, $changeSuccess)
     {
         $controller = $this->controller;
         $response = new Response();
-        $userService = $this->getMock('LmcUser\Service\User');
-        $authService = $this->getMock('Laminas\Authentication\AuthenticationService');
+        $userService = $this->createMock('LmcUser\Service\User');
+        $authService = $this->createMock('Laminas\Authentication\AuthenticationService');
         $identity = new UserIdentity();
 
         $controller->setUserService($userService);
 
-        $this->setUpLmcUserAuthenticationPlugin(array(
+        $this->setUpLmcUserAuthenticationPlugin(
+            array(
             'hasIdentity'=>true
-        ));
+            )
+        );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
             ->disableOriginalConstructor()
@@ -831,12 +860,12 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $identity->setEmail('user@example.com');
 
 
-        $requestParams = $this->getMock('Laminas\Stdlib\Parameters');
+        $requestParams = $this->createMock('Laminas\Stdlib\Parameters');
         $requestParams->expects($this->once())
             ->method('set')
             ->with('identity', $identity->getEmail());
 
-        $request = $this->getMock('Laminas\Http\Request');
+        $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->once())
             ->method('getPost')
             ->will($this->returnValue($requestParams));
@@ -844,7 +873,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
 
 
-        $flashMessenger = $this->getMock(
+        $flashMessenger = $this->createMock(
             'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
         );
         $this->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -859,7 +888,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($status ? array('test') : array()));
 
 
-        $prg = $this->getMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
+        $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
         $this->pluginManagerPlugins['prg'] = $prg;
 
 
@@ -890,7 +919,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                         ->with(true);
 
 
-                    $redirect = $this->getMock('Laminas\Mvc\Controller\Plugin\Redirect');
+                    $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
                     $redirect->expects($this->once())
                         ->method('toRoute')
                         ->with($controller::ROUTE_CHANGEEMAIL)
@@ -926,7 +955,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             }
 
             if ($exceptedReturn) {
-                $this->assertInternalType('array', $result);
+                $this->assertIsArray($result);
                 $this->assertArrayHasKey('status', $result);
                 $this->assertArrayHasKey('changeEmailForm', $result);
                 $this->assertEquals($exceptedReturn, $result);
@@ -939,7 +968,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTestSetterGetterServices
-     * @depend testActionControllHasIdentity
+     * @depend       testActionControllHasIdentity
      */
     public function testSetterGetterServices(
         $method,
@@ -956,7 +985,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         }
 
         if ($useServiceLocator) {
-            $serviceLocator = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
+            $serviceLocator = $this->createMock('Laminas\ServiceManager\ServiceLocatorInterface');
             $serviceLocator->expects($this->once())
                 ->method('get')
                 ->with($serviceName)
@@ -1034,7 +1063,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     {
         $that = $this;
         $loginFormCallback[] = function ($that, $controller) {
-            $flashMessenger = $that->getMock(
+            $flashMessenger = $that->createMock(
                 'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
             );
             $that->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -1045,7 +1074,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->will($that->returnSelf());
         };
         $loginFormCallback[] = function ($that, $controller) {
-            $flashMessenger = $that->getMock(
+            $flashMessenger = $that->createMock(
                 'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger'
             );
             $that->pluginManagerPlugins['flashMessenger']= $flashMessenger;
@@ -1161,9 +1190,9 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @param mixed $objectOrClass
-     * @param string $property
-     * @param mixed $value = null
+     * @param  mixed  $objectOrClass
+     * @param  string $property
+     * @param  mixed  $value         = null
      * @return \ReflectionProperty
      */
     public function helperMakePropertyAccessable($objectOrClass, $property, $value = null)
@@ -1180,10 +1209,10 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
     public function helperMockCallbackPluginManagerGet($key)
     {
         if ($key=="flashMessenger" && !array_key_exists($key, $this->pluginManagerPlugins)) {
-//             echo "\n\n";
-//             echo '$key: ' . $key . "\n";
-//             var_dump(array_key_exists($key, $this->pluginManagerPlugins), array_keys($this->pluginManagerPlugins));
-//             exit;
+            //             echo "\n\n";
+            //             echo '$key: ' . $key . "\n";
+            //             var_dump(array_key_exists($key, $this->pluginManagerPlugins), array_keys($this->pluginManagerPlugins));
+            //             exit;
         }
         return (array_key_exists($key, $this->pluginManagerPlugins))
             ? $this->pluginManagerPlugins[$key]

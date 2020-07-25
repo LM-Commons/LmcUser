@@ -59,7 +59,7 @@ abstract class AbstractRecord extends AbstractValidator
     /**
      * setMapper
      *
-     * @param UserInterface $mapper
+     * @param  UserInterface $mapper
      * @return AbstractRecord
      */
     public function setMapper(UserInterface $mapper)
@@ -92,7 +92,7 @@ abstract class AbstractRecord extends AbstractValidator
     /**
      * Grab the user from the mapper
      *
-     * @param string $value
+     * @param  string $value
      * @return mixed
      */
     protected function query($value)

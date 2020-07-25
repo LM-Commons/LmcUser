@@ -23,7 +23,8 @@ class ChangePasswordFilter extends InputFilter
 
         $this->add($identityParams);
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'credential',
             'required'   => true,
             'validators' => array(
@@ -37,9 +38,11 @@ class ChangePasswordFilter extends InputFilter
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'newCredential',
             'required'   => true,
             'validators' => array(
@@ -53,9 +56,11 @@ class ChangePasswordFilter extends InputFilter
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name'       => 'newCredentialVerify',
             'required'   => true,
             'validators' => array(
@@ -75,6 +80,7 @@ class ChangePasswordFilter extends InputFilter
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),
-        ));
+            )
+        );
     }
 }

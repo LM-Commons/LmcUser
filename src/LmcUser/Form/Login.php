@@ -18,7 +18,8 @@ class Login extends ProvidesEventsForm
 
         parent::__construct($name);
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'identity',
             'options' => array(
                 'label' => '',
@@ -26,7 +27,8 @@ class Login extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text'
             ),
-        ));
+            )
+        );
 
         $emailElement = $this->get('identity');
         $label = $emailElement->getLabel('label');
@@ -36,7 +38,8 @@ class Login extends ProvidesEventsForm
         }
         $emailElement->setLabel($label);
         //
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'credential',
             'type' => 'password',
             'options' => array(
@@ -45,7 +48,8 @@ class Login extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'password',
             ),
-        ));
+            )
+        );
 
         // @todo: Fix this
         // 1) getValidator() is a protected method
@@ -59,19 +63,24 @@ class Login extends ProvidesEventsForm
         $submitElement = new Element\Button('submit');
         $submitElement
             ->setLabel('Sign In')
-            ->setAttributes(array(
+            ->setAttributes(
+                array(
                 'type'  => 'submit',
-            ));
+                )
+            );
 
-        $this->add($submitElement, array(
+        $this->add(
+            $submitElement,
+            array(
             'priority' => -100,
-        ));
+            )
+        );
     }
 
     /**
      * Set Authentication-related Options
      *
-     * @param AuthenticationOptionsInterface $authOptions
+     * @param  AuthenticationOptionsInterface $authOptions
      * @return Login
      */
     public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions)
