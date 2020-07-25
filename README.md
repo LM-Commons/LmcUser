@@ -1,8 +1,9 @@
 LmcUser
 =======
-[![Build Status](https://travis-ci.org/ZF-Commons/LmcUser.png)](https://travis-ci.org/Laminas-Commons/LmcUser)
-[![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=3.x)](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser)
+[![Build Status](https://travis-ci.com/Laminas-Commons/LmcUser.svg?branch=master)](https://travis-ci.com/Laminas-Commons/LmcUser.svg?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=master)
 [![Gitter](https://badges.gitter.im/LaminasCommons/community.svg)](https://gitter.im/LaminasCommons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Based on ZfcUser by Evan Coury and the ZF-Commons team
 
 Introduction
