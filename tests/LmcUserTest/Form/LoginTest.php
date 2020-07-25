@@ -3,19 +3,20 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\Login as Form;
+use PHPUnit\Framework\TestCase;
 
-class LoginTest extends \PHPUnit_Framework_TestCase
+class LoginTest extends TestCase
 {
     /**
-     * @covers LmcUser\Form\Login::__construct
+     * @covers       LmcUser\Form\Login::__construct
      * @dataProvider providerTestConstruct
      */
     public function testConstruct($authIdentityFields = array())
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue($authIdentityFields));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue($authIdentityFields));
 
         $form = new Form(null, $options);
 
@@ -29,7 +30,7 @@ class LoginTest extends \PHPUnit_Framework_TestCase
             foreach ($authIdentityFields as $field) {
                 $expectedLabel .= ($expectedLabel=="") ? '' : ' or ';
                 $expectedLabel .= ucfirst($field);
-                $this->assertContains(ucfirst($field), $elements['identity']->getLabel());
+                $this->assertStringContainsString(ucfirst($field), $elements['identity']->getLabel());
             }
         }
 
@@ -42,10 +43,10 @@ class LoginTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetAuthenticationOptions()
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
-                ->method('getAuthIdentityFields')
-                ->will($this->returnValue(array()));
+            ->method('getAuthIdentityFields')
+            ->will($this->returnValue(array()));
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());

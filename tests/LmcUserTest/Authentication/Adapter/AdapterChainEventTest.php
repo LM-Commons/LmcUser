@@ -3,8 +3,9 @@
 namespace LmcUserTest\Authentication\Adapter;
 
 use LmcUser\Authentication\Adapter\AdapterChainEvent;
+use PHPUnit\Framework\TestCase;
 
-class AdapterChainEventTest extends \PHPUnit_Framework_TestCase
+class AdapterChainEventTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -16,7 +17,7 @@ class AdapterChainEventTest extends \PHPUnit_Framework_TestCase
     /**
      * Prepare the object to be tested.
      */
-    protected function setUp()
+    protected function setUp():void
     {
         $this->event = new AdapterChainEvent();
     }
@@ -41,8 +42,8 @@ class AdapterChainEventTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testCodeAndMessages
-     * @covers \LmcUser\Authentication\Adapter\AdapterChainEvent::getIdentity
-     * @covers \LmcUser\Authentication\Adapter\AdapterChainEvent::setIdentity
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChainEvent::getIdentity
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChainEvent::setIdentity
      */
     public function testIdentity()
     {
@@ -68,7 +69,7 @@ class AdapterChainEventTest extends \PHPUnit_Framework_TestCase
 
     public function testRequest()
     {
-        $request = $this->getMock('Laminas\Stdlib\RequestInterface');
+        $request = $this->createMock('Laminas\Stdlib\RequestInterface');
         $this->event->setRequest($request);
 
         $this->assertInstanceOf('Laminas\Stdlib\RequestInterface', $this->event->getRequest());

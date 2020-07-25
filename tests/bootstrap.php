@@ -14,5 +14,5 @@ if (file_exists('../vendor/autoload.php')) {
 $loader->add('LmcUserTest', __DIR__);
 
 if (!$config = @include 'configuration.php') {
-    $config = require 'configuration.php.dist';
+    $config = include 'configuration.php.dist';
 }

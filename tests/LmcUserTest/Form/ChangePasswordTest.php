@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\ChangePassword as Form;
+use PHPUnit\Framework\TestCase;
 
-class ChangePasswordTest extends \PHPUnit_Framework_TestCase
+class ChangePasswordTest extends TestCase
 {
     /**
      * @covers LmcUser\Form\ChangePassword::__construct
      */
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
 
         $form = new Form(null, $options);
 
@@ -29,7 +30,7 @@ class ChangePasswordTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetAuthenticationOptions()
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());

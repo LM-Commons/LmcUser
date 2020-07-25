@@ -47,7 +47,7 @@ class UserController extends AbstractActionController
 
     /**
      * @todo Make this dynamic / translation-friendly
-     * @var string
+     * @var  string
      */
     protected $failedLoginMessage = 'Authentication failed. Please try again.';
 
@@ -409,7 +409,7 @@ class UserController extends AbstractActionController
     /**
      * set options
      *
-     * @param UserControllerOptionsInterface $options
+     * @param  UserControllerOptionsInterface $options
      * @return UserController
      */
     public function setOptions(UserControllerOptionsInterface $options)
@@ -433,6 +433,7 @@ class UserController extends AbstractActionController
 
     /**
      * Get changeEmailForm.
+     *
      * @return ChangeEmailForm
      */
     public function getChangeEmailForm()
@@ -446,7 +447,7 @@ class UserController extends AbstractActionController
     /**
      * Set changeEmailForm.
      *
-     * @param $changeEmailForm - the value to set.
+     * @param  $changeEmailForm - the value to set.
      * @return $this
      */
     public function setChangeEmailForm($changeEmailForm)

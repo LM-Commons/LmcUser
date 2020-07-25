@@ -3,8 +3,9 @@
 namespace LmcUserTest\Authentication\Storage;
 
 use LmcUser\Authentication\Storage\Db;
+use PHPUnit\Framework\TestCase;
 
-class DbTest extends \PHPUnit_Framework_TestCase
+class DbTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -27,13 +28,13 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     protected $mapper;
 
-    public function setUp()
+    public function setUp():void
     {
         $db = new Db;
         $this->db = $db;
 
-        $this->storage = $this->getMock('Laminas\Authentication\Storage\Session');
-        $this->mapper = $this->getMock('LmcUser\Mapper\User');
+        $this->storage = $this->createMock('Laminas\Authentication\Storage\Session');
+        $this->mapper = $this->createMock('LmcUser\Mapper\User');
     }
 
     /**
@@ -42,8 +43,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testIsEmpty()
     {
         $this->storage->expects($this->once())
-                      ->method('isEmpty')
-                      ->will($this->returnValue(true));
+            ->method('isEmpty')
+            ->will($this->returnValue(true));
 
         $this->db->setStorage($this->storage);
 
@@ -69,18 +70,18 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testReadWithoutResolvedEntitySetIdentityIntUserFound()
     {
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue(1));
+            ->method('read')
+            ->will($this->returnValue(1));
 
         $this->db->setStorage($this->storage);
 
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->setUsername('lmcUser');
 
         $this->mapper->expects($this->once())
-                     ->method('findById')
-                     ->with(1)
-                     ->will($this->returnValue($user));
+            ->method('findById')
+            ->with(1)
+            ->will($this->returnValue($user));
 
         $this->db->setMapper($this->mapper);
 
@@ -95,15 +96,15 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testReadWithoutResolvedEntitySetIdentityIntUserNotFound()
     {
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue(1));
+            ->method('read')
+            ->will($this->returnValue(1));
 
         $this->db->setStorage($this->storage);
 
         $this->mapper->expects($this->once())
-                     ->method('findById')
-                     ->with(1)
-                     ->will($this->returnValue(false));
+            ->method('findById')
+            ->with(1)
+            ->will($this->returnValue(false));
 
         $this->db->setMapper($this->mapper);
 
@@ -117,12 +118,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testReadWithoutResolvedEntitySetIdentityObject()
     {
-        $user = $this->getMock('LmcUser\Entity\User');
+        $user = $this->createMock('LmcUser\Entity\User');
         $user->setUsername('lmcUser');
 
         $this->storage->expects($this->once())
-                      ->method('read')
-                      ->will($this->returnValue($user));
+            ->method('read')
+            ->will($this->returnValue($user));
 
         $this->db->setStorage($this->storage);
 
@@ -141,8 +142,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty->setAccessible(true);
 
         $this->storage->expects($this->once())
-                      ->method('write')
-                      ->with('lmcUser');
+            ->method('write')
+            ->with('lmcUser');
 
         $this->db->setStorage($this->storage);
 
@@ -175,11 +176,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMapperWithNoMapperSet()
     {
-        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
         $sm->expects($this->once())
-           ->method('get')
-           ->with('lmcuser_user_mapper')
-           ->will($this->returnValue($this->mapper));
+            ->method('get')
+            ->with('lmcuser_user_mapper')
+            ->will($this->returnValue($this->mapper));
 
         $this->db->setServiceManager($sm);
 
@@ -207,7 +208,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetServicemanager()
     {
-        $sm = $this->getMock('Laminas\ServiceManager\ServiceManager');
+        $sm = $this->createMock('Laminas\ServiceManager\ServiceManager');
 
         $this->db->setServiceManager($sm);
 

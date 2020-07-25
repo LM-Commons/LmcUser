@@ -1,12 +1,8 @@
 language: php
 
 php:
-
-  - 7.0
-  - 7.1
-  - 7.2
   - 7.3
-  - hhvm
+  - 7.4
 
 before_script:
   - composer self-update
@@ -15,7 +11,7 @@ before_script:
   - mysql -e "create database IF NOT EXISTS lmc_user;" -uroot
 
 script:
-  - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php
+  - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php --configuration tests/phpunit.xml
   - ./vendor/bin/phpcs -n --standard=PSR2 ./src/ ./tests/
 
 services:
@@ -25,10 +21,9 @@ after_script:
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 notifications:
-  email: false
-  irc: "irc.freenode.org#zftalk.dev"
+  email: "mail@matwright.dev
+
+
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm

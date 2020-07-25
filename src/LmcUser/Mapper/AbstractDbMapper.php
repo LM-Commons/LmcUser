@@ -67,6 +67,7 @@ abstract class AbstractDbMapper extends EventProvider
 
     /**
      * Performs some basic initialization setup and checks before running a query
+     *
      * @throws \Exception
      * @return null
      */
@@ -89,7 +90,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param string|null $table
+     * @param  string|null $table
      * @return Select
      */
     protected function getSelect($table = null)
@@ -100,9 +101,9 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param Select $select
-     * @param UserEntityInterface|null $entityPrototype
-     * @param HydratorInterface|null $hydrator
+     * @param  Select                   $select
+     * @param  UserEntityInterface|null $entityPrototype
+     * @param  HydratorInterface|null   $hydrator
      * @return HydratingResultSet
      */
     protected function select(Select $select, UserEntityInterface $entityPrototype = null, HydratorInterface $hydrator = null)
@@ -118,9 +119,9 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param UserEntityInterface $entity
-     * @param string|TableIdentifier|null $tableName
-     * @param HydratorInterface|null $hydrator
+     * @param  UserEntityInterface         $entity
+     * @param  string|TableIdentifier|null $tableName
+     * @param  HydratorInterface|null      $hydrator
      * @return ResultInterface
      */
     protected function insert(UserEntityInterface $entity, $tableName = null, HydratorInterface $hydrator = null)
@@ -136,10 +137,10 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param UserEntityInterface $entity
-     * @param string|array|\Closure $where
-     * @param string|TableIdentifier|null $tableName
-     * @param HydratorInterface|null $hydrator
+     * @param  UserEntityInterface         $entity
+     * @param  string|array|\Closure       $where
+     * @param  string|TableIdentifier|null $tableName
+     * @param  HydratorInterface|null      $hydrator
      * @return ResultInterface
      */
     protected function update(UserEntityInterface $entity, $where, $tableName = null, HydratorInterface $hydrator = null)
@@ -156,8 +157,8 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param string|array|\Closure $where
-     * @param string|TableIdentifier|null $tableName
+     * @param  string|array|\Closure       $where
+     * @param  string|TableIdentifier|null $tableName
      * @return ResultInterface
      */
     protected function delete($where, $tableName = null)
@@ -187,7 +188,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param UserEntityInterface $entityPrototype
+     * @param  UserEntityInterface $entityPrototype
      * @return AbstractDbMapper
      */
     public function setEntityPrototype(UserEntityInterface $entityPrototype)
@@ -206,7 +207,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param Adapter $dbAdapter
+     * @param  Adapter $dbAdapter
      * @return AbstractDbMapper
      */
     public function setDbAdapter(Adapter $dbAdapter)
@@ -227,7 +228,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param Adapter $dbSlaveAdapter
+     * @param  Adapter $dbSlaveAdapter
      * @return AbstractDbMapper
      */
     public function setDbSlaveAdapter(Adapter $dbSlaveAdapter)
@@ -248,7 +249,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param HydratorInterface $hydrator
+     * @param  HydratorInterface $hydrator
      * @return AbstractDbMapper
      */
     public function setHydrator(HydratorInterface $hydrator)
@@ -270,7 +271,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param Sql $sql
+     * @param  Sql $sql
      * @return AbstractDbMapper
      */
     protected function setSql(Sql $sql)
@@ -291,7 +292,7 @@ abstract class AbstractDbMapper extends EventProvider
     }
 
     /**
-     * @param Sql $sql
+     * @param  Sql $sql
      * @return AbstractDbMapper
      */
     protected function setSlaveSql(Sql $sql)
@@ -305,8 +306,8 @@ abstract class AbstractDbMapper extends EventProvider
      *
      * Use this method to ensure that you're working with an array.
      *
-     * @param UserEntityInterface $entity
-     * @param HydratorInterface|null $hydrator
+     * @param  UserEntityInterface    $entity
+     * @param  HydratorInterface|null $hydrator
      * @return array
      */
     protected function entityToArray(UserEntityInterface $entity, HydratorInterface $hydrator = null)

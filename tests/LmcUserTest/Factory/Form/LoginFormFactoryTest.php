@@ -5,8 +5,9 @@ use Laminas\Form\FormElementManager;
 use Laminas\ServiceManager\ServiceManager;
 use LmcUser\Factory\Form\Login as LoginFactory;
 use LmcUser\Options\ModuleOptions;
+use PHPUnit\Framework\TestCase;
 
-class LoginFormFactoryTest extends \PHPUnit_Framework_TestCase
+class LoginFormFactoryTest extends TestCase
 {
     public function testFactory()
     {

@@ -3,15 +3,16 @@
 namespace LmcUserTest\Form;
 
 use LmcUser\Form\ChangeEmail as Form;
+use PHPUnit\Framework\TestCase;
 
-class ChangeEmailTest extends \PHPUnit_Framework_TestCase
+class ChangeEmailTest extends TestCase
 {
     /**
      * @covers LmcUser\Form\ChangeEmail::__construct
      */
     public function testConstruct()
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
 
         $form = new Form(null, $options);
 
@@ -29,7 +30,7 @@ class ChangeEmailTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetAuthenticationOptions()
     {
-        $options = $this->getMock('LmcUser\Options\AuthenticationOptionsInterface');
+        $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());

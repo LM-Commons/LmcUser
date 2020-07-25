@@ -58,7 +58,7 @@ class User extends EventProvider
     /**
      * createFromForm
      *
-     * @param array $data
+     * @param  array $data
      * @return \LmcUser\Entity\UserInterface
      * @throws Exception\InvalidArgumentException
      */
@@ -101,7 +101,7 @@ class User extends EventProvider
     /**
      * change the current users password
      *
-     * @param array $data
+     * @param  array $data
      * @return boolean
      */
     public function changePassword(array $data)
@@ -164,7 +164,7 @@ class User extends EventProvider
     /**
      * setUserMapper
      *
-     * @param UserMapperInterface $userMapper
+     * @param  UserMapperInterface $userMapper
      * @return User
      */
     public function setUserMapper(UserMapperInterface $userMapper)
@@ -189,7 +189,7 @@ class User extends EventProvider
     /**
      * setAuthenticationService
      *
-     * @param AuthenticationService $authService
+     * @param  AuthenticationService $authService
      * @return User
      */
     public function setAuthService(AuthenticationService $authService)
@@ -210,7 +210,7 @@ class User extends EventProvider
     }
 
     /**
-     * @param Form $registerForm
+     * @param  Form $registerForm
      * @return User
      */
     public function setRegisterForm(Form $registerForm)
@@ -231,7 +231,7 @@ class User extends EventProvider
     }
 
     /**
-     * @param Form $changePasswordForm
+     * @param  Form $changePasswordForm
      * @return User
      */
     public function setChangePasswordForm(Form $changePasswordForm)
@@ -276,7 +276,7 @@ class User extends EventProvider
     /**
      * Set service manager instance
      *
-     * @param ContainerInterface $serviceManager
+     * @param  ContainerInterface $serviceManager
      * @return User
      */
     public function setServiceManager(ContainerInterface $serviceManager)
@@ -302,7 +302,7 @@ class User extends EventProvider
     /**
      * Set the Form Hydrator to use
      *
-     * @param Hydrator\HydratorInterface $formHydrator
+     * @param  Hydrator\HydratorInterface $formHydrator
      * @return User
      */
     public function setFormHydrator(Hydrator\HydratorInterface $formHydrator)

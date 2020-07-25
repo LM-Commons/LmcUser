@@ -2,9 +2,11 @@
 
 namespace LmcUserTest\Authentication\Adapter;
 
+use Laminas\EventManager\EventManager;
 use LmcUser\Authentication\Adapter\AdapterChainServiceFactory;
+use PHPUnit\Framework\TestCase;
 
-class AdapterChainServiceFactoryTest extends \PHPUnit_Framework_TestCase
+class AdapterChainServiceFactoryTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -33,29 +35,33 @@ class AdapterChainServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function helperServiceLocator($index)
     {
+        if (!array_key_exists($index, $this->serviceLocatorArray)) {
+            throw new \Exception('index '.$index.' does not exist in serviceLocatorArray');
+        }
         return $this->serviceLocatorArray[$index];
     }
 
     /**
      * Prepare the object to be tested.
      */
-    protected function setUp()
+    protected function setUp():void
     {
-        $this->serviceLocator = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
+        $this->serviceLocator = $this->createMock('Laminas\ServiceManager\ServiceLocatorInterface');
 
         $this->options = $this->getMockBuilder('LmcUser\Options\ModuleOptions')
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->serviceLocatorArray = array (
-            'lmcuser_module_options'=>$this->options
+            'lmcuser_module_options'=>$this->options,
+            'EventManager'=>$this->createMock('Laminas\EventManager\EventManager')
         );
 
         $this->serviceLocator->expects($this->any())
             ->method('get')
             ->will($this->returnCallback(array($this,'helperServiceLocator')));
 
-        $this->eventManager = $this->getMock('Laminas\EventManager\EventManager');
+        $this->eventManager = $this->createMock('Laminas\EventManager\EventManager');
 
         $this->factory = new AdapterChainServiceFactory();
     }
@@ -66,22 +72,24 @@ class AdapterChainServiceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         $adapter = array(
-            'adapter1'=> $this->getMock(
+            'adapter1'=> $this->createMock(
                 'LmcUser\Authentication\Adapter\AbstractAdapter',
                 array('authenticate', 'logout')
             ),
-            'adapter2'=> $this->getMock(
+            'adapter2'=> $this->createMock(
                 'LmcUser\Authentication\Adapter\AbstractAdapter',
                 array('authenticate', 'logout')
             )
+
+
         );
         $adapterNames = array(100=>'adapter1', 200=>'adapter2');
 
         $this->serviceLocatorArray = array_merge($this->serviceLocatorArray, $adapter);
 
         $this->options->expects($this->once())
-                      ->method('getAuthAdapters')
-                      ->will($this->returnValue($adapterNames));
+            ->method('getAuthAdapters')
+            ->will($this->returnValue($adapterNames));
 
         $adapterChain = $this->factory->__invoke($this->serviceLocator, 'LmcUser\Authentication\Adapter\AdapterChain');
 
@@ -124,10 +132,10 @@ class AdapterChainServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::getOptions
-     * @expectedException \LmcUser\Authentication\Adapter\Exception\OptionsNotFoundException
      */
     public function testGetOptionFailing()
     {
+        $this->expectException(\LmcUser\Authentication\Adapter\Exception\OptionsNotFoundException::class);
         $options = $this->factory->getOptions();
     }
 }

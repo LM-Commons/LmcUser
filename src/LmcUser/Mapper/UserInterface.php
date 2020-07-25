@@ -5,19 +5,19 @@ namespace LmcUser\Mapper;
 interface UserInterface
 {
     /**
-     * @param $email
+     * @param  $email
      * @return \LmcUser\Entity\UserInterface
      */
     public function findByEmail($email);
 
     /**
-     * @param string $username
+     * @param  string $username
      * @return \LmcUser\Entity\UserInterface
      */
     public function findByUsername($username);
 
     /**
-     * @param string|int $id
+     * @param  string|int $id
      * @return \LmcUser\Entity\UserInterface
      */
     public function findById($id);

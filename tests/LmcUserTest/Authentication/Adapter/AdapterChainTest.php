@@ -5,11 +5,14 @@ namespace LmcUserTest\Authentication\Adapter;
 use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\SharedEventManagerInterface;
+use Laminas\Stdlib\Response;
 use LmcUser\Authentication\Adapter\AdapterChain;
 use LmcUser\Authentication\Adapter\AdapterChainEvent;
 use Laminas\Stdlib\RequestInterface;
+use PHPUnit\Framework\MockObject\MockType;
+use PHPUnit\Framework\TestCase;
 
-class AdapterChainTest extends \PHPUnit_Framework_TestCase
+class AdapterChainTest extends TestCase
 {
     /**
      * The object to be tested.
@@ -49,17 +52,17 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
     /**
      * Prepare the objects to be tested.
      */
-    protected function setUp()
+    protected function setUp():void
     {
         $this->event = null;
         $this->request = null;
 
         $this->adapterChain = new AdapterChain();
 
-        $this->sharedEventManager = $this->getMock('Laminas\EventManager\SharedEventManagerInterface');
+        $this->sharedEventManager = $this->createMock('Laminas\EventManager\SharedEventManagerInterface');
         //$this->sharedEventManager->expects($this->any())->method('getListeners')->will($this->returnValue([]));
 
-        $this->eventManager = $this->getMock('Laminas\EventManager\EventManagerInterface');
+        $this->eventManager = $this->createMock('Laminas\EventManager\EventManagerInterface');
         $this->eventManager->expects($this->any())->method('getSharedManager')->will($this->returnValue($this->sharedEventManager));
         $this->eventManager->expects($this->any())->method('setIdentifiers');
 
@@ -71,21 +74,21 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthenticate()
     {
-        $event = $this->getMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
+        $event = $this->createMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
         $event->expects($this->once())
-              ->method('getCode')
-              ->will($this->returnValue(123));
+            ->method('getCode')
+            ->will($this->returnValue(123));
         $event->expects($this->once())
-              ->method('getIdentity')
-              ->will($this->returnValue('identity'));
+            ->method('getIdentity')
+            ->will($this->returnValue('identity'));
         $event->expects($this->once())
-              ->method('getMessages')
-              ->will($this->returnValue(array()));
+            ->method('getMessages')
+            ->will($this->returnValue(array()));
 
         $this->sharedEventManager->expects($this->once())
-             ->method('getListeners')
-             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-             ->will($this->returnValue(array()));
+            ->method('getListeners')
+            ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
+            ->will($this->returnValue(array()));
 
         $this->adapterChain->setEvent($event);
         $result = $this->adapterChain->authenticate();
@@ -103,23 +106,23 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
         $listeners = array();
 
         for ($i=1; $i<=3; $i++) {
-            $storage = $this->getMock('LmcUser\Authentication\Storage\Db');
+            $storage = $this->createMock('LmcUser\Authentication\Storage\Db');
             $storage->expects($this->once())
-                    ->method('clear');
+                ->method('clear');
 
-            $adapter = $this->getMock('LmcUser\Authentication\Adapter\ChainableAdapter');
+            $adapter = $this->createMock('LmcUser\Authentication\Adapter\ChainableAdapter');
             $adapter->expects($this->once())
-                    ->method('getStorage')
-                    ->will($this->returnValue($storage));
+                ->method('getStorage')
+                ->will($this->returnValue($storage));
 
             $callback = [$adapter, 'authenticate'];
             $listeners[] = $callback;
         }
 
         $this->sharedEventManager->expects($this->once())
-             ->method('getListeners')
-             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-             ->will($this->returnValue($listeners));
+            ->method('getListeners')
+            ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
+            ->will($this->returnValue($listeners));
 
         $result = $this->adapterChain->resetAdapters();
 
@@ -131,27 +134,38 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUpPrepareForAuthentication()
     {
-        $this->request = $this->getMock('Laminas\Stdlib\RequestInterface');
-        $this->event = $this->getMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
+        $this->request = $this->createMock('Laminas\Stdlib\RequestInterface');
+        $this->event = $this->createMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
 
         $this->event->expects($this->once())->method('setRequest')->with($this->request);
 
-        $this->eventManager->expects($this->at(0))->method('trigger')->with('authenticate.pre');
+        $this->event->setName('authenticate.pre');
+        $this->eventManager->expects($this->at(0))->method('triggerEvent')->with($this->event);
 
         /**
          * @var $response \Laminas\EventManager\ResponseCollection
          */
-        $responses = $this->getMock('Laminas\EventManager\ResponseCollection');
+        $responses = $this->createMock('Laminas\EventManager\ResponseCollection');
 
+        $this->event->setName('authenticate');
         $this->eventManager->expects($this->at(1))
-            ->method('trigger')
-            ->with('authenticate', $this->event)
-            ->will($this->returnCallback(function ($event, $target, $callback) use ($responses) {
-                if (call_user_func($callback, $responses->last())) {
-                    $responses->setStopped(true);
-                }
-                return $responses;
-            }));
+            ->method('triggerEventUntil')
+            ->with(
+                function ($test) {
+                    return ($test instanceof Response);
+                },
+                $this->event
+            )
+            ->will(
+                $this->returnCallback(
+                    function ($callback) use ($responses) {
+                        if (call_user_func($callback, $responses->last())) {
+                            $responses->setStopped(true);
+                        }
+                        return $responses;
+                    }
+                )
+            );
 
         $this->adapterChain->setEvent($this->event);
 
@@ -178,7 +192,7 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
      * @param bool  $expected
      *
      * @dataProvider identityProvider
-     * @covers \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
+     * @covers       \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
      */
     public function testPrepareForAuthentication($identity, $expected)
     {
@@ -206,7 +220,7 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
 
         $result->expects($this->once())->method('stopped')->will($this->returnValue(true));
 
-        $lastResponse = $this->getMock('Laminas\Stdlib\ResponseInterface');
+        $lastResponse = $this->createMock('Laminas\Stdlib\ResponseInterface');
         $result->expects($this->atLeastOnce())->method('last')->will($this->returnValue($lastResponse));
 
         $this->assertEquals(
@@ -220,10 +234,10 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
      * Test prepareForAuthentication() when the returned collection contains stopped.
      *
      * @covers \LmcUser\Authentication\Adapter\AdapterChain::prepareForAuthentication
-     * @expectedException \LmcUser\Exception\AuthenticationEventException
      */
     public function testPrepareForAuthenticationWithBadEventResult()
     {
+        $this->expectException(\LmcUser\Exception\AuthenticationEventException::class);
         $result = $this->setUpPrepareForAuthentication();
 
         $result->expects($this->once())->method('stopped')->will($this->returnValue(true));
@@ -306,16 +320,16 @@ class AdapterChainTest extends \PHPUnit_Framework_TestCase
      * Test the logoutAdapters method.
      *
      * @depends testGetEventWithEventSet
-     * @covers \LmcUser\Authentication\Adapter\AdapterChain::logoutAdapters
+     * @covers  \LmcUser\Authentication\Adapter\AdapterChain::logoutAdapters
      */
     public function testLogoutAdapters()
     {
         $event = new AdapterChainEvent();
-
+        $event->setName('logout');
         $this->eventManager
             ->expects($this->once())
-            ->method('trigger')
-            ->with('logout', $event);
+            ->method('triggerEvent')
+            ->with($event);
 
         $this->adapterChain->setEvent($event);
         $this->adapterChain->logoutAdapters();
