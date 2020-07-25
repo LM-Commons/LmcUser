@@ -21,7 +21,7 @@
     ],
    
     "require": {
-        "php" : "^7.2",
+        "php" : "^7.3",
 		"laminas/laminas-authentication" : "^2.7",
 		"laminas/laminas-crypt" : "^3.0",
 		"laminas/laminas-form" : "^2.14",
