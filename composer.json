@@ -57,5 +57,10 @@
         "classmap": [
             "./Module.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "LmcUserTest": "tests/"
+        }
     }
 }
