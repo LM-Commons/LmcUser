@@ -55,7 +55,7 @@ class Module implements
                 'lmcuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
             ),
             'invokables' => array(
-                'lmcuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethods::class,
+                'lmcuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethodsHydrator::class,
             ),
             'factories' => array(
                 'lmcuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,

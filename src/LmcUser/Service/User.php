@@ -288,7 +288,7 @@ class User extends EventProvider
     /**
      * Return the Form Hydrator
      *
-     * @return \Laminas\Hydrator\ClassMethods
+     * @return \Laminas\Hydrator\ClassMethodsHydrator
      */
     public function getFormHydrator()
     {
