@@ -4,7 +4,6 @@ namespace LmcUserTest\Factory\Form;
 use Laminas\Form\FormElementManager;
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\Hydrator\ClassMethods;
 use LmcUser\Factory\Form\Register as RegisterFactory;
 use LmcUser\Options\ModuleOptions;
 use LmcUser\Mapper\User as UserMapper;
