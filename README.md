@@ -2,7 +2,7 @@ LmcUser
 =======
 [![Build Status](https://travis-ci.com/Laminas-Commons/LmcUser.svg?branch=master)](https://travis-ci.com/Laminas-Commons/LmcUser.svg?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Laminas-Commons/LmcUser/badges/quality-score.png?b=master)
-[![Gitter](https://badges.gitter.im/LaminasCommons/community.svg)](https://gitter.im/LaminasCommons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/LM-Commons/community.svg)](https://gitter.im/LM-Commons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Based on ZfcUser by Evan Coury and the ZF-Commons team
 
@@ -138,7 +138,7 @@ Options
 
 The  LmcUser module has some options to allow you to quickly customize the basic
 functionality. After installing LmcUser, copy
-`./vendor/laminas-commons/lmc-user/config/lmcuser.global.php.dist` to
+`./vendor/lm-commons/lmc-user/config/lmcuser.global.php.dist` to
 `./config/autoload/lmcuser.global.php` and change the values as desired.
 
 The following options are available:
