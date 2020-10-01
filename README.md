@@ -45,7 +45,7 @@ Installation
 
     ```json
     "require": {  
-        "ls-commons/lmc-user": "^3.1"  
+        "lm-commons/lmc-user": "^3.1"  
     }  
     ```
 
