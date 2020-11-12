@@ -24,12 +24,12 @@ class AdapterChainServiceFactory implements FactoryInterface
         foreach ($options->getAuthAdapters() as $priority => $adapterName) {
             $adapter = $serviceLocator->get($adapterName);
 
-            if (is_callable(array($adapter, 'authenticate'))) {
-                $chain->getEventManager()->attach('authenticate', array($adapter, 'authenticate'), $priority);
+            if (is_callable([$adapter, 'authenticate'])) {
+                $chain->getEventManager()->attach('authenticate', [$adapter, 'authenticate'], $priority);
             }
 
-            if (is_callable(array($adapter, 'logout'))) {
-                $chain->getEventManager()->attach('logout', array($adapter, 'logout'), $priority);
+            if (is_callable([$adapter, 'logout'])) {
+                $chain->getEventManager()->attach('logout', [$adapter, 'logout'], $priority);
             }
         }
 

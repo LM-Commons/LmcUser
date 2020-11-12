@@ -54,7 +54,7 @@ class Db extends AbstractAdapter
             $storage = $this->getStorage()->read();
             $e->setIdentity($storage['identity'])
                 ->setCode(AuthenticationResult::SUCCESS)
-                ->setMessages(array('Authentication successful.'));
+                ->setMessages(['Authentication successful.']);
             return;
         }
 
@@ -86,7 +86,7 @@ class Db extends AbstractAdapter
 
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
-                ->setMessages(array('A record with the supplied identity could not be found.'));
+                ->setMessages(['A record with the supplied identity could not be found.']);
             $this->setSatisfied(false);
             return false;
         }
@@ -95,7 +95,7 @@ class Db extends AbstractAdapter
             // Don't allow user to login if state is not in allowed list
             if (!in_array($userObject->getState(), $this->getOptions()->getAllowedLoginStates())) {
                 $e->setCode(AuthenticationResult::FAILURE_UNCATEGORIZED)
-                    ->setMessages(array('A record with the supplied identity is not active.'));
+                    ->setMessages(['A record with the supplied identity is not active.']);
                 $this->setSatisfied(false);
                 return false;
             }
@@ -107,7 +107,7 @@ class Db extends AbstractAdapter
         if (!$bcrypt->verify($credential, $userObject->getPassword())) {
             // Password does not match
             $e->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
-                ->setMessages(array('Supplied credential is invalid.'));
+                ->setMessages(['Supplied credential is invalid.']);
             $this->setSatisfied(false);
             return false;
         }
@@ -125,7 +125,7 @@ class Db extends AbstractAdapter
         $storage['identity'] = $e->getIdentity();
         $this->getStorage()->write($storage);
         $e->setCode(AuthenticationResult::SUCCESS)
-            ->setMessages(array('Authentication successful.'));
+            ->setMessages(['Authentication successful.']);
     }
 
     protected function updateUserPasswordHash(UserInterface $userObject, $password, Bcrypt $bcrypt)

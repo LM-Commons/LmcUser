@@ -92,9 +92,9 @@ class User extends EventProvider
         if ($this->getOptions()->getEnableUserState()) {
             $user->setState($this->getOptions()->getDefaultUserState());
         }
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'form' => $form));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $user, 'form' => $form]);
         $this->getUserMapper()->insert($user);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'form' => $form));
+        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, ['user' => $user, 'form' => $form]);
         return $user;
     }
 
@@ -121,9 +121,9 @@ class User extends EventProvider
         $pass = $bcrypt->create($newPass);
         $currentUser->setPassword($pass);
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $currentUser, 'data' => $data]);
         $this->getUserMapper()->update($currentUser);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, ['user' => $currentUser, 'data' => $data]);
 
         return true;
     }
@@ -141,9 +141,9 @@ class User extends EventProvider
 
         $currentUser->setEmail($data['newIdentity']);
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $currentUser, 'data' => $data]);
         $this->getUserMapper()->update($currentUser);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, ['user' => $currentUser, 'data' => $data]);
 
         return true;
     }

@@ -18,10 +18,10 @@ class ChangeEmail implements FactoryInterface
             new Form\ChangeEmailFilter(
                 $options,
                 new Validator\NoRecordExists(
-                    array(
+                    [
                     'mapper' => $serviceManager->get('lmcuser_user_mapper'),
                     'key'    => 'email'
-                    )
+                    ]
                 )
             )
         );

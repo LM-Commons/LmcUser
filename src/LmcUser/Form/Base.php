@@ -11,91 +11,91 @@ class Base extends ProvidesEventsForm
         parent::__construct($name);
 
         $this->add(
-            array(
-            'name' => 'username',
-            'options' => array(
+            [
+                'name' => 'username',
+                'options' => [
                 'label' => 'Username',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text'
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'email',
-            'options' => array(
+            [
+                'name' => 'email',
+                'options' => [
                 'label' => 'Email',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text'
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'display_name',
-            'options' => array(
+            [
+                'name' => 'display_name',
+                'options' => [
                 'label' => 'Display Name',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text'
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'password',
-            'type' => 'password',
-            'options' => array(
+            [
+                'name' => 'password',
+                'type' => 'password',
+                'options' => [
                 'label' => 'Password',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'password'
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'passwordVerify',
-            'type' => 'password',
-            'options' => array(
+            [
+                'name' => 'passwordVerify',
+                'type' => 'password',
+                'options' => [
                 'label' => 'Password Verify',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'password'
-            ),
-            )
+                ],
+            ]
         );
 
         $submitElement = new Element\Button('submit');
         $submitElement
             ->setLabel('Submit')
             ->setAttributes(
-                array(
+                [
                 'type'  => 'submit',
-                )
+                ]
             );
 
         $this->add(
             $submitElement,
-            array(
+            [
             'priority' => -100,
-            )
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'userId',
-            'type' => 'Laminas\Form\Element\Hidden',
-            'attributes' => array(
+            [
+                'name' => 'userId',
+                'type' => 'Laminas\Form\Element\Hidden',
+                'attributes' => [
                 'type' => 'hidden'
-            ),
-            )
+                ],
+            ]
         );
 
         // @TODO: Fix this... getValidator() is a protected method.

@@ -18,63 +18,63 @@ class ChangePassword extends ProvidesEventsForm
         parent::__construct($name);
 
         $this->add(
-            array(
-            'name' => 'identity',
-            'options' => array(
+            [
+                'name' => 'identity',
+                'options' => [
                 'label' => '',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'hidden'
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'credential',
-            'type' => 'password',
-            'options' => array(
+            [
+                'name' => 'credential',
+                'type' => 'password',
+                'options' => [
                 'label' => 'Current Password',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'password',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'newCredential',
-            'options' => array(
+            [
+                'name' => 'newCredential',
+                'options' => [
                 'label' => 'New Password',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'password',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'newCredentialVerify',
-            'type' => 'password',
-            'options' => array(
+            [
+                'name' => 'newCredentialVerify',
+                'type' => 'password',
+                'options' => [
                 'label' => 'Verify New Password',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'password',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'submit',
-            'attributes' => array(
+            [
+                'name' => 'submit',
+                'attributes' => [
                 'value' => 'Submit',
                 'type'  => 'submit'
-            ),
-            )
+                ],
+            ]
         );
     }
 

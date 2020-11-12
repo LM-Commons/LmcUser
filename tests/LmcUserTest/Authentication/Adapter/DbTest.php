@@ -100,15 +100,15 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once())
             ->method('setMessages')
-            ->with(array('Authentication successful.'))
+            ->with(['Authentication successful.'])
             ->will($this->returnValue($this->authEvent));
 
         $this->storage->expects($this->at(0))
             ->method('read')
-            ->will($this->returnValue(array('is_satisfied' => true)));
+            ->will($this->returnValue(['is_satisfied' => true]));
         $this->storage->expects($this->at(1))
             ->method('read')
-            ->will($this->returnValue(array('identity' => 'LmcUser')));
+            ->will($this->returnValue(['identity' => 'LmcUser']));
 
 
         $result = $this->db->authenticate($this->authEvent);
@@ -125,7 +125,7 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
@@ -133,7 +133,7 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once())
             ->method('setMessages')
-            ->with(array('A record with the supplied identity could not be found.'))
+            ->with(['A record with the supplied identity could not be found.'])
             ->will($this->returnValue($this->authEvent));
 
         $this->db->setOptions($this->options);
@@ -159,7 +159,7 @@ class DbTest extends TestCase
             ->will($this->returnValue(true));
         $this->options->expects($this->once())
             ->method('getAllowedLoginStates')
-            ->will($this->returnValue(array(2, 3)));
+            ->will($this->returnValue([2, 3]));
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
@@ -167,7 +167,7 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once())
             ->method('setMessages')
-            ->with(array('A record with the supplied identity is not active.'))
+            ->with(['A record with the supplied identity is not active.'])
             ->will($this->returnValue($this->authEvent));
 
         $this->user->expects($this->once())
@@ -208,7 +208,7 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once(1))
             ->method('setMessages')
-            ->with(array('Supplied credential is invalid.'));
+            ->with(['Supplied credential is invalid.']);
 
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
@@ -258,7 +258,7 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once())
             ->method('setMessages')
-            ->with(array('Authentication successful.'))
+            ->with(['Authentication successful.'])
             ->will($this->returnValue($this->authEvent));
 
         $this->db->setMapper($this->mapper);
@@ -283,7 +283,7 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAllowedLoginStates')
-            ->will($this->returnValue(array(1, 2, 3)));
+            ->will($this->returnValue([1, 2, 3]));
 
         $this->options->expects($this->once())
             ->method('getPasswordCost')
@@ -313,7 +313,7 @@ class DbTest extends TestCase
             ->will($this->returnValue($this->authEvent));
         $this->authEvent->expects($this->once())
             ->method('setMessages')
-            ->with(array('Authentication successful.'))
+            ->with(['Authentication successful.'])
             ->will($this->returnValue($this->authEvent));
 
         $this->db->setMapper($this->mapper);
@@ -511,7 +511,7 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('email')));
+            ->will($this->returnValue(['email']));
     }
 
     protected function setAuthenticationUser()
@@ -523,14 +523,14 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('username')));
+            ->will($this->returnValue(['username']));
     }
 
     protected function setAuthenticationCredentials($identity = 'LmcUser', $credential = 'LmcUserPassword')
     {
         $this->storage->expects($this->at(0))
             ->method('read')
-            ->will($this->returnValue(array('is_satisfied' => false)));
+            ->will($this->returnValue(['is_satisfied' => false]));
 
         $post = $this->createMock('Laminas\Stdlib\Parameters');
         $post->expects($this->at(0))

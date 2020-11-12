@@ -52,14 +52,14 @@ class AdapterChainServiceFactoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->serviceLocatorArray = array (
+        $this->serviceLocatorArray = [
             'lmcuser_module_options'=>$this->options,
             'EventManager'=>$this->createMock('Laminas\EventManager\EventManager')
-        );
+        ];
 
         $this->serviceLocator->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this,'helperServiceLocator')));
+            ->will($this->returnCallback([$this, 'helperServiceLocator']));
 
         $this->eventManager = $this->createMock('Laminas\EventManager\EventManager');
 
@@ -71,19 +71,19 @@ class AdapterChainServiceFactoryTest extends TestCase
      */
     public function testCreateService()
     {
-        $adapter = array(
+        $adapter = [
             'adapter1'=> $this->createMock(
                 'LmcUser\Authentication\Adapter\AbstractAdapter',
-                array('authenticate', 'logout')
+                ['authenticate', 'logout']
             ),
             'adapter2'=> $this->createMock(
                 'LmcUser\Authentication\Adapter\AbstractAdapter',
-                array('authenticate', 'logout')
+                ['authenticate', 'logout']
             )
 
 
-        );
-        $adapterNames = array(100=>'adapter1', 200=>'adapter2');
+        ];
+        $adapterNames = [100 =>'adapter1', 200 =>'adapter2'];
 
         $this->serviceLocatorArray = array_merge($this->serviceLocatorArray, $adapter);
 

@@ -20,44 +20,44 @@ class Module implements
 
     public function getControllerPluginConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'lmcUserAuthentication' => \LmcUser\Factory\Controller\Plugin\LmcUserAuthentication::class,
-            ),
-        );
+            ],
+        ];
     }
 
     public function getControllerConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'lmcuser' => \LmcUser\Factory\Controller\UserControllerFactory::class,
-            ),
-        );
+            ],
+        ];
     }
 
     public function getViewHelperConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'lmcUserDisplayName' => \LmcUser\Factory\View\Helper\LmcUserDisplayName::class,
                 'lmcUserIdentity' => \LmcUser\Factory\View\Helper\LmcUserIdentity::class,
                 'lmcUserLoginWidget' => \LmcUser\Factory\View\Helper\LmcUserLoginWidget::class,
-            ),
-        );
+            ],
+        ];
 
     }
 
     public function getServiceConfig()
     {
-        return array(
-            'aliases' => array(
+        return [
+            'aliases' => [
                 'lmcuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
-            ),
-            'invokables' => array(
+            ],
+            'invokables' => [
                 'lmcuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethodsHydrator::class,
-            ),
-            'factories' => array(
+            ],
+            'factories' => [
                 'lmcuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
                 'lmcuser_module_options' => \LmcUser\Factory\Options\ModuleOptions::class,
                 'LmcUser\Authentication\Adapter\AdapterChain' => \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
@@ -79,7 +79,7 @@ class Module implements
                 'LmcUser\Authentication\Storage\Db' => \LmcUser\Factory\Authentication\Storage\DbFactory::class,
 
                 'lmcuser_user_service' => \LmcUser\Factory\Service\UserFactory::class,
-            ),
-        );
+            ],
+        ];
     }
 }

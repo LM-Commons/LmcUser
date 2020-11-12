@@ -30,7 +30,7 @@ class UserTest extends TestCase
      *
      * @var \Laminas\Db\Adapter\Adapter
      */
-    protected $realAdapter = array();
+    protected $realAdapter = [];
 
     /**
      *
@@ -77,7 +77,7 @@ class UserTest extends TestCase
 
         $this->setUpMockedAdapter();
 
-        $this->mockedSelect = $this->createMock('\Laminas\Db\Sql\Select', array('where'));
+        $this->mockedSelect = $this->createMock('\Laminas\Db\Sql\Select', ['where']);
 
         $this->mockedResultSet = $this->createMock('\Laminas\Db\ResultSet\HydratingResultSet');
 
@@ -101,10 +101,10 @@ class UserTest extends TestCase
         }
 
         try {
-            $connection = array(
+            $connection = [
                 'driver'=>sprintf('Pdo_%s', ucfirst($driver)),
                 'dsn'=>constant(sprintf('DB_%s_DSN', $upCase))
-            );
+            ];
             if (constant(sprintf('DB_%s_USERNAME', $upCase)) !== "") {
                 $connection['username'] = constant(sprintf('DB_%s_USERNAME', $upCase));
                 $connection['password'] = constant(sprintf('DB_%s_PASSWORD', $upCase));
@@ -121,7 +121,7 @@ class UserTest extends TestCase
 
     public function setUpSqlDatabase($adapter, $schemaPath)
     {
-        $queryStack= array('DROP TABLE IF EXISTS user');
+        $queryStack= ['DROP TABLE IF EXISTS user'];
         $queryStack = array_merge($queryStack, explode(';', file_get_contents($schemaPath)));
         $queryStack = array_merge($queryStack, explode(';', file_get_contents(__DIR__ . '/_files/user.sql')));
 
@@ -139,8 +139,8 @@ class UserTest extends TestCase
     public function setUpMockedAdapter()
     {
         $this->mockedDbAdapterDriver = $this->createMock('Laminas\Db\Adapter\Driver\DriverInterface');
-        $this->mockedDbAdapterPlatform = $this->createMock('Laminas\Db\Adapter\Platform\PlatformInterface', array());
-        $this->mockedDbAdapterStatement= $this->createMock('Laminas\Db\Adapter\Driver\StatementInterface', array());
+        $this->mockedDbAdapterPlatform = $this->createMock('Laminas\Db\Adapter\Platform\PlatformInterface', []);
+        $this->mockedDbAdapterStatement= $this->createMock('Laminas\Db\Adapter\Driver\StatementInterface', []);
 
         $this->mockedDbAdapterPlatform->expects($this->any())
             ->method('getName')
@@ -148,27 +148,27 @@ class UserTest extends TestCase
 
         $this->mockedDbAdapter = $this->getMockBuilder('Laminas\Db\Adapter\Adapter')
             ->setConstructorArgs(
-                array(
+                [
                                           $this->mockedDbAdapterDriver,
                                           $this->mockedDbAdapterPlatform
-                                    )
+                ]
             )
-            ->getMock(array('getPlatform'));
+            ->getMock(['getPlatform']);
 
         $this->mockedDbAdapter->expects($this->any())
             ->method('getPlatform')
             ->will($this->returnValue($this->mockedDbAdapterPlatform));
 
         $this->mockedDbSql = $this->getMockBuilder('Laminas\Db\Sql\Sql')
-            ->setConstructorArgs(array($this->mockedDbAdapter))
-            ->setMethods(array('prepareStatementForSqlObject'))
+            ->setConstructorArgs([$this->mockedDbAdapter])
+            ->setMethods(['prepareStatementForSqlObject'])
             ->getMock();
         $this->mockedDbSql->expects($this->any())
             ->method('prepareStatementForSqlObject')
             ->will($this->returnValue($this->mockedDbAdapterStatement));
 
         $this->mockedDbSqlPlatform = $this->getMockBuilder('\Laminas\Db\Sql\Platform\Platform')
-            ->setConstructorArgs(array($this->mockedDbAdapter))
+            ->setConstructorArgs([$this->mockedDbAdapter])
             ->getMock();
     }
 
@@ -204,13 +204,13 @@ class UserTest extends TestCase
      * @param  arra $eventListenerArray
      * @return array
      */
-    public function &setUpMockedMapper($eventListenerArray, array $mapperMethods = array())
+    public function &setUpMockedMapper($eventListenerArray, array $mapperMethods = [])
     {
-        $returnMockedParams = array();
+        $returnMockedParams = [];
 
         $mapperMethods = count($mapperMethods)
-            ? array_merge($mapperMethods, array('getSelect', 'select'))
-            : array('getSelect','select');
+            ? array_merge($mapperMethods, ['getSelect', 'select'])
+            : ['getSelect', 'select'];
 
         $this->setUpMockMapperInsert($mapperMethods);
 
@@ -254,7 +254,7 @@ class UserTest extends TestCase
             ->method('current')
             ->will($this->returnValue($entityEqual));
 
-        $return = call_user_func_array(array($this->mapper, $method), $args);
+        $return = call_user_func_array([$this->mapper, $method], $args);
 
         foreach ($expectedParams as $paramKey => $paramValue) {
             $this->assertArrayHasKey($paramKey, $mockedParams);
@@ -277,7 +277,7 @@ class UserTest extends TestCase
             }
 
             $this->mapper->setDbAdapter($dbAdapter);
-            $return = call_user_func_array(array($this->mapper, $methode), $args);
+            $return = call_user_func_array([$this->mapper, $methode], $args);
 
             $this->assertIsObject($return);
             $this->assertInstanceOf('LmcUser\Entity\User', $return);
@@ -366,43 +366,43 @@ class UserTest extends TestCase
         $user->setState(1);
         $user->setPassword('lmc-user');
 
-        return array(
-            array(
+        return [
+            [
                 'findByEmail',
-                array($user->getEmail()),
-                array(
-                    'whereArgs'=>array(
-                        array('email'=>$user->getEmail()),
+                [$user->getEmail()],
+                [
+                    'whereArgs'=> [
+                        ['email' =>$user->getEmail()],
                         'AND'
-                    )
-                ),
-                array(),
+                    ]
+                ],
+                [],
                 $user
-            ),
-            array(
+            ],
+            [
                 'findByUsername',
-                array($user->getUsername()),
-                array(
-                    'whereArgs'=>array(
-                        array('username'=>$user->getUsername()),
+                [$user->getUsername()],
+                [
+                    'whereArgs'=> [
+                        ['username' =>$user->getUsername()],
                         'AND'
-                    )
-                ),
-                array(),
+                    ]
+                ],
+                [],
                 $user
-            ),
-            array(
+            ],
+            [
                 'findById',
-                array($user->getId()),
-                array(
-                    'whereArgs'=>array(
-                        array('user_id'=>$user->getId()),
+                [$user->getId()],
+                [
+                    'whereArgs'=> [
+                        ['user_id' =>$user->getId()],
                         'AND'
-                    )
-                ),
-                array(),
+                    ]
+                ],
+                [],
                 $user
-            ),
-        );
+            ],
+        ];
     }
 }

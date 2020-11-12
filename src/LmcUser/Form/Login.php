@@ -19,15 +19,15 @@ class Login extends ProvidesEventsForm
         parent::__construct($name);
 
         $this->add(
-            array(
-            'name' => 'identity',
-            'options' => array(
+            [
+                'name' => 'identity',
+                'options' => [
                 'label' => '',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text'
-            ),
-            )
+                ],
+            ]
         );
 
         $emailElement = $this->get('identity');
@@ -39,16 +39,16 @@ class Login extends ProvidesEventsForm
         $emailElement->setLabel($label);
         //
         $this->add(
-            array(
-            'name' => 'credential',
-            'type' => 'password',
-            'options' => array(
-                'label' => 'Password',
-            ),
-            'attributes' => array(
+            [
+                'name' => 'credential',
                 'type' => 'password',
-            ),
-            )
+                'options' => [
+                'label' => 'Password',
+                ],
+                'attributes' => [
+                'type' => 'password',
+                ],
+            ]
         );
 
         // @todo: Fix this
@@ -64,16 +64,16 @@ class Login extends ProvidesEventsForm
         $submitElement
             ->setLabel('Sign In')
             ->setAttributes(
-                array(
+                [
                 'type'  => 'submit',
-                )
+                ]
             );
 
         $this->add(
             $submitElement,
-            array(
+            [
             'priority' => -100,
-            )
+            ]
         );
     }
 

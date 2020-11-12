@@ -15,7 +15,7 @@ class UserHydrator extends ClassMethodsHydrator
      * @return array
      * @throws Exception\InvalidArgumentException
      */
-    public function extract($object):array
+    public function extract($object): array
     {
         if (!$object instanceof UserEntityInterface) {
             throw new InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');

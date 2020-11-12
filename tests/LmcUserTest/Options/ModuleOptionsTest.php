@@ -203,7 +203,7 @@ class ModuleOptionsTest extends TestCase
      */
     public function testGetAllowedLoginStates()
     {
-        $this->assertEquals(array(null, 1), $this->options->getAllowedLoginStates());
+        $this->assertEquals([null, 1], $this->options->getAllowedLoginStates());
     }
 
     /**
@@ -212,8 +212,8 @@ class ModuleOptionsTest extends TestCase
      */
     public function testSetGetAllowedLoginStates()
     {
-        $this->options->setAllowedLoginStates(array(2, 5, null));
-        $this->assertEquals(array(2, 5, null), $this->options->getAllowedLoginStates());
+        $this->options->setAllowedLoginStates([2, 5, null]);
+        $this->assertEquals([2, 5, null], $this->options->getAllowedLoginStates());
     }
 
     /**
@@ -221,7 +221,7 @@ class ModuleOptionsTest extends TestCase
      */
     public function testGetAuthAdapters()
     {
-        $this->assertEquals(array(100 => 'LmcUser\Authentication\Adapter\Db'), $this->options->getAuthAdapters());
+        $this->assertEquals([100 => 'LmcUser\Authentication\Adapter\Db'], $this->options->getAuthAdapters());
     }
 
     /**
@@ -230,8 +230,8 @@ class ModuleOptionsTest extends TestCase
      */
     public function testSetGetAuthAdapters()
     {
-        $this->options->setAuthAdapters(array(40 => 'SomeAdapter'));
-        $this->assertEquals(array(40 => 'SomeAdapter'), $this->options->getAuthAdapters());
+        $this->options->setAuthAdapters([40 => 'SomeAdapter']);
+        $this->assertEquals([40 => 'SomeAdapter'], $this->options->getAuthAdapters());
     }
 
     /**
@@ -240,8 +240,8 @@ class ModuleOptionsTest extends TestCase
      */
     public function testSetGetAuthIdentityFields()
     {
-        $this->options->setAuthIdentityFields(array('username'));
-        $this->assertEquals(array('username'), $this->options->getAuthIdentityFields());
+        $this->options->setAuthIdentityFields(['username']);
+        $this->assertEquals(['username'], $this->options->getAuthIdentityFields());
     }
 
     /**
@@ -249,7 +249,7 @@ class ModuleOptionsTest extends TestCase
      */
     public function testGetAuthIdentityFields()
     {
-        $this->assertEquals(array('email'), $this->options->getAuthIdentityFields());
+        $this->assertEquals(['email'], $this->options->getAuthIdentityFields());
     }
 
     /**
@@ -366,12 +366,12 @@ class ModuleOptionsTest extends TestCase
      */
     public function testSetGetFormCaptchaOptions()
     {
-        $expected = array(
+        $expected = [
             'class'   => 'someClass',
-            'options' => array(
+            'options' => [
                 'anOption' => 3,
-            ),
-        );
+            ],
+        ];
         $this->options->setFormCaptchaOptions($expected);
         $this->assertEquals($expected, $this->options->getFormCaptchaOptions());
     }
@@ -381,14 +381,14 @@ class ModuleOptionsTest extends TestCase
      */
     public function testGetFormCaptchaOptions()
     {
-        $expected = array(
+        $expected = [
             'class'   => 'figlet',
-            'options' => array(
+            'options' => [
                 'wordLen'    => 5,
                 'expiration' => 300,
                 'timeout'    => 300,
-            ),
-        );
+            ],
+        ];
         $this->assertEquals($expected, $this->options->getFormCaptchaOptions());
     }
 }

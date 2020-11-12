@@ -13,7 +13,7 @@ class AbstractRecordTest extends TestCase
      */
     public function testConstruct()
     {
-        $options = array('key'=>'value');
+        $options = ['key' =>'value'];
         $this->assertIsObject(new AbstractRecordExtension($options));
     }
 
@@ -24,7 +24,7 @@ class AbstractRecordTest extends TestCase
     {
         $this->expectExceptionMessage("No key provided");
         $this->expectException(InvalidArgumentException::class);
-        $options = array();
+        $options = [];
         new AbstractRecordExtension($options);
     }
 
@@ -34,7 +34,7 @@ class AbstractRecordTest extends TestCase
      */
     public function testGetSetMapper()
     {
-        $options = array('key' => '');
+        $options = ['key' => ''];
         $validator = new AbstractRecordExtension($options);
 
         $this->assertNull($validator->getMapper());
@@ -50,7 +50,7 @@ class AbstractRecordTest extends TestCase
      */
     public function testGetSetKey()
     {
-        $options = array('key' => 'username');
+        $options = ['key' => 'username'];
         $validator = new AbstractRecordExtension($options);
 
         $this->assertEquals('username', $validator->getKey());
@@ -66,13 +66,13 @@ class AbstractRecordTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Invalid key used in LmcUser validator");
-        $options = array('key' => 'lmcUser');
+        $options = ['key' => 'lmcUser'];
         $validator = new AbstractRecordExtension($options);
 
         $method = new \ReflectionMethod('LmcUserTest\Validator\TestAsset\AbstractRecordExtension', 'query');
         $method->setAccessible(true);
 
-        $method->invoke($validator, array('test'));
+        $method->invoke($validator, ['test']);
     }
 
     /**
@@ -80,7 +80,7 @@ class AbstractRecordTest extends TestCase
      */
     public function testQueryWithKeyUsername()
     {
-        $options = array('key' => 'username');
+        $options = ['key' => 'username'];
         $validator = new AbstractRecordExtension($options);
 
         $mapper = $this->createMock('LmcUser\Mapper\UserInterface');
@@ -104,7 +104,7 @@ class AbstractRecordTest extends TestCase
      */
     public function testQueryWithKeyEmail()
     {
-        $options = array('key' => 'email');
+        $options = ['key' => 'email'];
         $validator = new AbstractRecordExtension($options);
 
         $mapper = $this->createMock('LmcUser\Mapper\UserInterface');

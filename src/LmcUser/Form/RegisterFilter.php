@@ -23,91 +23,91 @@ class RegisterFilter extends ProvidesEventsInputFilter
 
         if ($this->getOptions()->getEnableUsername()) {
             $this->add(
-                array(
-                'name'       => 'username',
-                'required'   => true,
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
+                [
+                    'name'       => 'username',
+                    'required'   => true,
+                    'validators' => [
+                        [
+                            'name'    => 'StringLength',
+                            'options' => [
                             'min' => 3,
                             'max' => 255,
-                        ),
-                    ),
-                    $this->usernameValidator,
-                ),
-                )
+                            ],
+                        ],
+                        $this->usernameValidator,
+                    ],
+                ]
             );
         }
 
         $this->add(
-            array(
-            'name'       => 'email',
-            'required'   => true,
-            'validators' => array(
-                array(
+            [
+                'name'       => 'email',
+                'required'   => true,
+                'validators' => [
+                    [
                     'name' => 'EmailAddress'
-                ),
-                $this->emailValidator
-            ),
-            )
+                    ],
+                    $this->emailValidator
+                ],
+            ]
         );
 
         if ($this->getOptions()->getEnableDisplayName()) {
             $this->add(
-                array(
-                'name'       => 'display_name',
-                'required'   => true,
-                'filters'    => array(array('name' => 'StringTrim')),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
+                [
+                    'name'       => 'display_name',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
+                    'validators' => [
+                        [
+                            'name'    => 'StringLength',
+                            'options' => [
                             'min' => 3,
                             'max' => 128,
-                        ),
-                    ),
-                ),
-                )
+                            ],
+                        ],
+                    ],
+                ]
             );
         }
 
         $this->add(
-            array(
-            'name'       => 'password',
-            'required'   => true,
-            'filters'    => array(array('name' => 'StringTrim')),
-            'validators' => array(
-                array(
-                    'name'    => 'StringLength',
-                    'options' => array(
+            [
+                'name'       => 'password',
+                'required'   => true,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [
+                    [
+                        'name'    => 'StringLength',
+                        'options' => [
                         'min' => 6,
-                    ),
-                ),
-            ),
-            )
+                        ],
+                    ],
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name'       => 'passwordVerify',
-            'required'   => true,
-            'filters'    => array(array('name' => 'StringTrim')),
-            'validators' => array(
-                array(
-                    'name'    => 'StringLength',
-                    'options' => array(
+            [
+                'name'       => 'passwordVerify',
+                'required'   => true,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [
+                    [
+                        'name'    => 'StringLength',
+                        'options' => [
                         'min' => 6,
-                    ),
-                ),
-                array(
-                    'name'    => 'Identical',
-                    'options' => array(
+                        ],
+                    ],
+                    [
+                        'name'    => 'Identical',
+                        'options' => [
                         'token' => 'password',
-                    ),
-                ),
-            ),
-            )
+                        ],
+                    ],
+                ],
+            ]
         );
     }
 

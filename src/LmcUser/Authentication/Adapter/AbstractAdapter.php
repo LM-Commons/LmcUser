@@ -58,7 +58,7 @@ abstract class AbstractAdapter implements ChainableAdapter
      */
     public function setSatisfied($bool = true)
     {
-        $storage = $this->getStorage()->read() ?: array();
+        $storage = $this->getStorage()->read() ?: [];
         $storage['is_satisfied'] = $bool;
         $this->getStorage()->write($storage);
         return $this;

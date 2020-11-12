@@ -26,7 +26,7 @@ class LmcUserLoginWidget extends AbstractHelper
      * @param  array $options array of options
      * @return string
      */
-    public function __invoke($options = array())
+    public function __invoke($options = [])
     {
         if (array_key_exists('render', $options)) {
             $render = $options['render'];
@@ -40,10 +40,10 @@ class LmcUserLoginWidget extends AbstractHelper
         }
 
         $vm = new ViewModel(
-            array(
+            [
             'loginForm' => $this->getLoginForm(),
             'redirect'  => $redirect,
-            )
+            ]
         );
         $vm->setTemplate($this->viewTemplate);
         if ($render) {

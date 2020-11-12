@@ -50,7 +50,7 @@ class UserHydratorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $user = new \StdClass;
-        $this->hydrator->hydrate(array(), $user);
+        $this->hydrator->hydrate([], $user);
     }
 
     /**
@@ -61,14 +61,14 @@ class UserHydratorTest extends TestCase
     {
         $user = new \LmcUser\Entity\User;
 
-        $expectArray = array(
+        $expectArray = [
             'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',
             'state' => 1,
             'user_id' => 1
-        );
+        ];
 
         $result = $this->hydrator->hydrate($expectArray, $user);
 
@@ -89,36 +89,36 @@ class UserHydratorTest extends TestCase
                     $key='id';
                 }
                 $methode = 'set' . str_replace(" ", "", ucwords(str_replace("_", " ", $key)));
-                call_user_func(array($user,$methode), $value);
+                call_user_func([$user, $methode], $value);
             }
             return $user;
         };
-        $return = array();
-        $expectArray = array();
+        $return = [];
+        $expectArray = [];
 
-        $buffer = array(
+        $buffer = [
             'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',
             'state' => 1,
             'user_id' => 1
-        );
+        ];
 
-        $return[]=array($createUserObject($buffer), $buffer);
+        $return[]= [$createUserObject($buffer), $buffer];
 
         /**
          * @see https://github.com/ZF-Commons/LmcUser/pull/421
          */
-        $buffer = array(
+        $buffer = [
             'username' => 'lmcuser',
             'email' => 'Zfc User',
             'display_name' => 'LmcUser',
             'password' => 'LmcUserPassword',
             'state' => 1
-        );
+        ];
 
-        $return[]=array($createUserObject($buffer), $buffer);
+        $return[]= [$createUserObject($buffer), $buffer];
 
         return $return;
     }

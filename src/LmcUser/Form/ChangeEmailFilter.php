@@ -13,46 +13,46 @@ class ChangeEmailFilter extends InputFilter
     {
         $this->emailValidator = $emailValidator;
 
-        $identityParams = array(
+        $identityParams = [
             'name'       => 'identity',
             'required'   => true,
-            'validators' => array()
-        );
+            'validators' => []
+        ];
 
         $identityFields = $options->getAuthIdentityFields();
-        if ($identityFields == array('email')) {
-            $validators = array('name' => 'EmailAddress');
+        if ($identityFields == ['email']) {
+            $validators = ['name' => 'EmailAddress'];
             array_push($identityParams['validators'], $validators);
         }
 
         $this->add($identityParams);
 
         $this->add(
-            array(
-            'name'       => 'newIdentity',
-            'required'   => true,
-            'validators' => array(
-                array(
+            [
+                'name'       => 'newIdentity',
+                'required'   => true,
+                'validators' => [
+                    [
                     'name' => 'EmailAddress'
-                ),
-                $this->emailValidator
-            ),
-            )
+                    ],
+                    $this->emailValidator
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name'       => 'newIdentityVerify',
-            'required'   => true,
-            'validators' => array(
-                array(
+            [
+                'name'       => 'newIdentityVerify',
+                'required'   => true,
+                'validators' => [
+                    [
                     'name' => 'identical',
-                    'options' => array(
+                    'options' => [
                         'token' => 'newIdentity'
-                    )
-                ),
-            ),
-            )
+                    ]
+                    ],
+                ],
+            ]
         );
     }
 

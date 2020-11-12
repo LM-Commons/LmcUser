@@ -5,7 +5,7 @@
  * If you have a ./config/autoload/ directory set up for your project, you can
  * drop this config file in it and change the values as you wish.
  */
-$settings = array(
+$settings = [
     /**
      * Laminas\Db\Adapter\Adapter DI Alias
      *
@@ -50,7 +50,7 @@ $settings = array(
      * Default value: array containing 'LmcUser\Authentication\Adapter\Db' with priority 100
      * Accepted values: array containing services that implement 'LmcUser\Authentication\Adapter\ChainableAdapter'
      */
-    'auth_adapters' => array( 100 => 'LmcUser\Authentication\Adapter\Db' ),
+    'auth_adapters' => [100 => 'LmcUser\Authentication\Adapter\Db'],
 
     /**
      * Enable Display Name
@@ -71,7 +71,7 @@ $settings = array(
      * Default value: array containing 'email'
      * Accepted values: array containing one or more of: email, username
      */
-    //'auth_identity_fields' => array( 'email' ),
+    //'auth_identity_fields' => [ 'email' ],
 
     /**
      * Login form timeout
@@ -118,14 +118,14 @@ $settings = array(
      * this to configure which Laminas\Captcha adapter to use, and the options to
      * pass to it. The default uses the Figlet captcha.
      */
-    /*'form_captcha_options' => array(
+    /*'form_captcha_options' => [
         'class'   => 'figlet',
-        'options' => array(
+        'options' => [
             'wordLen'    => 5,
             'expiration' => 300,
             'timeout'    => 300,
-        ),
-    ),*/
+        ],
+    ],*/
 
     /**
      * Use Redirect Parameter If Present
@@ -194,7 +194,7 @@ $settings = array(
      * Should user's state be used in the registration/login process?
      */
     //'enable_user_state' => true,
-    
+
     /**
      * Default user state upon registration
      * 
@@ -202,7 +202,7 @@ $settings = array(
      * Allowed value type: integer
      */
     //'default_user_state' => 1,
-    
+
     /**
      * States which are allowing user to login
      * 
@@ -210,26 +210,26 @@ $settings = array(
      * Include null if you want user's with no state to login as well.
      * Allowed value types: null and integer
      */
-    //'allowed_login_states' => array( null, 1 ),
-    
+    //'allowed_login_states' => [ null, 1 ],
+
     /**
      * User table name
      */
     //'table_name' => 'user',
-    
+
     /**
      * End of LmcUser configuration
      */
-);
+];
 
 /**
  * You do not need to edit below this line
  */
-return array(
+return [
     'lmcuser' => $settings,
-    'service_manager' => array(
-        'aliases' => array(
+    'service_manager' => [
+        'aliases' => [
             'lmcuser_laminas_db_adapter' => (isset($settings['laminas_db_adapter'])) ? $settings['laminas_db_adapter']: 'Laminas\Db\Adapter\Adapter',
-        ),
-    ),
-);
+        ],
+    ],
+];

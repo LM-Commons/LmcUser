@@ -19,16 +19,16 @@ class Register implements FactoryInterface
         $form->setInputFilter(
             new Form\RegisterFilter(
                 new Validator\NoRecordExists(
-                    array(
+                    [
                     'mapper' => $serviceManager->get('lmcuser_user_mapper'),
                     'key'    => 'email'
-                    )
+                    ]
                 ),
                 new Validator\NoRecordExists(
-                    array(
+                    [
                     'mapper' => $serviceManager->get('lmcuser_user_mapper'),
                     'key'    => 'username'
-                    )
+                    ]
                 ),
                 $options
             )

@@ -9,78 +9,78 @@ class ChangePasswordFilter extends InputFilter
 {
     public function __construct(AuthenticationOptionsInterface $options)
     {
-        $identityParams = array(
+        $identityParams = [
             'name'       => 'identity',
             'required'   => true,
-            'validators' => array()
-        );
+            'validators' => []
+        ];
 
         $identityFields = $options->getAuthIdentityFields();
-        if ($identityFields == array('email')) {
-            $validators = array('name' => 'EmailAddress');
+        if ($identityFields == ['email']) {
+            $validators = ['name' => 'EmailAddress'];
             array_push($identityParams['validators'], $validators);
         }
 
         $this->add($identityParams);
 
         $this->add(
-            array(
-            'name'       => 'credential',
-            'required'   => true,
-            'validators' => array(
-                array(
-                    'name'    => 'StringLength',
-                    'options' => array(
+            [
+                'name'       => 'credential',
+                'required'   => true,
+                'validators' => [
+                    [
+                        'name'    => 'StringLength',
+                        'options' => [
                         'min' => 6,
-                    ),
-                ),
-            ),
-            'filters'   => array(
-                array('name' => 'StringTrim'),
-            ),
-            )
+                        ],
+                    ],
+                ],
+                'filters'   => [
+                    ['name' => 'StringTrim'],
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name'       => 'newCredential',
-            'required'   => true,
-            'validators' => array(
-                array(
-                    'name'    => 'StringLength',
-                    'options' => array(
+            [
+                'name'       => 'newCredential',
+                'required'   => true,
+                'validators' => [
+                    [
+                        'name'    => 'StringLength',
+                        'options' => [
                         'min' => 6,
-                    ),
-                ),
-            ),
-            'filters'   => array(
-                array('name' => 'StringTrim'),
-            ),
-            )
+                        ],
+                    ],
+                ],
+                'filters'   => [
+                    ['name' => 'StringTrim'],
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name'       => 'newCredentialVerify',
-            'required'   => true,
-            'validators' => array(
-                array(
-                    'name'    => 'StringLength',
-                    'options' => array(
+            [
+                'name'       => 'newCredentialVerify',
+                'required'   => true,
+                'validators' => [
+                    [
+                        'name'    => 'StringLength',
+                        'options' => [
                         'min' => 6,
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                    [
                     'name' => 'identical',
-                    'options' => array(
+                    'options' => [
                         'token' => 'newCredential'
-                    )
-                ),
-            ),
-            'filters'   => array(
-                array('name' => 'StringTrim'),
-            ),
-            )
+                    ]
+                    ],
+                ],
+                'filters'   => [
+                    ['name' => 'StringTrim'],
+                ],
+            ]
         );
     }
 }

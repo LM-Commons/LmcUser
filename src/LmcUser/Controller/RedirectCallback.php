@@ -90,7 +90,7 @@ class RedirectCallback
     private function routeExists($route)
     {
         try {
-            $this->router->assemble(array(), array('name' => $route));
+            $this->router->assemble([], ['name' => $route]);
         } catch (Exception\RuntimeException $e) {
             return false;
         }
@@ -118,14 +118,14 @@ class RedirectCallback
             case 'lmcuser/login':
             case 'lmcuser/authenticate':
                 $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+                return $this->router->assemble([], ['name' => $route]);
                 break;
             case 'lmcuser/logout':
                 $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+                return $this->router->assemble([], ['name' => $route]);
                 break;
             default:
-                return $this->router->assemble(array(), array('name' => 'lmcuser'));
+                return $this->router->assemble([], ['name' => 'lmcuser']);
         }
     }
 }

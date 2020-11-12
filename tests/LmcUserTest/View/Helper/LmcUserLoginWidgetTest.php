@@ -24,35 +24,35 @@ class LmcUserLoginWidgetTest extends TestCase
 
     public function providerTestInvokeWithRender()
     {
-        $attr = array();
-        $attr[] = array(
-            array(
+        $attr = [];
+        $attr[] = [
+            [
                 'render' => true,
                 'redirect' => 'lmcUser'
-            ),
-            array(
+            ],
+            [
                 'loginForm' => null,
                 'redirect' => 'lmcUser'
-            ),
-        );
-        $attr[] = array(
-            array(
+            ],
+        ];
+        $attr[] = [
+            [
                 'redirect' => 'lmcUser'
-            ),
-            array(
+            ],
+            [
                 'loginForm' => null,
                 'redirect' => 'lmcUser'
-            ),
-        );
-        $attr[] = array(
-            array(
+            ],
+        ];
+        $attr[] = [
+            [
                 'render' => true,
-            ),
-            array(
+            ],
+            [
                 'loginForm' => null,
                 'redirect' => false
-            ),
-        );
+            ],
+        ];
 
         return $attr;
     }
@@ -97,10 +97,10 @@ class LmcUserLoginWidgetTest extends TestCase
     public function testInvokeWithoutRender()
     {
         $result = $this->helper->__invoke(
-            array(
+            [
             'render' => false,
             'redirect' => 'lmcUser'
-            )
+            ]
         );
 
         $this->assertInstanceOf('Laminas\View\Model\ViewModel', $result);

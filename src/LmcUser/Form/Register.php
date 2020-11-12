@@ -26,14 +26,14 @@ class Register extends Base
 
         if ($this->getRegistrationOptions()->getUseRegistrationFormCaptcha()) {
             $this->add(
-                array(
-                'name' => 'captcha',
-                'type' => 'Laminas\Form\Element\Captcha',
-                'options' => array(
+                [
+                    'name' => 'captcha',
+                    'type' => 'Laminas\Form\Element\Captcha',
+                    'options' => [
                     'label' => 'Please type the following text',
                     'captcha' => $this->getRegistrationOptions()->getFormCaptchaOptions(),
-                ),
-                )
+                    ],
+                ]
             );
         }
 
@@ -45,7 +45,7 @@ class Register extends Base
             $this->remove('display_name');
         }
         if ($this->getRegistrationOptions()->getUseRegistrationFormCaptcha() && $this->captchaElement) {
-            $this->add($this->captchaElement, array('name'=>'captcha'));
+            $this->add($this->captchaElement, ['name' =>'captcha']);
         }
         $this->get('submit')->setLabel('Register');
     }

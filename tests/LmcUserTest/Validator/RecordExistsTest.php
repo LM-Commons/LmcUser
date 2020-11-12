@@ -13,7 +13,7 @@ class RecordExistsTest extends TestCase
 
     public function setUp():void
     {
-        $options = array('key' => 'username');
+        $options = ['key' => 'username'];
         $validator = new Validator($options);
         $this->validator = $validator;
 

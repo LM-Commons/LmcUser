@@ -11,7 +11,7 @@ class LoginTest extends TestCase
      * @covers       LmcUser\Form\Login::__construct
      * @dataProvider providerTestConstruct
      */
-    public function testConstruct($authIdentityFields = array())
+    public function testConstruct($authIdentityFields = [])
     {
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());
@@ -54,10 +54,10 @@ class LoginTest extends TestCase
 
     public function providerTestConstruct()
     {
-        return array(
-            array(array()),
-            array(array('email')),
-            array(array('username','email')),
-        );
+        return [
+            [[]],
+            [['email']],
+            [['username', 'email']],
+        ];
     }
 }

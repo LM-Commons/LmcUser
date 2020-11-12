@@ -44,10 +44,10 @@ class RegisterTest extends TestCase
 
     public function providerTestConstruct()
     {
-        return array(
-            array(true),
-            array(false)
-        );
+        return [
+            [true],
+            [false]
+        ];
     }
 
     public function testSetGetRegistrationOptions()

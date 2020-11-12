@@ -16,10 +16,10 @@ abstract class AbstractRecord extends AbstractValidator
     /**
      * @var array Message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::ERROR_NO_RECORD_FOUND => "No record matching the input was found",
         self::ERROR_RECORD_FOUND    => "A record matching the input was found",
-    );
+    ];
 
     /**
      * @var UserInterface

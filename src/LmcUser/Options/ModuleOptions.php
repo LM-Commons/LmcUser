@@ -56,17 +56,17 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var Array
      */
-    protected $allowedLoginStates = array( null, 1 );
+    protected $allowedLoginStates = [null, 1];
 
     /**
      * @var array
      */
-    protected $authAdapters = array( 100 => 'LmcUser\Authentication\Adapter\Db' );
+    protected $authAdapters = [100 => 'LmcUser\Authentication\Adapter\Db'];
 
     /**
      * @var array
      */
-    protected $authIdentityFields = array( 'email' );
+    protected $authIdentityFields = ['email'];
 
     /**
      * @var string
@@ -112,14 +112,14 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var array
      */
-    protected $formCaptchaOptions = array(
+    protected $formCaptchaOptions = [
         'class'   => 'figlet',
-        'options' => array(
+        'options' => [
             'wordLen'    => 5,
             'expiration' => 300,
             'timeout'    => 300,
-        ),
-    );
+        ],
+    ];
 
     /**
      * set login redirect route

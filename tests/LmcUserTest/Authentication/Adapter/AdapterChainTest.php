@@ -83,19 +83,19 @@ class AdapterChainTest extends TestCase
             ->will($this->returnValue('identity'));
         $event->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->sharedEventManager->expects($this->once())
             ->method('getListeners')
             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->adapterChain->setEvent($event);
         $result = $this->adapterChain->authenticate();
 
         $this->assertInstanceOf('Laminas\Authentication\Result', $result);
         $this->assertEquals($result->getIdentity(), 'identity');
-        $this->assertEquals($result->getMessages(), array());
+        $this->assertEquals($result->getMessages(), []);
     }
 
     /**
@@ -103,7 +103,7 @@ class AdapterChainTest extends TestCase
      */
     public function testResetAdapters()
     {
-        $listeners = array();
+        $listeners = [];
 
         for ($i=1; $i<=3; $i++) {
             $storage = $this->createMock('LmcUser\Authentication\Storage\Db');
@@ -179,10 +179,10 @@ class AdapterChainTest extends TestCase
      */
     public function identityProvider()
     {
-        return array(
-            array(true, true),
-            array(false, false),
-        );
+        return [
+            [true, true],
+            [false, false],
+        ];
     }
 
     /**
@@ -295,7 +295,7 @@ class AdapterChainTest extends TestCase
      */
     public function testSetEventWithDifferentEventType()
     {
-        $testParams = array('testParam' => 'testValue');
+        $testParams = ['testParam' => 'testValue'];
 
         $event = new \Laminas\EventManager\Event;
         $event->setParams($testParams);

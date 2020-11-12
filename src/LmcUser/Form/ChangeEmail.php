@@ -18,62 +18,62 @@ class ChangeEmail extends ProvidesEventsForm
         parent::__construct($name);
 
         $this->add(
-            array(
-            'name' => 'identity',
-            'options' => array(
+            [
+                'name' => 'identity',
+                'options' => [
                 'label' => '',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'hidden',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'newIdentity',
-            'options' => array(
+            [
+                'name' => 'newIdentity',
+                'options' => [
                 'label' => 'New Email',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'newIdentityVerify',
-            'options' => array(
+            [
+                'name' => 'newIdentityVerify',
+                'options' => [
                 'label' => 'Verify New Email',
-            ),
-            'attributes' => array(
+                ],
+                'attributes' => [
                 'type' => 'text',
-            ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'credential',
-            'type' => 'password',
-            'options' => array(
-                'label' => 'Password',
-            ),
-            'attributes' => array(
+            [
+                'name' => 'credential',
                 'type' => 'password',
-            ),
-            )
+                'options' => [
+                'label' => 'Password',
+                ],
+                'attributes' => [
+                'type' => 'password',
+                ],
+            ]
         );
 
         $this->add(
-            array(
-            'name' => 'submit',
-            'attributes' => array(
+            [
+                'name' => 'submit',
+                'attributes' => [
                 'value' => 'Submit',
                 'type'  => 'submit'
-            ),
-            )
+                ],
+            ]
         );
     }
 

@@ -58,7 +58,7 @@ class UserTest extends TestCase
      */
     public function testRegisterWithInvalidForm()
     {
-        $expectArray = array('username' => 'LmcUser');
+        $expectArray = ['username' => 'LmcUser'];
 
         $this->options->expects($this->once())
             ->method('getUserEntityClass')
@@ -88,7 +88,7 @@ class UserTest extends TestCase
      */
     public function testRegisterWithUsernameAndDisplayNameUserStateDisabled()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = ['username' => 'LmcUser', 'display_name' => 'Zfc User'];
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
@@ -159,7 +159,7 @@ class UserTest extends TestCase
      */
     public function testRegisterWithDefaultUserStateOfZero()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = ['username' => 'LmcUser', 'display_name' => 'Zfc User'];
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
@@ -231,7 +231,7 @@ class UserTest extends TestCase
      */
     public function testRegisterWithUserStateDisabled()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = ['username' => 'LmcUser', 'display_name' => 'Zfc User'];
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
@@ -301,7 +301,7 @@ class UserTest extends TestCase
      */
     public function testChangePasswordWithWrongOldPassword()
     {
-        $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
+        $data = ['newCredential' => 'lmcUser', 'credential' => 'lmcUserOld'];
 
         $this->options->expects($this->any())
             ->method('getPasswordCost')
@@ -328,7 +328,7 @@ class UserTest extends TestCase
      */
     public function testChangePassword()
     {
-        $data = array('newCredential' => 'lmcUser', 'credential' => 'lmcUserOld');
+        $data = ['newCredential' => 'lmcUser', 'credential' => 'lmcUserOld'];
 
         $this->options->expects($this->any())
             ->method('getPasswordCost')
@@ -364,7 +364,7 @@ class UserTest extends TestCase
      */
     public function testChangeEmail()
     {
-        $data = array('credential' => 'lmcUser', 'newIdentity' => 'lmcUser@lmcUser.com');
+        $data = ['credential' => 'lmcUser', 'newIdentity' => 'lmcUser@lmcUser.com'];
 
         $this->options->expects($this->any())
             ->method('getPasswordCost')
@@ -401,7 +401,7 @@ class UserTest extends TestCase
      */
     public function testChangeEmailWithWrongPassword()
     {
-        $data = array('credential' => 'lmcUserOld');
+        $data = ['credential' => 'lmcUserOld'];
 
         $this->options->expects($this->any())
             ->method('getPasswordCost')

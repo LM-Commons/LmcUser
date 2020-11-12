@@ -61,13 +61,13 @@ Installation
 
     ```php
     <?php
-    return array(
-        'modules' => array(
+    return [
+        'modules' => [
             // ...
             'LmcUser',
-        ),
+        ],
         // ...
-    );
+    ];
     ```
 
 
@@ -78,20 +78,20 @@ Installation
 
 ```php
 <?php
-return array(
-    'db' => array(
+return [
+    'db' => [
         'driver'    => 'PdoMysql',
         'hostname'  => 'changeme',
         'database'  => 'changeme',
         'username'  => 'changeme',
         'password'  => 'changeme',
-    ),
-    'service_manager' => array(
-        'factories' => array(
+    ],
+    'service_manager' => [
+        'factories' => [
             'Laminas\Db\Adapter\Adapter' => 'Laminas\Db\Adapter\AdapterServiceFactory',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 ```
 

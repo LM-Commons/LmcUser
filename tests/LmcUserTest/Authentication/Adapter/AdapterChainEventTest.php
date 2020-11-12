@@ -31,7 +31,7 @@ class AdapterChainEventTest extends TestCase
     public function testCodeAndMessages()
     {
         $testCode = 103;
-        $testMessages = array('Message recieved loud and clear.');
+        $testMessages = ['Message recieved loud and clear.'];
 
         $this->event->setCode($testCode);
         $this->assertEquals($testCode, $this->event->getCode(), "Asserting code values match.");
@@ -48,7 +48,7 @@ class AdapterChainEventTest extends TestCase
     public function testIdentity()
     {
         $testCode = 123;
-        $testMessages = array('The message.');
+        $testMessages = ['The message.'];
         $testIdentity = 'the_user';
 
         $this->event->setCode($testCode);
@@ -63,7 +63,7 @@ class AdapterChainEventTest extends TestCase
         $this->event->setIdentity();
 
         $this->assertNull($this->event->getCode(), "Asserting the code has been cleared.");
-        $this->assertEquals(array(), $this->event->getMessages(), "Asserting the messages have been cleared.");
+        $this->assertEquals([], $this->event->getMessages(), "Asserting the messages have been cleared.");
         $this->assertNull($this->event->getIdentity(), "Asserting the identity has been cleared");
     }
 

@@ -23,7 +23,7 @@ class UserControllerTest extends TestCase
 
     protected $pluginManager;
 
-    public $pluginManagerPlugins = array();
+    public $pluginManagerPlugins = [];
 
     protected $lmcUserAuthenticationPlugin;
 
@@ -51,7 +51,7 @@ class UserControllerTest extends TestCase
 
         $pluginManager->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'helperMockCallbackPluginManagerGet')));
+            ->will($this->returnCallback([$this, 'helperMockCallbackPluginManagerGet']));
 
         $this->pluginManager = $pluginManager;
 
@@ -107,9 +107,9 @@ class UserControllerTest extends TestCase
         $redirectRoute = $redirectRoute ?: $controller::ROUTE_LOGIN;
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>$hasIdentity
-            )
+            ]
         );
 
         $response = new Response();
@@ -128,7 +128,7 @@ class UserControllerTest extends TestCase
 
         $this->pluginManagerPlugins['redirect']= $redirect;
 
-        $result = call_user_func(array($controller, $methodeName));
+        $result = call_user_func([$controller, $methodeName]);
 
         $this->assertInstanceOf('Laminas\Http\Response', $result);
         $this->assertSame($response, $result);
@@ -141,9 +141,9 @@ class UserControllerTest extends TestCase
     {
         $controller = $this->controller;
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>true
-            )
+            ]
         );
 
         $result = $controller->indexAction();
@@ -162,9 +162,9 @@ class UserControllerTest extends TestCase
         $redirectUrl = 'localhost/redirect1';
 
         $plugin = $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>false
-            )
+            ]
         );
 
         $flashMessenger = $this->createMock(
@@ -181,7 +181,7 @@ class UserControllerTest extends TestCase
             ->method('addMessage')
             ->will($this->returnSelf());
 
-        $postArray = array('some', 'data');
+        $postArray = ['some', 'data'];
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->any())
             ->method('isPost')
@@ -223,10 +223,10 @@ class UserControllerTest extends TestCase
                 ->method('clearIdentity');
 
             $plugin = $this->setUpLmcUserAuthenticationPlugin(
-                array(
+                [
                 'getAuthAdapter'=>$adapter,
                 'getAuthService'=>$service
-                )
+                ]
             );
 
             $form->expects($this->once())
@@ -240,7 +240,7 @@ class UserControllerTest extends TestCase
                 ->getMock();
             $forwardPlugin->expects($this->once())
                 ->method('dispatch')
-                ->with($controller::CONTROLLER_NAME, array('action' => 'authenticate'))
+                ->with($controller::CONTROLLER_NAME, ['action' => 'authenticate'])
                 ->will($this->returnValue($expectedResult));
 
             $this->pluginManagerPlugins['forward']= $forwardPlugin;
@@ -251,7 +251,7 @@ class UserControllerTest extends TestCase
             $route_url = "/user/login";
 
 
-            $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect', array('toUrl'));
+            $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect', ['toUrl']);
             $redirect->expects($this->any())
                 ->method('toUrl')
                 ->with($route_url . $redirectQuery)
@@ -270,7 +270,7 @@ class UserControllerTest extends TestCase
 
 
             $response = new Response();
-            $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url', array('fromRoute'));
+            $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url', ['fromRoute']);
             $url->expects($this->once())
                 ->method('fromRoute')
                 ->with($controller::ROUTE_LOGIN)
@@ -300,9 +300,9 @@ class UserControllerTest extends TestCase
     public function testLoginActionIsNotPost($redirect)
     {
         $plugin = $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>false
-            )
+            ]
         );
 
         $flashMessenger = $this->createMock('Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger');
@@ -374,10 +374,10 @@ class UserControllerTest extends TestCase
             ->method('clearIdentity');
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-            )
+            ]
         );
 
 
@@ -443,11 +443,11 @@ class UserControllerTest extends TestCase
 
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>false,
             'getAuthAdapter'=>$adapter,
             'getAuthService'=>$service
-            )
+            ]
         );
 
         if (is_bool($prepareResult)) {
@@ -519,9 +519,9 @@ class UserControllerTest extends TestCase
         $controller = $this->controller;
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>false
-            )
+            ]
         );
 
         $this->options->expects($this->once())
@@ -549,9 +549,9 @@ class UserControllerTest extends TestCase
         $expectedResult = null;
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>false
-            )
+            ]
         );
 
         $this->options->expects($this->any())
@@ -622,7 +622,7 @@ class UserControllerTest extends TestCase
             if ($loginAfterSuccessWith) {
                 $this->options->expects($this->once())
                     ->method('getAuthIdentityFields')
-                    ->will($this->returnValue(array($loginAfterSuccessWith)));
+                    ->will($this->returnValue([$loginAfterSuccessWith]));
 
 
                 $expectedResult = new \stdClass();
@@ -631,7 +631,7 @@ class UserControllerTest extends TestCase
                     ->getMock();
                 $forwardPlugin->expects($this->once())
                     ->method('dispatch')
-                    ->with($controller::CONTROLLER_NAME, array('action' => 'authenticate'))
+                    ->with($controller::CONTROLLER_NAME, ['action' => 'authenticate'])
                     ->will($this->returnValue($expectedResult));
 
                 $this->pluginManagerPlugins['forward']= $forwardPlugin;
@@ -678,17 +678,17 @@ class UserControllerTest extends TestCase
         }
 
         if ($postRedirectGetReturn === false) {
-            $expectedResult = array(
+            $expectedResult = [
                 'registerForm' => $form,
                 'enableRegistration' => true,
                 'redirect' => $wantRedirect ? $redirectUrl : false
-            );
+            ];
         } elseif ($registerSuccess === false) {
-            $expectedResult = array(
+            $expectedResult = [
                 'registerForm' => $form,
                 'enableRegistration' => true,
                 'redirect' => isset($postRedirectGetReturn['redirect']) ? $postRedirectGetReturn['redirect'] : null
-            );
+            ];
         }
 
         if ($expectedResult) {
@@ -714,9 +714,9 @@ class UserControllerTest extends TestCase
         $response = new Response();
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>true
-            )
+            ]
         );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
@@ -739,7 +739,7 @@ class UserControllerTest extends TestCase
 
         $flashMessenger->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue($status ? array('test') : array()));
+            ->will($this->returnValue($status ? ['test'] : []));
 
 
         $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
@@ -801,15 +801,15 @@ class UserControllerTest extends TestCase
             $this->assertSame($postRedirectGetReturn, $result);
         } else {
             if ($postRedirectGetReturn === false) {
-                $exceptedReturn = array(
+                $exceptedReturn = [
                     'status' => $status ? 'test' : null,
                     'changePasswordForm' => $form,
-                );
+                ];
             } elseif ($isValid === false || $changeSuccess === false) {
-                $exceptedReturn = array(
+                $exceptedReturn = [
                     'status' => false,
                     'changePasswordForm' => $form,
-                );
+                ];
             }
             if ($exceptedReturn) {
                 $this->assertIsArray($result);
@@ -839,9 +839,9 @@ class UserControllerTest extends TestCase
         $controller->setUserService($userService);
 
         $this->setUpLmcUserAuthenticationPlugin(
-            array(
+            [
             'hasIdentity'=>true
-            )
+            ]
         );
 
         $form = $this->getMockBuilder('Laminas\Form\Form')
@@ -885,7 +885,7 @@ class UserControllerTest extends TestCase
 
         $flashMessenger->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue($status ? array('test') : array()));
+            ->will($this->returnValue($status ? ['test'] : []));
 
 
         $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
@@ -943,15 +943,15 @@ class UserControllerTest extends TestCase
             $this->assertSame($postRedirectGetReturn, $result);
         } else {
             if ($postRedirectGetReturn === false) {
-                $exceptedReturn = array(
+                $exceptedReturn = [
                     'status' => $status ? 'test' : null,
                     'changeEmailForm' => $form,
-                );
+                ];
             } elseif ($isValid === false || $changeSuccess === false) {
-                $exceptedReturn = array(
+                $exceptedReturn = [
                     'status' => false,
                     'changeEmailForm' => $form,
-                );
+                ];
             }
 
             if ($exceptedReturn) {
@@ -992,71 +992,71 @@ class UserControllerTest extends TestCase
                 ->will($this->returnValue($servicePrototype));
             $controller->setServiceLocator($serviceLocator);
         } else {
-            call_user_func(array($controller, 'set' . $method), $servicePrototype);
+            call_user_func([$controller, 'set' . $method], $servicePrototype);
         }
 
-        $result = call_user_func(array($controller, 'get' . $method));
+        $result = call_user_func([$controller, 'get' . $method]);
         $this->assertInstanceOf(get_class($servicePrototype), $result);
         $this->assertSame($servicePrototype, $result);
 
         // we need two check for every case
-        $result = call_user_func(array($controller, 'get' . $method));
+        $result = call_user_func([$controller, 'get' . $method]);
         $this->assertInstanceOf(get_class($servicePrototype), $result);
         $this->assertSame($servicePrototype, $result);
     }
 
     public function providerTrueOrFalse()
     {
-        return array(
-            array(true),
-            array(false),
-        );
+        return [
+            [true],
+            [false],
+        ];
     }
 
     public function providerTrueOrFalseX2()
     {
-        return array(
-            array(true,true),
-            array(true,false),
-            array(false,true),
-            array(false,false),
-        );
+        return [
+            [true, true],
+            [true, false],
+            [false, true],
+            [false, false],
+        ];
     }
 
     public function providerTestAuthenticateAction()
     {
         // $redirect, $post, $query, $prepareResult = false, $authValid = false
-        return array(
-            array(false, null,              null,              new Response(), false),
-            array(false, null,              null,              false,          false),
-            array(false, null,              null,              false,          true),
-            array(false, 'localhost/test1', null,              false,          false),
-            array(false, 'localhost/test1', null,              false,          true),
-            array(false, 'localhost/test1', 'localhost/test2', false,          false),
-            array(false, 'localhost/test1', 'localhost/test2', false,          true),
-            array(false, null,              'localhost/test2', false,          false),
-            array(false, null,              'localhost/test2', false,          true),
+        return [
+            [false, null, null, new Response(), false],
+            [false, null, null, false, false],
+            [false, null, null, false, true],
+            [false, 'localhost/test1', null, false, false],
+            [false, 'localhost/test1', null, false, true],
+            [false, 'localhost/test1', 'localhost/test2', false, false],
+            [false, 'localhost/test1', 'localhost/test2', false, true],
+            [false, null, 'localhost/test2', false, false],
+            [false, null, 'localhost/test2', false, true],
 
-            array(true,  null,              null,              false,          false),
-            array(true,  null,              null,              false,          true),
-            array(true,  'localhost/test1', null,              false,          false),
-            array(true,  'localhost/test1', null,              false,          true),
-            array(true,  'localhost/test1', 'localhost/test2', false,          false),
-            array(true,  'localhost/test1', 'localhost/test2', false,          true),
-            array(true,  null,              'localhost/test2', false,          false),
-            array(true,  null,              'localhost/test2', false,          true),
-        );
+            [true, null, null, false, false],
+            [true, null, null, false, true],
+            [true, 'localhost/test1', null, false, false],
+            [true, 'localhost/test1', null, false, true],
+            [true, 'localhost/test1', 'localhost/test2', false, false],
+            [true, 'localhost/test1', 'localhost/test2', false, true],
+            [true, null, 'localhost/test2', false, false],
+            [true, null, 'localhost/test2', false, true],
+        ];
     }
 
     public function providerRedirectPostQueryMatrix()
     {
-        return array(
-            array(false, false, false),
-            array(true, false, false),
-            array(true, 'localhost/test1', false),
-            array(true, 'localhost/test1', 'localhost/test2'),
-            array(true, false,              'localhost/test2'),
-        );
+        return [
+            [false, false, false],
+            [true, false, false],
+            [true, 'localhost/test1', false],
+            [true, 'localhost/test1', 'localhost/test2'],
+            [true, false, 'localhost/test2'],
+        ];
     }
 
     public function providerTestSetterGetterServices()
@@ -1087,104 +1087,104 @@ class UserControllerTest extends TestCase
 
 
 
-        return array(
+        return [
             // $method, $useServiceLocator, $servicePrototype, $serviceName, $loginFormCallback
-            array('UserService', true, new UserService(), 'lmcuser_user_service' ),
-            array('UserService', false, new UserService(), null ),
-            array('RegisterForm', true, new Form(), 'lmcuser_register_form' ),
-            array('RegisterForm', false, new Form(), null ),
-            array('ChangePasswordForm', true, new Form(), 'lmcuser_change_password_form' ),
-            array('ChangePasswordForm', false, new Form(), null ),
-            array('ChangeEmailForm', true, new Form(), 'lmcuser_change_email_form' ),
-            array('ChangeEmailForm', false, new Form(), null ),
-            array('LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[0] ),
-            array('LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[1] ),
-            array('LoginForm', false, new Form(), null, $loginFormCallback[0] ),
-            array('LoginForm', false, new Form(), null, $loginFormCallback[1] ),
-            array('Options', true, new ModuleOptions(), 'lmcuser_module_options' ),
-            array('Options', false, new ModuleOptions(), null ),
-        );
+            ['UserService', true, new UserService(), 'lmcuser_user_service'],
+            ['UserService', false, new UserService(), null],
+            ['RegisterForm', true, new Form(), 'lmcuser_register_form'],
+            ['RegisterForm', false, new Form(), null],
+            ['ChangePasswordForm', true, new Form(), 'lmcuser_change_password_form'],
+            ['ChangePasswordForm', false, new Form(), null],
+            ['ChangeEmailForm', true, new Form(), 'lmcuser_change_email_form'],
+            ['ChangeEmailForm', false, new Form(), null],
+            ['LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[0]],
+            ['LoginForm', true, new Form(), 'lmcuser_login_form', $loginFormCallback[1]],
+            ['LoginForm', false, new Form(), null, $loginFormCallback[0]],
+            ['LoginForm', false, new Form(), null, $loginFormCallback[1]],
+            ['Options', true, new ModuleOptions(), 'lmcuser_module_options'],
+            ['Options', false, new ModuleOptions(), null],
+        ];
     }
 
 
     public function providerTestActionControllHasIdentity()
     {
 
-        return array(
+        return [
             //    $methodeName , $hasIdentity, $redirectRoute,           optionsGetterMethode
-            array('indexAction',          false, Controller::ROUTE_LOGIN,  null),
-            array('loginAction',          true,  'user/overview',          'getLoginRedirectRoute'),
-            array('authenticateAction',   true,  'user/overview',          'getLoginRedirectRoute'),
-            array('registerAction',       true,  'user/overview',          'getLoginRedirectRoute'),
-            array('changepasswordAction', false, 'user/overview',          'getLoginRedirectRoute'),
-            array('changeEmailAction',    false, 'user/overview',          'getLoginRedirectRoute')
+            ['indexAction', false, Controller::ROUTE_LOGIN, null],
+            ['loginAction', true, 'user/overview', 'getLoginRedirectRoute'],
+            ['authenticateAction', true, 'user/overview', 'getLoginRedirectRoute'],
+            ['registerAction', true, 'user/overview', 'getLoginRedirectRoute'],
+            ['changepasswordAction', false, 'user/overview', 'getLoginRedirectRoute'],
+            ['changeEmailAction', false, 'user/overview', 'getLoginRedirectRoute']
 
-        );
+        ];
     }
 
 
     public function providerTestChangeAction()
     {
-        return array(
+        return [
             //    $status, $postRedirectGetReturn, $isValid, $changeSuccess
-            array(false,   new Response(),  null,  null),
-            array(true,    new Response(),  null,  null),
+            [false, new Response(), null, null],
+            [true, new Response(), null, null],
 
-            array(false,   false,           null,  null),
-            array(true,    false,           null,  null),
+            [false, false, null, null],
+            [true, false, null, null],
 
-            array(false,   array("test"),   false,  null),
-            array(true,    array("test"),   false,  null),
+            [false, ["test"], false, null],
+            [true, ["test"], false, null],
 
-            array(false,   array("test"),   true, false),
-            array(true,    array("test"),   true, false),
+            [false, ["test"], true, false],
+            [true, ["test"], true, false],
 
-            array(false,   array("test"),   true, true),
-            array(true,    array("test"),   true, true),
+            [false, ["test"], true, true],
+            [true, ["test"], true, true],
 
-        );
+        ];
     }
 
 
     public function providerTestRegisterAction()
     {
-        $registerPost = array (
+        $registerPost = [
             'username'=>'lmc-user',
             'email'=>'lmc-user@trash-mail.com',
             'password'=>'secret'
-        );
-        $registerPostRedirect = array_merge($registerPost, array("redirect" => 'test'));
+        ];
+        $registerPostRedirect = array_merge($registerPost, ["redirect" => 'test']);
 
 
-        return array(
+        return [
             //    $status, $postRedirectGetReturn, $registerSuccess, $loginAfterSuccessWith
-            array(false,   new Response(),  null,  null),
-            array(true,    new Response(),  null,  null),
+            [false, new Response(), null, null],
+            [true, new Response(), null, null],
 
-            array(false,   false,           null,  null),
-            array(true,    false,           null,  null),
+            [false, false, null, null],
+            [true, false, null, null],
 
-            array(false,   $registerPost,   false,  null),
-            array(true,    $registerPost,   false,  null),
-            array(false,   $registerPostRedirect,   false,  null),
-            array(true,    $registerPostRedirect,   false,  null),
+            [false, $registerPost, false, null],
+            [true, $registerPost, false, null],
+            [false, $registerPostRedirect, false, null],
+            [true, $registerPostRedirect, false, null],
 
-            array(false,   $registerPost,   true, 'email'),
-            array(true,    $registerPost,   true, 'email'),
-            array(false,   $registerPostRedirect,   true, 'email'),
-            array(true,    $registerPostRedirect,   true, 'email'),
+            [false, $registerPost, true, 'email'],
+            [true, $registerPost, true, 'email'],
+            [false, $registerPostRedirect, true, 'email'],
+            [true, $registerPostRedirect, true, 'email'],
 
-            array(false,   $registerPost,   true, 'username'),
-            array(true,    $registerPost,   true, 'username'),
-            array(false,   $registerPostRedirect,   true, 'username'),
-            array(true,    $registerPostRedirect,   true, 'username'),
+            [false, $registerPost, true, 'username'],
+            [true, $registerPost, true, 'username'],
+            [false, $registerPostRedirect, true, 'username'],
+            [true, $registerPostRedirect, true, 'username'],
 
-            array(false,   $registerPost,   true, null),
-            array(true,    $registerPost,   true, null),
-            array(false,   $registerPostRedirect,   true, null),
-            array(true,    $registerPostRedirect,   true, null),
+            [false, $registerPost, true, null],
+            [true, $registerPost, true, null],
+            [false, $registerPostRedirect, true, null],
+            [true, $registerPostRedirect, true, null],
 
-        );
+        ];
     }
 
 

@@ -107,11 +107,11 @@ class UserController extends AbstractActionController
         }
 
         if (!$request->isPost()) {
-            return array(
+            return [
                 'loginForm' => $form,
                 'redirect'  => $redirect,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-            );
+            ];
         }
 
         $form->setData($request->getPost());
@@ -125,7 +125,7 @@ class UserController extends AbstractActionController
         $this->lmcUserAuthentication()->getAuthAdapter()->resetAdapters();
         $this->lmcUserAuthentication()->getAuthService()->clearIdentity();
 
-        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
+        return $this->forward()->dispatch(static::CONTROLLER_NAME, ['action' => 'authenticate']);
     }
 
     /**
@@ -189,7 +189,7 @@ class UserController extends AbstractActionController
         }
         // if registration is disabled
         if (!$this->getOptions()->getEnableRegistration()) {
-            return array('enableRegistration' => false);
+            return ['enableRegistration' => false];
         }
 
         $request = $this->getRequest();
@@ -209,11 +209,11 @@ class UserController extends AbstractActionController
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
+            return [
                 'registerForm' => $form,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'redirect' => $redirect,
-            );
+            ];
         }
 
         $post = $prg;
@@ -222,11 +222,11 @@ class UserController extends AbstractActionController
         $redirect = isset($prg['redirect']) ? $prg['redirect'] : null;
 
         if (!$user) {
-            return array(
+            return [
                 'registerForm' => $form,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'redirect' => $redirect,
-            );
+            ];
         }
 
         if ($service->getOptions()->getLoginAfterRegistration()) {
@@ -238,7 +238,7 @@ class UserController extends AbstractActionController
             }
             $post['credential'] = $post['password'];
             $request->setPost(new Parameters($post));
-            return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
+            return $this->forward()->dispatch(static::CONTROLLER_NAME, ['action' => 'authenticate']);
         }
 
         // TODO: Add the redirect parameter here...
@@ -269,26 +269,26 @@ class UserController extends AbstractActionController
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
+            return [
                 'status' => $status,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
         $form->setData($prg);
 
         if (!$form->isValid()) {
-            return array(
+            return [
                 'status' => false,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
         if (!$this->getUserService()->changePassword($form->getData())) {
-            return array(
+            return [
                 'status' => false,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
         $this->flashMessenger()->setNamespace('change-password')->addMessage(true);
@@ -318,29 +318,29 @@ class UserController extends AbstractActionController
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
+            return [
                 'status' => $status,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $form->setData($prg);
 
         if (!$form->isValid()) {
-            return array(
+            return [
                 'status' => false,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $change = $this->getUserService()->changeEmail($prg);
 
         if (!$change) {
             $this->flashMessenger()->setNamespace('change-email')->addMessage(false);
-            return array(
+            return [
                 'status' => false,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $this->flashMessenger()->setNamespace('change-email')->addMessage(true);

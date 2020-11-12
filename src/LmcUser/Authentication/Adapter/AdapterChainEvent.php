@@ -63,7 +63,7 @@ class AdapterChainEvent extends Event
      */
     public function getMessages()
     {
-        return $this->getParam('messages') ?: array();
+        return $this->getParam('messages') ?: [];
     }
 
     /**
@@ -72,7 +72,7 @@ class AdapterChainEvent extends Event
      * @param  array $messages
      * @return AdapterChainEvent
      */
-    public function setMessages($messages = array())
+    public function setMessages($messages = [])
     {
         $this->setParam('messages', $messages);
         return $this;
