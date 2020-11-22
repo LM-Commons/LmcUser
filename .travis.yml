@@ -11,7 +11,7 @@ before_script:
   - mysql -e "create database IF NOT EXISTS lmc_user;" -uroot
 
 script:
-  - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php --configuration tests/phpunit.xml
+  - ./vendor/bin/phpunit --bootstrap=./tests/bootstrap.php --configuration ./tests/phpunit.xml
   - ./vendor/bin/phpcs -n --standard=PSR2 ./src/ ./tests/
 
 services:
