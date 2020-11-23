@@ -1,0 +1,10 @@
+/.coveralls.yml export-ignore
+/.gitattributes export-ignore
+/.github/ export-ignore
+/.gitignore export-ignore
+/.travis.yml export-ignore
+/.scrutinizer.yml export-ignore
+/.php_cs export-ignore
+/phpcs.xml export-ignore
+/phpunit.xml.dist export-ignore
+/tests/ export-ignore

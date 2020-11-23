@@ -1,4 +1,5 @@
-<phpunit bootstrap="./bootstrap.php"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -9,29 +10,29 @@
          backupGlobals="false"
 >
     <testsuite name="LmcUser Test Suite">
-        <directory>./LmcUserTest</directory>
+        <directory>./tests/LmcUserTest</directory>
     </testsuite>
     
     <php>
         <const name="DB_MYSQL_DSN" value="mysql:host=localhost;dbname=lmc_user" />
         <const name="DB_MYSQL_USERNAME" value="root" />
         <const name="DB_MYSQL_PASSWORD" value="" />
-        <const name="DB_MYSQL_SCHEMA" value="../data/schema.mysql.sql" />
+        <const name="DB_MYSQL_SCHEMA" value="./data/schema.mysql.sql" />
         
         <const name="DB_SQLITE_DSN" value="sqlite::memory:" />
         <const name="DB_SQLITE_USERNAME" value="" />
         <const name="DB_SQLITE_PASSWORD" value="" />
-        <const name="DB_SQLITE_SCHEMA" value="../data/schema.sqlite.sql" />
+        <const name="DB_SQLITE_SCHEMA" value="./data/schema.sqlite.sql" />
     </php>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">../src</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
     
     <logging>
         <log type="coverage-text" target="php://stdout"/>
-        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
     </logging>
 </phpunit>
