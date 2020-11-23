@@ -1,5 +1,13 @@
 language: php
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  global:
+    - COMPOSER_ARGS="--no-interaction"
+
 php:
   - 7.3
   - 7.4
@@ -11,7 +19,7 @@ before_script:
   - mysql -e "create database IF NOT EXISTS lmc_user;" -uroot
 
 script:
-  - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php --configuration tests/phpunit.xml.dist
+  - ./vendor/bin/phpunit --bootstrap=tests/bootstrap.php --configuration ./phpunit.xml.dist
   - ./vendor/bin/phpcs -n --standard=PSR2 ./src/ ./tests/
 
 services:
