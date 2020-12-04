@@ -14,7 +14,7 @@ LmcUser provides the foundations for adding
 user authentication and registration to your Laminas site. It is designed to be very
 simple and easy to extend.
 
-More information and examples are available on the original [ZfcUser Wiki](https://github.com/ZF-Commons/ZfcUser/wiki)
+More information and examples are available on the [LmcUser Wiki](https://github.com/LM-Commons/LmcUser/wiki)
 
 
 Requirements
