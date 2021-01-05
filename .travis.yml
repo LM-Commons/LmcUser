@@ -7,6 +7,7 @@ cache:
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
+    - XDEBUG_MODE=coverag
 
 services:
   - mysql
