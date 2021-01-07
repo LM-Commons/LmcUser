@@ -2,6 +2,7 @@
 
 namespace LmcUserTest\Mapper;
 
+use Laminas\Hydrator\ClassMethodsHydrator;
 use LmcUser\Mapper\User as Mapper;
 use LmcUser\Entity\User as Entity;
 use Laminas\Db\ResultSet\HydratingResultSet;
@@ -71,7 +72,7 @@ class UserTest extends TestCase
     {
         $mapper = new Mapper;
         $mapper->setEntityPrototype(new Entity());
-        $mapper->setHydrator(new UserHydrator());
+        $mapper->setHydrator(new UserHydrator(new ClassMethodsHydrator()));
         $this->mapper = $mapper;
 
 

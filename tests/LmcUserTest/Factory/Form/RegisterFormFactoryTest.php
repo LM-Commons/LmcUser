@@ -5,6 +5,7 @@ use Laminas\Form\FormElementManager;
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Laminas\ServiceManager\ServiceManager;
 use LmcUser\Factory\Form\Register as RegisterFactory;
+use LmcUser\Mapper\UserHydrator;
 use LmcUser\Options\ModuleOptions;
 use LmcUser\Mapper\User as UserMapper;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +17,7 @@ class RegisterFormFactoryTest extends TestCase
         $serviceManager = new ServiceManager;
         $serviceManager->setService('lmcuser_module_options', new ModuleOptions);
         $serviceManager->setService('lmcuser_user_mapper', new UserMapper);
-        $serviceManager->setService('lmcuser_register_form_hydrator', new ClassMethodsHydrator());
+        $serviceManager->setService('lmcuser_register_form_hydrator', new UserHydrator(new ClassMethodsHydrator()));
 
         $formElementManager = new FormElementManager($serviceManager);
         $serviceManager->setService('FormElementManager', $formElementManager);
