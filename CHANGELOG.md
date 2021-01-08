@@ -1,6 +1,10 @@
 LmcUser ChangeLog
 =======
 
+V3.2.1
+------------
+* Fixed session storage name to be constant not dependent from used class.
+
 V3.2.0
 ------------
 * Updated minimum PHP version to 7.3
