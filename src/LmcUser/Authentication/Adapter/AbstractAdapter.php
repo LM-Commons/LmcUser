@@ -1,9 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LmcUser\Authentication\Adapter;
 
 use Laminas\Authentication\Storage;
+use LmcUser\Module;
 
+/**
+ * Class AbstractAdapter
+ */
 abstract class AbstractAdapter implements ChainableAdapter
 {
     /**
@@ -21,7 +27,7 @@ abstract class AbstractAdapter implements ChainableAdapter
     public function getStorage()
     {
         if (null === $this->storage) {
-            $this->setStorage(new Storage\Session(get_class($this)));
+            $this->setStorage(new Storage\Session(Module::LMC_USER_SESSION_STORAGE_NAMESPACE));
         }
 
         return $this->storage;
@@ -58,7 +64,7 @@ abstract class AbstractAdapter implements ChainableAdapter
      */
     public function setSatisfied($bool = true)
     {
-        $storage = $this->getStorage()->read() ?: array();
+        $storage = $this->getStorage()->read() ?: [];
         $storage['is_satisfied'] = $bool;
         $this->getStorage()->write($storage);
         return $this;
