@@ -508,7 +508,7 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * set use a csrf in login form
      *
-     * @param  bool $useRegistrationFormCaptcha
+     * @param  bool $useLoginFormCsrf
      * @return ModuleOptions
      */
     public function setUseLoginFormCsrf($useLoginFormCsrf)
