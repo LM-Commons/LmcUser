@@ -63,14 +63,14 @@ class Login extends ProvidesEventsForm
             ]);
         }
         if ($this->getAuthenticationOptions()->getUseLoginFormCaptcha()) {
-            $this->add(array(
+            $this->add([
                 'name' => 'captcha',
                 'type' => 'Laminas\Form\Element\Captcha',
-                'options' => array(
+                'options' => [
                     'label' => 'Human check',
                     'captcha' => $this->getAuthenticationOptions()->getFormCaptchaOptions(),
-                ),
-            ));
+                ]
+            ]);
         }
 
         $submitElement = new Element\Button('submit');
