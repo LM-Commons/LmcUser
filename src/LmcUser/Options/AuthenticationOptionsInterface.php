@@ -37,7 +37,7 @@ interface AuthenticationOptionsInterface extends PasswordOptionsInterface
     /**
      * set use a captcha in login form
      *
-     * @param bool $useRegistrationFormCaptcha
+     * @param bool $useLoginFormCaptcha
      * @return ModuleOptions
      */
     public function setUseLoginFormCaptcha($useLoginFormCaptcha);
