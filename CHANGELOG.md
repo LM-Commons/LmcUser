@@ -1,11 +1,27 @@
 LmcUser ChangeLog
 =======
 
-V3.2.1
+V3.3.3
 ------------
 
 * Fixed session storage name to be constant not dependent from used class.
 * Added the ability to exchange the underlying hydrator for the user hydrator decorator.
+
+V3.3.2
+------------
+
+* updated unit tests
+* Travis reconfig
+
+V3.3.1
+------------
+
+* Update README.md
+
+V3.3.0
+------------
+
+* This release marks the move from the old organization namespace to the new one.
 
 V3.2.0
 ------------
