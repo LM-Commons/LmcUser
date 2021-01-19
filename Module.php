@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace LmcUser;
 
+use Laminas\Hydrator\ClassMethodsHydrator;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 use Laminas\ModuleManager\Feature\ControllerPluginProviderInterface;
 use Laminas\ModuleManager\Feature\ControllerProviderInterface;
 use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use LmcUser\Authentication\Adapter\Db;
 
 /**
  * Class Module
@@ -57,14 +59,15 @@ class Module implements
 
     public function getServiceConfig()
     {
-        return array(
-            'aliases' => array(
+        return [
+            'aliases' => [
                 'lmcuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
-            ),
-            'invokables' => array(
-                'lmcuser_register_form_hydrator' => \Laminas\Hydrator\ClassMethodsHydrator::class,
-            ),
-            'factories' => array(
+                'lmcuser_register_form_hydrator' => 'lmcuser_user_hydrator',
+                'lmcuser_base_hydrator' => ClassMethodsHydrator::class
+            ],
+            'invokables' => [
+            ],
+            'factories' => [
                 'lmcuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
                 'lmcuser_module_options' => \LmcUser\Factory\Options\ModuleOptions::class,
                 'LmcUser\Authentication\Adapter\AdapterChain' => \LmcUser\Authentication\Adapter\AdapterChainServiceFactory::class,
@@ -82,11 +85,11 @@ class Module implements
                 'lmcuser_change_password_form' => \LmcUser\Factory\Form\ChangePassword::class,
                 'lmcuser_change_email_form' => \LmcUser\Factory\Form\ChangeEmail::class,
 
-                'LmcUser\Authentication\Adapter\Db' => \LmcUser\Factory\Authentication\Adapter\DbFactory::class,
-                'LmcUser\Authentication\Storage\Db' => \LmcUser\Factory\Authentication\Storage\DbFactory::class,
+                Db::class                                 => \LmcUser\Factory\Authentication\Adapter\DbFactory::class,
+                \LmcUser\Authentication\Storage\Db::class => \LmcUser\Factory\Authentication\Storage\DbFactory::class,
 
                 'lmcuser_user_service' => \LmcUser\Factory\Service\UserFactory::class,
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace LmcUserTest\Mapper;
 
+use Laminas\Hydrator\ClassMethodsHydrator;
 use LmcUser\Entity\UserInterface;
 
 use LmcUser\Entity\UserInterface as UserEntityInterface;
@@ -16,7 +17,7 @@ class UserHydratorTest extends TestCase
 
     public function setUp():void
     {
-        $hydrator = new Hydrator;
+        $hydrator = new Hydrator(new ClassMethodsHydrator());
         $this->hydrator = $hydrator;
     }
 

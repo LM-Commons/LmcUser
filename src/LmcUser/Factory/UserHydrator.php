@@ -5,6 +5,9 @@ namespace LmcUser\Factory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
+/**
+ * Class UserHydrator
+ */
 class UserHydrator implements FactoryInterface
 {
     /**
@@ -13,6 +16,6 @@ class UserHydrator implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new \Laminas\Hydrator\ClassMethodsHydrator();
+        return new \LmcUser\Mapper\UserHydrator($container->get('lmcuser_base_hydrator'));
     }
 }
