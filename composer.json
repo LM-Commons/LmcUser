@@ -24,7 +24,7 @@
             "homepage": "https://matwright.dev/"
         }
     ],
-   
+
     "require": {
         "php" : "^7.3",
 		"laminas/laminas-authentication" : "^2.7",

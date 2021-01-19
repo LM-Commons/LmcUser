@@ -3,9 +3,9 @@ LmcUser ChangeLog
 
 V3.2.1
 ------------
-* Added the ability to exchange the underlying hydrator for the user hydrator decorator.
-* 
 
+* Fixed session storage name to be constant not dependent from used class.
+* Added the ability to exchange the underlying hydrator for the user hydrator decorator.
 
 V3.2.0
 ------------

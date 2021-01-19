@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LmcUser;
 
 use Laminas\Hydrator\ClassMethodsHydrator;
@@ -9,12 +11,17 @@ use Laminas\ModuleManager\Feature\ControllerProviderInterface;
 use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 use LmcUser\Authentication\Adapter\Db;
 
+/**
+ * Class Module
+ */
 class Module implements
     ControllerProviderInterface,
     ControllerPluginProviderInterface,
     ConfigProviderInterface,
     ServiceProviderInterface
 {
+    public const LMC_USER_SESSION_STORAGE_NAMESPACE = 'LmcUserNamespace';
+    
     public function getConfig($env = null)
     {
         return include __DIR__ . '/config/module.config.php';

@@ -3,8 +3,10 @@
 namespace LmcUser\Authentication\Adapter;
 
 use Laminas\Authentication\Storage\StorageInterface;
-use Laminas\EventManager\EventInterface;
 
+/**
+ * Interface ChainableAdapter
+ */
 interface ChainableAdapter
 {
     /**
