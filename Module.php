@@ -63,9 +63,9 @@ class Module implements
             'aliases' => [
                 'lmcuser_laminas_db_adapter' => \Laminas\Db\Adapter\Adapter::class,
                 'lmcuser_register_form_hydrator' => 'lmcuser_user_hydrator',
-                'lmcuser_base_hydrator' => ClassMethodsHydrator::class
             ],
             'invokables' => [
+                'lmcuser_base_hydrator' => ClassMethodsHydrator::class,
             ],
             'factories' => [
                 'lmcuser_redirect_callback' => \LmcUser\Factory\Controller\RedirectCallbackFactory::class,
