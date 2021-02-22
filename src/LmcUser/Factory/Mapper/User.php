@@ -4,21 +4,23 @@ namespace LmcUser\Factory\Mapper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use LmcUser\Mapper;
 use LmcUser\Options\ModuleOptions;
 
 class User implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    /**
+     * {@inheritDoc}
+     * @see \Laminas\ServiceManager\Factory\FactoryInterface::__invoke()
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /**
-*
-         *
- * @var ModuleOptions $options
-*/
-        $options = $serviceLocator->get('lmcuser_module_options');
-        $dbAdapter = $serviceLocator->get('lmcuser_laminas_db_adapter');
+         * @var ModuleOptions $options
+         */
+        $options = $container->get('lmcuser_module_options');
+        $dbAdapter = $container->get('lmcuser_laminas_db_adapter');
+        $hydrator = $container->get('lmcuser_user_hydrator');
 
         $entityClass = $options->getUserEntityClass();
         $tableName = $options->getTableName();
@@ -27,19 +29,8 @@ class User implements FactoryInterface
         $mapper->setDbAdapter($dbAdapter);
         $mapper->setTableName($tableName);
         $mapper->setEntityPrototype(new $entityClass);
-        $mapper->setHydrator(new Mapper\UserHydrator());
+        $mapper->setHydrator($hydrator);
 
         return $mapper;
-    }
-
-    /**
-     * Create service
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this->__invoke($serviceLocator, null);
     }
 }
