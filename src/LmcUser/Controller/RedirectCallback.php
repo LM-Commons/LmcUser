@@ -2,35 +2,29 @@
 
 namespace LmcUser\Controller;
 
-use Laminas\Mvc\Application;
-use Laminas\Router\RouteInterface;
-use Laminas\Router\Exception;
+use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Application;
+use Laminas\Router\Exception;
+use Laminas\Router\RouteInterface;
 use LmcUser\Options\ModuleOptions;
 
 /**
- * Buils a redirect response based on the current routing and parameters
+ * Builds a redirect response based on the current routing and parameters
  */
 class RedirectCallback
 {
-
     /**
-     *
-     *
      * @var RouteInterface
      */
     private $router;
 
     /**
-     *
-     *
      * @var Application
      */
     private $application;
 
     /**
-     *
-     *
      * @var ModuleOptions
      */
     private $options;
@@ -65,18 +59,18 @@ class RedirectCallback
      * Return the redirect from param.
      * First checks GET then POST
      *
-     * @return string
+     * @return string|boolean
      */
     private function getRedirectRouteFromRequest()
     {
         $request  = $this->application->getRequest();
         $redirect = $request->getQuery('redirect');
-        if ($redirect && $this->routeExists($redirect)) {
+        if ($redirect && ($this->routeMatched($redirect) || $this->routeExists($redirect))) {
             return $redirect;
         }
 
         $redirect = $request->getPost('redirect');
-        if ($redirect && $this->routeExists($redirect)) {
+        if ($redirect && ($this->routeMatched($redirect) || $this->routeExists($redirect))) {
             return $redirect;
         }
 
@@ -90,11 +84,22 @@ class RedirectCallback
     private function routeExists($route)
     {
         try {
-            $this->router->assemble(array(), array('name' => $route));
+            $this->router->assemble([], ['name' => $route]);
         } catch (Exception\RuntimeException $e) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param  string $route
+     * @return bool
+     */
+    private function routeMatched(string $route): bool
+    {
+        $request = new Request();
+        $request->setUri($route);
+        return (! is_null($this->router->match($request)));
     }
 
     /**
@@ -105,11 +110,12 @@ class RedirectCallback
      * @param  bool   $redirect
      * @return mixed
      */
-    protected function getRedirect($currentRoute, $redirect = false)
+    private function getRedirect($currentRoute, $redirect = false)
     {
         $useRedirect = $this->options->getUseRedirectParameterIfPresent();
-        $routeExists = ($redirect && $this->routeExists($redirect));
-        if (!$useRedirect || !$routeExists) {
+        $routeMatched = ($redirect && $this->routeMatched($redirect));
+        $routeExists = ($redirect && (! $routeMatched) && $this->routeExists($redirect));
+        if (! $useRedirect || ! ($routeMatched || $routeExists)) {
             $redirect = false;
         }
 
@@ -117,15 +123,19 @@ class RedirectCallback
             case 'lmcuser/register':
             case 'lmcuser/login':
             case 'lmcuser/authenticate':
-                $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+                if ($redirect && $routeMatched) {
+                    return $redirect;
+                } else {
+                    $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
+                    return $this->router->assemble([], ['name' => $route]);
+                }
                 break;
             case 'lmcuser/logout':
                 $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
-                return $this->router->assemble(array(), array('name' => $route));
+                return $this->router->assemble([], ['name' => $route]);
                 break;
             default:
-                return $this->router->assemble(array(), array('name' => 'lmcuser'));
+                return $this->router->assemble([], ['name' => 'lmcuser']);
         }
     }
 }
