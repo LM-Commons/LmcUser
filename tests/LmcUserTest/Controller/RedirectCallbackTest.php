@@ -14,64 +14,51 @@ use PHPUnit\Framework\TestCase;
 
 class RedirectCallbackTest extends TestCase
 {
-
     /**
-     *
-     *
      * @var RedirectCallback
      */
     protected $redirectCallback;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|ModuleOptions
+     * @var \PHPUnit\Framework\MockObject\MockObject|ModuleOptions
      */
     protected $moduleOptions;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|RouteInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|RouteInterface
      */
     protected $router;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|Application
+     * @var \PHPUnit\Framework\MockObject\MockObject|Application
      */
     protected $application;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|Request
+     * @var \PHPUnit\Framework\MockObject\MockObject|Request
      */
     protected $request;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|Response
+     * @var \PHPUnit\Framework\MockObject\MockObject|Response
      */
     protected $response;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|MvcEvent
+     * @var \PHPUnit\Framework\MockObject\MockObject|MvcEvent
      */
     protected $mvcEvent;
 
     /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject|RouteMatch
+     * @var \PHPUnit\Framework\MockObject\MockObject|RouteMatch
      */
     protected $routeMatch;
 
-    public function setUp():void
+    /**
+     * {@inheritDoc}
+     * @see \PHPUnit\Framework\TestCase::setUp()
+     */
+    protected function setUp(): void
     {
         $this->router = $this->getMockBuilder('Laminas\Router\RouteInterface')
             ->disableOriginalConstructor()
@@ -93,7 +80,7 @@ class RedirectCallbackTest extends TestCase
         );
     }
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $url = 'someUrl';
 
@@ -108,7 +95,7 @@ class RedirectCallbackTest extends TestCase
 
         $this->router->expects($this->any())
             ->method('assemble')
-            ->with(array(), array('name' => 'lmcuser'))
+            ->with([], ['name' => 'lmcuser'])
             ->will($this->returnValue($url));
 
         $this->response->expects($this->once())
@@ -127,7 +114,7 @@ class RedirectCallbackTest extends TestCase
     /**
      * @dataProvider providerGetRedirectRouteFromRequest
      */
-    public function testGetRedirectRouteFromRequest($get, $post, $getRouteExists, $postRouteExists)
+    public function testGetRedirectRouteFromRequest($get, $post, $getRouteExists, $postRouteExists): void
     {
         $expectedResult = false;
 
@@ -138,7 +125,7 @@ class RedirectCallbackTest extends TestCase
         if ($get) {
             $this->router->expects($this->any())
                 ->method('assemble')
-                ->with(array(), array('name' => $get))
+                ->with([], ['name' => $get])
                 ->will($getRouteExists);
 
             if ($getRouteExists == $this->returnValue(true)) {
@@ -154,7 +141,7 @@ class RedirectCallbackTest extends TestCase
             if ($post) {
                 $this->router->expects($this->any())
                     ->method('assemble')
-                    ->with(array(), array('name' => $post))
+                    ->with([], ['name' => $post])
                     ->will($postRouteExists);
 
                 if ($postRouteExists == $this->returnValue(true)) {
@@ -164,7 +151,7 @@ class RedirectCallbackTest extends TestCase
         }
 
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'getRedirectRouteFromRequest'
         );
         $method->setAccessible(true);
@@ -173,30 +160,30 @@ class RedirectCallbackTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    public function providerGetRedirectRouteFromRequest()
+    public function providerGetRedirectRouteFromRequest(): array
     {
-        return array(
-            array('user', false, $this->returnValue('route'), false),
-            array('user', false, $this->returnValue('route'), $this->returnValue(true)),
-            array('user', 'user', $this->returnValue('route'), $this->returnValue(true)),
-            array('user', 'user', $this->throwException(new \Laminas\Router\Exception\RuntimeException), $this->returnValue(true)),
-            array('user', 'user', $this->throwException(new \Laminas\Router\Exception\RuntimeException), $this->throwException(new \Laminas\Router\Exception\RuntimeException)),
-            array(false, 'user', false, $this->returnValue(true)),
-            array(false, 'user', false, $this->throwException(new \Laminas\Router\Exception\RuntimeException)),
-            array(false, 'user', false, $this->throwException(new \Laminas\Router\Exception\RuntimeException)),
-        );
+        return [
+            ['user', false, $this->returnValue('route'), false],
+            ['user', false, $this->returnValue('route'), $this->returnValue(true)],
+            ['user', 'user', $this->returnValue('route'), $this->returnValue(true)],
+            ['user', 'user', $this->throwException(new \Laminas\Router\Exception\RuntimeException), $this->returnValue(true)],
+            ['user', 'user', $this->throwException(new \Laminas\Router\Exception\RuntimeException), $this->throwException(new \Laminas\Router\Exception\RuntimeException)],
+            [false, 'user', false, $this->returnValue(true)],
+            [false, 'user', false, $this->throwException(new \Laminas\Router\Exception\RuntimeException)],
+            [false, 'user', false, $this->throwException(new \Laminas\Router\Exception\RuntimeException)],
+        ];
     }
 
-    public function testRouteExistsRouteExists()
+    public function testRouteExistsRouteExists(): void
     {
         $route = 'existingRoute';
 
         $this->router->expects($this->once())
             ->method('assemble')
-            ->with(array(), array('name' => $route));
+            ->with([], ['name' => $route]);
 
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'routeExists'
         );
         $method->setAccessible(true);
@@ -205,18 +192,58 @@ class RedirectCallbackTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testRouteExistsRouteDoesntExists()
+    public function testRouteExistsRouteDoesntExists(): void
     {
         $route = 'existingRoute';
 
         $this->router->expects($this->once())
             ->method('assemble')
-            ->with(array(), array('name' => $route))
+            ->with([], ['name' => $route])
             ->will($this->throwException(new \Laminas\Router\Exception\RuntimeException));
 
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'routeExists'
+        );
+        $method->setAccessible(true);
+        $result = $method->invoke($this->redirectCallback, $route);
+
+        $this->assertFalse($result);
+    }
+
+    public function testRouteMatchedRouteMatched(): void
+    {
+        $route = 'existingRoute';
+
+        $routeMatch = $this->getMockBuilder(RouteMatch::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->router->expects($this->once())
+            ->method('match')
+            ->willReturn($routeMatch);
+
+        $method = new \ReflectionMethod(
+            RedirectCallback::class,
+            'routeMatched'
+        );
+        $method->setAccessible(true);
+        $result = $method->invoke($this->redirectCallback, $route);
+
+        $this->assertTrue($result);
+    }
+
+    public function testRouteMatchedRouteNotMatched(): void
+    {
+        $route = 'existingRoute';
+
+        $this->router->expects($this->once())
+            ->method('match')
+            ->willReturn(null);
+
+        $method = new \ReflectionMethod(
+            RedirectCallback::class,
+            'routeMatched'
         );
         $method->setAccessible(true);
         $result = $method->invoke($this->redirectCallback, $route);
@@ -227,45 +254,55 @@ class RedirectCallbackTest extends TestCase
     /**
      * @dataProvider providerGetRedirectNoRedirectParam
      */
-    public function testGetRedirectNoRedirectParam($currentRoute, $optionsReturn, $expectedResult, $optionsMethod)
-    {
+    public function testGetRedirectNoRedirectParam(
+        string $currentRoute,
+        string $redirect,
+        string $expectedResult,
+        bool $routeMatch
+    ): void {
         $this->moduleOptions->expects($this->once())
             ->method('getUseRedirectParameterIfPresent')
             ->will($this->returnValue(true));
 
-        $this->router->expects($this->at(0))
-            ->method('assemble');
-        $this->router->expects($this->at(1))
+        if ($routeMatch) {
+            $routeMatch = $this->getMockBuilder(RouteMatch::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        } else {
+            $routeMatch = null;
+        }
+
+        $this->router->expects($this->once())
+            ->method('match')
+            ->willReturn($routeMatch);
+
+        $this->router->expects($routeMatch ? $this->never() : $this->exactly(2))
             ->method('assemble')
-            ->with(array(), array('name' => $optionsReturn))
+            ->with([], ['name' => $redirect])
             ->will($this->returnValue($expectedResult));
 
-        if ($optionsMethod) {
-            $this->moduleOptions->expects($this->never())
-                ->method($optionsMethod)
-                ->will($this->returnValue($optionsReturn));
-        }
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'getRedirect'
         );
         $method->setAccessible(true);
-        $result = $method->invoke($this->redirectCallback, $currentRoute, $optionsReturn);
+        $result = $method->invoke($this->redirectCallback, $currentRoute, $redirect);
 
         $this->assertSame($expectedResult, $result);
     }
 
-    public function providerGetRedirectNoRedirectParam()
+    public function providerGetRedirectNoRedirectParam(): array
     {
-        return array(
-            array('lmcuser/login', 'lmcuser', '/user', 'getLoginRedirectRoute'),
-            array('lmcuser/authenticate', 'lmcuser', '/user', 'getLoginRedirectRoute'),
-            array('lmcuser/logout', 'lmcuser/login', '/user/login', 'getLogoutRedirectRoute'),
-            array('testDefault', 'lmcuser', '/home', false),
-        );
+        return [
+            ['lmcuser/login', 'lmcuser', '/user', false],
+            ['lmcuser/authenticate', 'lmcuser', '/user', false],
+            ['lmcuser/logout', 'lmcuser/login', '/user/login', false],
+            ['testDefault', 'lmcuser', '/home', false],
+            ['lmcuser/authenticate', '/some/route', '/some/route', true],
+        ];
     }
 
-    public function testGetRedirectWithOptionOnButNoRedirect()
+    public function testGetRedirectWithOptionOnButNoRedirect(): void
     {
         $route = 'lmcuser/login';
         $redirect = false;
@@ -281,11 +318,11 @@ class RedirectCallbackTest extends TestCase
 
         $this->router->expects($this->once())
             ->method('assemble')
-            ->with(array(), array('name' => $route))
+            ->with([], ['name' => $route])
             ->will($this->returnValue($expectedResult));
 
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'getRedirect'
         );
         $method->setAccessible(true);
@@ -294,7 +331,7 @@ class RedirectCallbackTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    public function testGetRedirectWithOptionOnRedirectDoesntExists()
+    public function testGetRedirectWithOptionOnRedirectDoesntExist(): void
     {
         $route = 'lmcuser/login';
         $redirect = 'doesntExists';
@@ -304,14 +341,18 @@ class RedirectCallbackTest extends TestCase
             ->method('getUseRedirectParameterIfPresent')
             ->will($this->returnValue(true));
 
-        $this->router->expects($this->at(0))
-            ->method('assemble')
-            ->with(array(), array('name' => $redirect))
-            ->will($this->throwException(new \Laminas\Router\Exception\RuntimeException));
+        $this->router->expects($this->once())
+            ->method('match')
+            ->willReturn(null);
 
         $this->router->expects($this->at(1))
             ->method('assemble')
-            ->with(array(), array('name' => $route))
+            ->with([], ['name' => $redirect])
+            ->will($this->throwException(new \Laminas\Router\Exception\RuntimeException));
+
+        $this->router->expects($this->at(2))
+            ->method('assemble')
+            ->with([], ['name' => $route])
             ->will($this->returnValue($expectedResult));
 
         $this->moduleOptions->expects($this->once())
@@ -319,7 +360,7 @@ class RedirectCallbackTest extends TestCase
             ->will($this->returnValue($route));
 
         $method = new \ReflectionMethod(
-            'LmcUser\Controller\RedirectCallback',
+            RedirectCallback::class,
             'getRedirect'
         );
         $method->setAccessible(true);
@@ -328,21 +369,21 @@ class RedirectCallbackTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    private function setUpApplication()
+    private function setUpApplication(): void
     {
-        $this->request = $this->getMockBuilder('Laminas\Http\PhpEnvironment\Request')
+        $this->request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->response = $this->getMockBuilder('Laminas\Http\PhpEnvironment\Response')
+        $this->response = $this->getMockBuilder(Response::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->routeMatch = $this->getMockBuilder('Laminas\Router\RouteMatch')
+        $this->routeMatch = $this->getMockBuilder(RouteMatch::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mvcEvent = $this->getMockBuilder('Laminas\Mvc\MvcEvent')
+        $this->mvcEvent = $this->getMockBuilder(MvcEvent::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->mvcEvent->expects($this->any())
