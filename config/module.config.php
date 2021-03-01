@@ -1,88 +1,91 @@
 <?php
 
-return array(
-    'view_manager' => array(
-        'template_path_stack' => array(
-            'lmcuser' => __DIR__ . '/../view',
-        ),
-    ),
+namespace LmcUser;
 
-    'router' => array(
-        'routes' => array(
-            'lmcuser' => array(
-                'type' => 'Literal',
+use Laminas\Router\Http\Literal;
+
+return [
+    'view_manager' => [
+        'template_path_stack' => [
+            'lmcuser' => __DIR__ . '/../view',
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'lmcuser' => [
+                'type' => Literal::class,
                 'priority' => 1000,
-                'options' => array(
+                'options' => [
                     'route' => '/user',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'lmcuser',
-                        'action'     => 'index',
-                    ),
-                ),
+                        'action' => 'index',
+                    ],
+                ],
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'login' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                'child_routes' => [
+                    'login' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/login',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
-                                'action'     => 'login',
-                            ),
-                        ),
-                    ),
-                    'authenticate' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                                'action' => 'login',
+                            ],
+                        ],
+                    ],
+                    'authenticate' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/authenticate',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
-                                'action'     => 'authenticate',
-                            ),
-                        ),
-                    ),
-                    'logout' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                                'action' => 'authenticate',
+                            ],
+                        ],
+                    ],
+                    'logout' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/logout',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
-                                'action'     => 'logout',
-                            ),
-                        ),
-                    ),
-                    'register' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                                'action' => 'logout',
+                            ],
+                        ],
+                    ],
+                    'register' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/register',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
-                                'action'     => 'register',
-                            ),
-                        ),
-                    ),
-                    'changepassword' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                                'action' => 'register',
+                            ],
+                        ],
+                    ],
+                    'changepassword' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/change-password',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
-                                'action'     => 'changepassword',
-                            ),
-                        ),
-                    ),
-                    'changeemail' => array(
-                        'type' => 'Literal',
-                        'options' => array(
+                                'action' => 'changepassword',
+                            ],
+                        ],
+                    ],
+                    'changeemail' => [
+                        'type' => Literal::class,
+                        'options' => [
                             'route' => '/change-email',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'lmcuser',
                                 'action' => 'changeemail',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-);
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
