@@ -1,7 +1,7 @@
 <?php
 namespace LmcUserTest\Factory\Form;
 
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager;
 use Laminas\ServiceManager\ServiceManager;
 use LmcUser\Factory\Form\ChangePassword as ChangePasswordFactory;
 use LmcUser\Options\ModuleOptions;
@@ -16,7 +16,7 @@ class ChangePasswordFormFactoryTest extends TestCase
         $serviceManager->setService('lmcuser_module_options', new ModuleOptions);
         $serviceManager->setService('lmcuser_user_mapper', new UserMapper);
 
-        $formElementManager = new FormElementManagerV3Polyfill($serviceManager);
+        $formElementManager = new FormElementManager($serviceManager);
         $serviceManager->setService('FormElementManager', $formElementManager);
 
         $factory = new ChangePasswordFactory();
