@@ -29,7 +29,7 @@
         "php" : "^7.3 || ^8.0",
 		"laminas/laminas-authentication" : "^2.7",
 		"laminas/laminas-crypt" : "^3.0",
-		"laminas/laminas-form" : "^2.14",
+		"laminas/laminas-form" : "^3.0",
 		"laminas/laminas-inputfilter" : "^2.10",
 		"laminas/laminas-loader" : "^2.6",
 		"laminas/laminas-modulemanager" : "^2.8",
@@ -44,7 +44,7 @@
 		"laminas/laminas-mvc-plugin-flashmessenger" : "^1.2",
 		"laminas/laminas-i18n" : "^2.10",
 		"laminas/laminas-mvc-plugin-prg" : "^1.2",
-		"laminas/laminas-hydrator" : "^3.0"
+		"laminas/laminas-hydrator" : "^4.1"
     },
     "require-dev" : {
         "phpunit/phpunit" : "^9.5.4",
