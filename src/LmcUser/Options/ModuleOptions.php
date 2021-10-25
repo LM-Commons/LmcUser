@@ -96,6 +96,11 @@ class ModuleOptions extends AbstractOptions implements
     /**
      * @var bool
      */
+    protected $enableOtp = false;
+
+    /**
+     * @var bool
+     */
     protected $useRegistrationFormCaptcha = false;
 
     /**
@@ -459,6 +464,28 @@ class ModuleOptions extends AbstractOptions implements
     public function getEnableDisplayName()
     {
         return $this->enableDisplayName;
+    }
+
+    /**
+     * set enable one time password (2 factor authentication)
+     *
+     * @param  bool $flag
+     * @return ModuleOptions
+     */
+    public function setEnableOtp($flag)
+    {
+        $this->enableOtp = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * get enable one time password (2 factor authentication)
+     *
+     * @return bool
+     */
+    public function getEnableOtp()
+    {
+        return $this->enableOtp;
     }
 
     /**
