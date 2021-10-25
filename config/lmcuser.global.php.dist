@@ -231,6 +231,13 @@ $settings = [
     //'allowed_login_states' => [null, 1],
 
     /**
+     * Enable otp usage
+     *
+     * Should otp be used in login process?
+     */
+    //'enable_otp' => false,
+
+    /**
      * User table name
      */
     //'table_name' => 'user',
