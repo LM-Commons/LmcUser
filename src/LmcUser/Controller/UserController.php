@@ -17,7 +17,7 @@ class UserController extends AbstractActionController
     const ROUTE_LOGIN        = 'lmcuser/login';
     const ROUTE_REGISTER     = 'lmcuser/register';
     const ROUTE_CHANGEEMAIL  = 'lmcuser/changeemail';
-
+    const ROUTE_OTP          = 'lmcuser/otp';
     const CONTROLLER_NAME    = 'lmcuser';
 
     /**
@@ -29,6 +29,11 @@ class UserController extends AbstractActionController
      * @var FormInterface
      */
     protected $loginForm;
+
+    /**
+     * @var FormInterface
+     */
+    protected $otpForm;
 
     /**
      * @var FormInterface
@@ -175,6 +180,38 @@ class UserController extends AbstractActionController
         $redirect = $this->redirectCallback;
 
         return $redirect();
+    }
+
+    public function otpAction()
+    {
+        if ($this->lmcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
+        }
+        
+        $request = $this->getRequest();
+        $form    = $this->getOtpForm();
+        
+        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $request->getQuery()->get('redirect')) {
+            $redirect = $request->getQuery()->get('redirect');
+        } else {
+            $redirect = false;
+        }
+        
+        if (!$request->isPost()) {
+            return array(
+                'otpForm' => $form,
+                'redirect'  => $redirect
+            );
+        }
+        
+        $form->setData($request->getPost());
+        
+        if (!$form->isValid()) {
+            $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
+            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+        }
+        
+        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
     }
 
     /**
@@ -389,6 +426,20 @@ class UserController extends AbstractActionController
     public function setLoginForm(FormInterface $loginForm)
     {
         $this->loginForm = $loginForm;
+        return $this;
+    }
+
+    public function getOtpForm()
+    {
+        if (!$this->otpForm) {
+            $this->setOtpForm($this->serviceLocator->get('lmcuser_otp_form'));
+        }
+        return $this->otpForm;
+    }
+
+    public function setOtpForm(FormInterface $otpForm)
+    {
+        $this->otpForm = $otpForm;
         return $this;
     }
 

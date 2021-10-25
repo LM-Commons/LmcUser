@@ -122,7 +122,6 @@ class RedirectCallback
         switch ($currentRoute) {
             case 'lmcuser/register':
             case 'lmcuser/login':
-            case 'lmcuser/otp':
             case 'lmcuser/authenticate':
                 if ($redirect && $routeMatched) {
                     return $redirect;
