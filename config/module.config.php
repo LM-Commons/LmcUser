@@ -44,6 +44,16 @@ return [
                             ],
                         ],
                     ],
+                    'otp' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/otp',
+                            'defaults' => [
+                                'controller' => 'lmcuser',
+                                'action' => 'otp',
+                            ],
+                        ],
+                    ],
                     'logout' => [
                         'type' => Literal::class,
                         'options' => [
