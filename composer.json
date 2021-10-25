@@ -1,5 +1,5 @@
 {
-    "name": "lampi87/lmc-user",
+    "name": "lm-commons/lmc-user",
     "description": "A generic user registration and authentication module for Laminas. Supports Laminas\\Db and Doctrine2.",
     "type": "library",
     "license": "BSD-3-Clause",
