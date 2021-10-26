@@ -62,20 +62,20 @@ class OtpMail extends AbstractAdapter
             return;
         }
         
-        if ((isset($storage['is_otp_satisfied']) && true === $storage['is_otp_satisfied'])) {
-            $storage = $this->getStorage()->read();
-            $e->setIdentity($storage['identity'])
-                ->setCode(AuthenticationResult::SUCCESS)
-                ->setMessages(array('Authentication successful.'));
-            return;
-        }
-        
         $userObject = $this->getMapper()->findById($storage['identity']);
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
                 ->setMessages(array('A record with the supplied identity could not be found.'));
             $this->setSatisfied(false);
             return false;
+        }
+
+        if (((isset($storage['is_otp_satisfied']) && true === $storage['is_otp_satisfied'])) || false === $userObject->getUseOtp()) {
+            $storage = $this->getStorage()->read();
+            $e->setIdentity($storage['identity'])
+                ->setCode(AuthenticationResult::SUCCESS)
+                ->setMessages(array('Authentication successful.'));
+            return;
         }
 
         $code = $e->getRequest()->getPost()->get('code');
@@ -91,7 +91,7 @@ class OtpMail extends AbstractAdapter
                 $transport = new Mail\Transport\Sendmail();
                 $transport->send($mail);
             } catch (\Exception $error) {
-                
+                // Handle error if needed
             }
             $router  = $this->serviceManager->get('Router');
             $url = $router->assemble([], [
