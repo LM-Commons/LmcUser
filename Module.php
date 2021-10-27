@@ -102,11 +102,13 @@ class Module implements
                 'lmcuser_user_mapper' => Factory\Mapper\User::class,
 
                 'lmcuser_login_form' => Factory\Form\Login::class,
+                'lmcuser_otp_form' => Factory\Form\Otp::class,
                 'lmcuser_register_form' => Factory\Form\Register::class,
                 'lmcuser_change_password_form' => Factory\Form\ChangePassword::class,
                 'lmcuser_change_email_form' => Factory\Form\ChangeEmail::class,
 
                 Authentication\Adapter\Db::class => Factory\Authentication\Adapter\DbFactory::class,
+                Authentication\Adapter\OtpMail::class => Factory\Authentication\Adapter\OtpMailFactory::class,
                 Authentication\Storage\Db::class => Factory\Authentication\Storage\DbFactory::class,
 
                 'lmcuser_user_service' => Factory\Service\UserFactory::class,

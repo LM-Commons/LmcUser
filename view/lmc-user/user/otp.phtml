@@ -1,0 +1,11 @@
+<h1><?php echo $this->translate('Sign In'); ?></h1>
+
+<?php
+$form = $this->otpForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('lmcuser/otp'));
+$form->setAttribute('method', 'post');
+$form->setAttribute('autocomplete', 'off');
+?>
+
+<?php echo $this->partial('_form.phtml', ['form' => $form]); ?>
