@@ -8,7 +8,7 @@ use Laminas\EventManager\EventInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Session\Container as SessionContainer;
-use LmcUser\Entity\UserInterface;
+use LmcUser\Entity\UserOtpInterface;
 use LmcUser\Mapper\UserInterface as UserMapperInterface;
 use LmcUser\Options\ModuleOptions;
 use LmcUser\Entity\User;
@@ -62,6 +62,10 @@ class OtpMail extends AbstractAdapter
             return;
         }
 
+        /**
+         *
+         * @var UserOtpInterface|null $userObject
+        */
         $userObject = $this->getMapper()->findById($storage['identity']);
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)

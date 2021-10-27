@@ -35,11 +35,6 @@ class User implements UserInterface
     protected $state;
 
     /**
-     * @var bool
-     */
-    protected $useOtp;
-
-    /**
      * Get id.
      *
      * @return int
@@ -168,28 +163,6 @@ class User implements UserInterface
     public function setState($state)
     {
         $this->state = $state;
-        return $this;
-    }
-
-    /**
-     * Get otp usage.
-     *
-     * @return bool
-     */
-    public function getUseOtp()
-    {
-        return $this->useOtp;
-    }
-
-    /**
-     * Set otp usage.
-     *
-     * @param  bool $useOtp
-     * @return UserInterface
-     */
-    public function setUseOtp($useOtp)
-    {
-        $this->useOtp = $useOtp;
         return $this;
     }
 }

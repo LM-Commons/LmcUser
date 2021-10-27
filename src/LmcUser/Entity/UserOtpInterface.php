@@ -2,7 +2,7 @@
 
 namespace LmcUser\Entity;
 
-interface UserInterface
+interface UserOtpInterface
 {
     /**
      * Get id.
@@ -93,4 +93,19 @@ interface UserInterface
      * @return UserInterface
      */
     public function setState($state);
+
+    /**
+     * Get otp usage.
+     *
+     * @return bool
+     */
+    public function getUseOtp();
+
+    /**
+     * Set otp usage.
+     *
+     * @param  bool $otp
+     * @return UserInterface
+     */
+    public function setUseOtp($useOtp);
 }
