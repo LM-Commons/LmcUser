@@ -2,7 +2,7 @@
 
 namespace LmcUser\Authentication\Storage;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Authentication\Storage;
 use Laminas\Authentication\Storage\StorageInterface;
 use Laminas\ServiceManager\ServiceManager;

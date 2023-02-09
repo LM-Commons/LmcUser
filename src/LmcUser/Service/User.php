@@ -2,7 +2,7 @@
 
 namespace LmcUser\Service;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Form\Form;
 use Laminas\ServiceManager\ServiceManager;

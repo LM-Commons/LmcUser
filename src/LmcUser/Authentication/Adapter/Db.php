@@ -2,9 +2,8 @@
 
 namespace LmcUser\Authentication\Adapter;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Authentication\Result as AuthenticationResult;
-use Laminas\EventManager\EventInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Session\Container as SessionContainer;

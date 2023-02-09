@@ -2,7 +2,7 @@
 
 namespace LmcUser\Factory\Controller;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Mvc\Application;
 use Laminas\Router\RouteInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
