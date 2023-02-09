@@ -1,2 +1,13 @@
 composer.lock
 vendor/*
+
+#ignoring PHPEclipse project files and directories
+/.settings
+/.project
+/.buildpath
+#ignoring PHPStorm project files
+/.idea
+#ignoring VSCode project files
+/.vscode
+#ignoring  NetBeans project files
+/nbproject

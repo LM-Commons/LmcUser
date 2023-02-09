@@ -2,7 +2,7 @@
 
 namespace LmcUser\Factory\Authentication\Storage;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use LmcUser\Authentication\Storage\Db;
