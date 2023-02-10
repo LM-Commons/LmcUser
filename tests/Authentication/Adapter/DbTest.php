@@ -18,35 +18,35 @@ class DbTest extends TestCase
     /**
      * Mock of AuthEvent.
      *
-     * @var \LmcUser\Authentication\Adapter\AdapterChainEvent|\PHPUnit_Framework_MockObject_MockObject
+     * @var \LmcUser\Authentication\Adapter\AdapterChainEvent|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $authEvent;
 
     /**
      * Mock of Storage.
      *
-     * @var \Laminas\Authentication\Storage\Session|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Laminas\Authentication\Storage\Session|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $storage;
 
     /**
      * Mock of Options.
      *
-     * @var \LmcUser\Options\ModuleOptions|\PHPUnit_Framework_MockObject_MockObject
+     * @var \LmcUser\Options\ModuleOptions|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $options;
 
     /**
      * Mock of Mapper.
      *
-     * @var \LmcUser\Mapper\UserInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \LmcUser\Mapper\UserInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $mapper;
 
     /**
      * Mock of User.
      *
-     * @var \LmcUser\Entity\UserInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \LmcUser\Entity\UserInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $user;
 

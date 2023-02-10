@@ -30,7 +30,7 @@ class UserControllerTest extends TestCase
     protected $options;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|RedirectCallback
+     * @var \PHPUnit\Framework\MockObject\MockObject|RedirectCallback
      */
     protected $redirectCallback;
 

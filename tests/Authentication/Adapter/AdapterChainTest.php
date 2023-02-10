@@ -24,28 +24,28 @@ class AdapterChainTest extends TestCase
     /**
      * Mock event manager.
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject|EventManagerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|EventManagerInterface
      */
     protected $eventManager;
 
     /**
      * Mock event manager.
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject|SharedEventManagerInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|SharedEventManagerInterface
      */
     protected $sharedEventManager;
 
     /**
      * For tests where an event is required.
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject|EventInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|EventInterface
      */
     protected $event;
 
     /**
      * Used when testing prepareForAuthentication.
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject|RequestInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|RequestInterface
      */
     protected $request;
 
