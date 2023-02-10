@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./vendor/autoload.php"
+<phpunit bootstrap="vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -10,7 +10,7 @@
          backupGlobals="false"
 >
     <testsuite name="LmcUser Test Suite">
-        <directory>./tests/LmcUserTest</directory>
+        <directory>./tests</directory>
     </testsuite>
     
     <php>
