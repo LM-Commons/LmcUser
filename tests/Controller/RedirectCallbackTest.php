@@ -86,7 +86,7 @@ class RedirectCallbackTest extends TestCase
 
         $this->routeMatch->expects($this->once())
             ->method('getMatchedRouteName')
-            ->will($this->returnValue('someRoute'));
+            ->willReturn('someRoute');
 
         $headers = $this->createMock('Laminas\Http\Headers');
         $headers->expects($this->once())
@@ -96,11 +96,11 @@ class RedirectCallbackTest extends TestCase
         $this->router->expects($this->any())
             ->method('assemble')
             ->with([], ['name' => 'lmcuser'])
-            ->will($this->returnValue($url));
+            ->willReturn($url);
 
         $this->response->expects($this->once())
             ->method('getHeaders')
-            ->will($this->returnValue($headers));
+            ->willReturn($headers);
 
         $this->response->expects($this->once())
             ->method('setStatusCode')
@@ -120,7 +120,7 @@ class RedirectCallbackTest extends TestCase
 
         $this->request->expects($this->once())
             ->method('getQuery')
-            ->will($this->returnValue($get));
+            ->willReturn($get);
 
         if ($get) {
             $this->router->expects($this->any())
@@ -136,7 +136,7 @@ class RedirectCallbackTest extends TestCase
         if (!$get || !$getRouteExists) {
             $this->request->expects($this->once())
                 ->method('getPost')
-                ->will($this->returnValue($post));
+                ->willReturn($post);
 
             if ($post) {
                 $this->router->expects($this->any())
@@ -199,7 +199,7 @@ class RedirectCallbackTest extends TestCase
         $this->router->expects($this->once())
             ->method('assemble')
             ->with([], ['name' => $route])
-            ->will($this->throwException(new \Laminas\Router\Exception\RuntimeException));
+            ->willThrowException(new \Laminas\Router\Exception\RuntimeException);
 
         $method = new \ReflectionMethod(
             RedirectCallback::class,
@@ -262,7 +262,7 @@ class RedirectCallbackTest extends TestCase
     ): void {
         $this->moduleOptions->expects($this->once())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         if ($routeMatch) {
             $routeMatch = $this->getMockBuilder(RouteMatch::class)
@@ -279,7 +279,7 @@ class RedirectCallbackTest extends TestCase
         $this->router->expects($routeMatch ? $this->never() : $this->exactly(2))
             ->method('assemble')
             ->with([], ['name' => $redirect])
-            ->will($this->returnValue($expectedResult));
+            ->willReturn($expectedResult);
 
         $method = new \ReflectionMethod(
             RedirectCallback::class,
@@ -310,16 +310,16 @@ class RedirectCallbackTest extends TestCase
 
         $this->moduleOptions->expects($this->once())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->moduleOptions->expects($this->once())
             ->method('getLoginRedirectRoute')
-            ->will($this->returnValue($route));
+            ->willReturn($route);
 
         $this->router->expects($this->once())
             ->method('assemble')
             ->with([], ['name' => $route])
-            ->will($this->returnValue($expectedResult));
+            ->willReturn($expectedResult);
 
         $method = new \ReflectionMethod(
             RedirectCallback::class,
@@ -339,7 +339,7 @@ class RedirectCallbackTest extends TestCase
 
         $this->moduleOptions->expects($this->once())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->router->expects($this->once())
             ->method('match')
@@ -348,16 +348,16 @@ class RedirectCallbackTest extends TestCase
         $this->router->expects($this->at(1))
             ->method('assemble')
             ->with([], ['name' => $redirect])
-            ->will($this->throwException(new \Laminas\Router\Exception\RuntimeException));
+            ->willThrowException(new \Laminas\Router\Exception\RuntimeException);
 
         $this->router->expects($this->at(2))
             ->method('assemble')
             ->with([], ['name' => $route])
-            ->will($this->returnValue($expectedResult));
+            ->willReturn($expectedResult);
 
         $this->moduleOptions->expects($this->once())
             ->method('getLoginRedirectRoute')
-            ->will($this->returnValue($route));
+            ->willReturn($route);
 
         $method = new \ReflectionMethod(
             RedirectCallback::class,
@@ -388,17 +388,17 @@ class RedirectCallbackTest extends TestCase
             ->getMock();
         $this->mvcEvent->expects($this->any())
             ->method('getRouteMatch')
-            ->will($this->returnValue($this->routeMatch));
+            ->willReturn($this->routeMatch);
 
 
         $this->application->expects($this->any())
             ->method('getMvcEvent')
-            ->will($this->returnValue($this->mvcEvent));
+            ->willReturn($this->mvcEvent);
         $this->application->expects($this->any())
             ->method('getRequest')
-            ->will($this->returnValue($this->request));
+            ->willReturn($this->request);
         $this->application->expects($this->any())
             ->method('getResponse')
-            ->will($this->returnValue($this->response));
+            ->willReturn($this->response);
     }
 }

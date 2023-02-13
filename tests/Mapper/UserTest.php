@@ -145,7 +145,7 @@ class UserTest extends TestCase
 
         $this->mockedDbAdapterPlatform->expects($this->any())
             ->method('getName')
-            ->will($this->returnValue('null'));
+            ->willReturn('null');
 
         $this->mockedDbAdapter = $this->getMockBuilder('Laminas\Db\Adapter\Adapter')
             ->setConstructorArgs(
@@ -158,7 +158,7 @@ class UserTest extends TestCase
 
         $this->mockedDbAdapter->expects($this->any())
             ->method('getPlatform')
-            ->will($this->returnValue($this->mockedDbAdapterPlatform));
+            ->willReturn($this->mockedDbAdapterPlatform);
 
         $this->mockedDbSql = $this->getMockBuilder('Laminas\Db\Sql\Sql')
             ->setConstructorArgs(array($this->mockedDbAdapter))
@@ -166,7 +166,7 @@ class UserTest extends TestCase
             ->getMock();
         $this->mockedDbSql->expects($this->any())
             ->method('prepareStatementForSqlObject')
-            ->will($this->returnValue($this->mockedDbAdapterStatement));
+            ->willReturn($this->mockedDbAdapterStatement);
 
         $this->mockedDbSqlPlatform = $this->getMockBuilder('\Laminas\Db\Sql\Platform\Platform')
             ->setConstructorArgs(array($this->mockedDbAdapter))
@@ -189,12 +189,12 @@ class UserTest extends TestCase
                 case 'getSelect':
                     $this->mapper->expects($this->once())
                     ->method('getSelect')
-                    ->will($this->returnValue($this->mockedSelect));
+                    ->willReturn($this->mockedSelect);
                     break;
                 case 'initialize':
                     $this->mapper->expects($this->once())
                     ->method('initialize')
-                    ->will($this->returnValue(true));
+                    ->willReturn(true);
                     break;
             }
         }
@@ -217,18 +217,16 @@ class UserTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('select')
-            ->will($this->returnValue($this->mockedResultSet));
+            ->willReturn($this->mockedResultSet);
 
         $mockedSelect = $this->mockedSelect;
         $this->mockedSelect->expects($this->once())
             ->method('where')
-            ->will(
-                $this->returnCallback(
-                    function () use (&$returnMockedParams, $mockedSelect) {
-                        $returnMockedParams['whereArgs'] = func_get_args();
-                        return $mockedSelect;
-                    }
-                )
+            ->willReturnCallback(
+                function () use (&$returnMockedParams, $mockedSelect) {
+                    $returnMockedParams['whereArgs'] = func_get_args();
+                    return $mockedSelect;
+                }
             );
 
         foreach ($eventListenerArray as $eventKey => $eventListener) {
@@ -253,7 +251,7 @@ class UserTest extends TestCase
 
         $this->mockedResultSet->expects($this->once())
             ->method('current')
-            ->will($this->returnValue($entityEqual));
+            ->willReturn($entityEqual);
 
         $return = call_user_func_array(array($this->mapper, $method), $args);
 

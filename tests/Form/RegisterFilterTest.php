@@ -15,10 +15,10 @@ class RegisterFilterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
             ->method('getEnableUsername')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $options->expects($this->once())
             ->method('getEnableDisplayName')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $emailValidator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();
         $usernameValidator = $this->getMockBuilder('LmcUser\Validator\NoRecordExists')->disableOriginalConstructor()->getMock();

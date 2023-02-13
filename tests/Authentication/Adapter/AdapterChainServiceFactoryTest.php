@@ -59,7 +59,7 @@ class AdapterChainServiceFactoryTest extends TestCase
 
         $this->serviceLocator->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this,'helperServiceLocator')));
+            ->willReturnCallback(array($this,'helperServiceLocator'));
 
         $this->eventManager = $this->createMock('Laminas\EventManager\EventManager');
 
@@ -89,7 +89,7 @@ class AdapterChainServiceFactoryTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAuthAdapters')
-            ->will($this->returnValue($adapterNames));
+            ->willReturn($adapterNames);
 
         $adapterChain = $this->factory->__invoke($this->serviceLocator, 'LmcUser\Authentication\Adapter\AdapterChain');
 

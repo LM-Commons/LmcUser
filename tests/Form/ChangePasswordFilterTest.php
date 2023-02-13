@@ -12,7 +12,7 @@ class ChangePasswordFilterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('email')));
+            ->willReturn(array('email'));
 
         $filter = new Filter($options);
 
@@ -35,7 +35,7 @@ class ChangePasswordFilterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue($onlyEmail ? array('email') : array('username')));
+            ->willReturn($onlyEmail ? array('email') : array('username'));
 
         $filter = new Filter($options);
 

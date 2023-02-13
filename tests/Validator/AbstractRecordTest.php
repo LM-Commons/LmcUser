@@ -87,7 +87,7 @@ class AbstractRecordTest extends TestCase
         $mapper->expects($this->once())
             ->method('findByUsername')
             ->with('test')
-            ->will($this->returnValue('LmcUser'));
+            ->willReturn('LmcUser');
 
         $validator->setMapper($mapper);
 
@@ -111,7 +111,7 @@ class AbstractRecordTest extends TestCase
         $mapper->expects($this->once())
             ->method('findByEmail')
             ->with('test@test.com')
-            ->will($this->returnValue('LmcUser'));
+            ->willReturn('LmcUser');
 
         $validator->setMapper($mapper);
 

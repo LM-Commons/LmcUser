@@ -70,13 +70,11 @@ class LmcUserLoginWidgetTest extends TestCase
 
         $this->view->expects($this->at(0))
             ->method('render')
-            ->will(
-                $this->returnCallback(
-                    function ($vm) use (&$viewModel) {
-                        $viewModel = $vm;
-                        return "test";
-                    }
-                )
+            ->willReturnCallback(
+                function ($vm) use (&$viewModel) {
+                    $viewModel = $vm;
+                    return "test";
+                }
             );
 
         $result = $this->helper->__invoke($option);

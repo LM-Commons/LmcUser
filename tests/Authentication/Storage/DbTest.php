@@ -44,7 +44,7 @@ class DbTest extends TestCase
     {
         $this->storage->expects($this->once())
             ->method('isEmpty')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->db->setStorage($this->storage);
 
@@ -71,7 +71,7 @@ class DbTest extends TestCase
     {
         $this->storage->expects($this->once())
             ->method('read')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $this->db->setStorage($this->storage);
 
@@ -81,7 +81,7 @@ class DbTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findById')
             ->with(1)
-            ->will($this->returnValue($user));
+            ->willReturn($user);
 
         $this->db->setMapper($this->mapper);
 
@@ -97,14 +97,14 @@ class DbTest extends TestCase
     {
         $this->storage->expects($this->once())
             ->method('read')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $this->db->setStorage($this->storage);
 
         $this->mapper->expects($this->once())
             ->method('findById')
             ->with(1)
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $this->db->setMapper($this->mapper);
 
@@ -123,7 +123,7 @@ class DbTest extends TestCase
 
         $this->storage->expects($this->once())
             ->method('read')
-            ->will($this->returnValue($user));
+            ->willReturn($user);
 
         $this->db->setStorage($this->storage);
 
@@ -180,7 +180,7 @@ class DbTest extends TestCase
         $sm->expects($this->once())
             ->method('get')
             ->with('lmcuser_user_mapper')
-            ->will($this->returnValue($this->mapper));
+            ->willReturn($this->mapper);
 
         $this->db->setServiceManager($sm);
 

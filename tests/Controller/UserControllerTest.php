@@ -51,7 +51,7 @@ class UserControllerTest extends TestCase
 
         $pluginManager->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(array($this, 'helperMockCallbackPluginManagerGet')));
+            ->willReturnCallback(array($this, 'helperMockCallbackPluginManagerGet'));
 
         $this->pluginManager = $pluginManager;
 
@@ -117,14 +117,14 @@ class UserControllerTest extends TestCase
         if ($optionGetter) {
             $this->options->expects($this->once())
                 ->method($optionGetter)
-                ->will($this->returnValue($redirectRoute));
+                ->willReturn($redirectRoute);
         }
 
         $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
         $redirect->expects($this->once())
             ->method('toRoute')
             ->with($redirectRoute)
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $this->pluginManagerPlugins['redirect']= $redirect;
 
@@ -174,21 +174,19 @@ class UserControllerTest extends TestCase
 
         $flashMessenger->expects($this->any())
             ->method('setNamespace')
-            ->with('lmcuser-login-form')
-            ->will($this->returnSelf());
+            ->with('lmcuser-login-form')->willReturnSelf();
 
         $flashMessenger->expects($this->any())
-            ->method('addMessage')
-            ->will($this->returnSelf());
+            ->method('addMessage')->willReturnSelf();
 
         $postArray = array('some', 'data');
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->any())
             ->method('isPost')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $request->expects($this->any())
             ->method('getPost')
-            ->will($this->returnValue($postArray));
+            ->willReturn($postArray);
 
         $this->helperMakePropertyAccessable($controller, 'request', $request);
 
@@ -198,19 +196,19 @@ class UserControllerTest extends TestCase
 
         $form->expects($this->any())
             ->method('isValid')
-            ->will($this->returnValue((bool) $isValid));
+            ->willReturn((bool) $isValid);
 
 
         $this->options->expects($this->any())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue((bool) $wantRedirect));
+            ->willReturn((bool) $wantRedirect);
         if ($wantRedirect) {
             $params = new Parameters();
             $params->set('redirect', $redirectUrl);
 
             $request->expects($this->any())
                 ->method('getQuery')
-                ->will($this->returnValue($params));
+                ->willReturn($params);
         }
 
         if ($isValid) {
@@ -241,7 +239,7 @@ class UserControllerTest extends TestCase
             $forwardPlugin->expects($this->once())
                 ->method('dispatch')
                 ->with($controller::CONTROLLER_NAME, array('action' => 'authenticate'))
-                ->will($this->returnValue($expectedResult));
+                ->willReturn($expectedResult);
 
             $this->pluginManagerPlugins['forward']= $forwardPlugin;
         } else {
@@ -255,15 +253,13 @@ class UserControllerTest extends TestCase
             $redirect->expects($this->any())
                 ->method('toUrl')
                 ->with($route_url . $redirectQuery)
-                ->will(
-                    $this->returnCallback(
-                        function ($url) use (&$response) {
-                            $response->getHeaders()->addHeaderLine('Location', $url);
-                            $response->setStatusCode(302);
+                ->willReturnCallback(
+                    function ($url) use (&$response) {
+                        $response->getHeaders()->addHeaderLine('Location', $url);
+                        $response->setStatusCode(302);
 
-                            return $response;
-                        }
-                    )
+                        return $response;
+                    }
                 );
 
             $this->pluginManagerPlugins['redirect']= $redirect;
@@ -274,7 +270,7 @@ class UserControllerTest extends TestCase
             $url->expects($this->once())
                 ->method('fromRoute')
                 ->with($controller::ROUTE_LOGIN)
-                ->will($this->returnValue($route_url));
+                ->willReturn($route_url);
 
             $this->pluginManagerPlugins['url']= $url;
             $TEST = true;
@@ -312,7 +308,7 @@ class UserControllerTest extends TestCase
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->once())
             ->method('isPost')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $form = $this->getMockBuilder('LmcUser\Form\Login')
             ->disableOriginalConstructor()
@@ -322,14 +318,14 @@ class UserControllerTest extends TestCase
 
         $this->options->expects($this->any())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue((bool) $redirect));
+            ->willReturn((bool) $redirect);
         if ($redirect) {
             $params = new Parameters();
             $params->set('redirect', 'http://localhost/');
 
             $request->expects($this->any())
                 ->method('getQuery')
-                ->will($this->returnValue($params));
+                ->willReturn($params);
         }
 
         $this->helperMakePropertyAccessable($this->controller, 'request', $request);
@@ -385,7 +381,7 @@ class UserControllerTest extends TestCase
 
         $this->redirectCallback->expects($this->once())
             ->method('__invoke')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $result = $controller->logoutAction();
 
@@ -406,25 +402,20 @@ class UserControllerTest extends TestCase
 
         $params = $this->createMock('Laminas\Mvc\Controller\Plugin\Params');
         $params->expects($this->any())
-            ->method('__invoke')
-            ->will($this->returnSelf());
+            ->method('__invoke')->willReturnSelf();
         $params->expects($this->once())
             ->method('fromPost')
-            ->will(
-                $this->returnCallback(
-                    function ($key, $default) use ($post) {
-                        return $post ?: $default;
-                    }
-                )
+            ->willReturnCallback(
+                function ($key, $default) use ($post) {
+                    return $post ?: $default;
+                }
             );
         $params->expects($this->once())
             ->method('fromQuery')
-            ->will(
-                $this->returnCallback(
-                    function ($key, $default) use ($query) {
-                        return $query ?: $default;
-                    }
-                )
+            ->willReturnCallback(
+                function ($key, $default) use ($query) {
+                    return $query ?: $default;
+                }
             );
         $this->pluginManagerPlugins['params'] = $params;
 
@@ -437,7 +428,7 @@ class UserControllerTest extends TestCase
         $adapter->expects($this->once())
             ->method('prepareForAuthentication')
             ->with($request)
-            ->will($this->returnValue($prepareResult));
+            ->willReturn($prepareResult);
 
         $service = $this->createMock('Laminas\Authentication\AuthenticationService');
 
@@ -456,12 +447,12 @@ class UserControllerTest extends TestCase
                 ->getMock();
             $authResult->expects($this->once())
                 ->method('isValid')
-                ->will($this->returnValue($authValid));
+                ->willReturn($authValid);
 
             $service->expects($this->once())
                 ->method('authenticate')
                 ->with($adapter)
-                ->will($this->returnValue($authResult));
+                ->willReturn($authResult);
 
             $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect');
             $this->pluginManagerPlugins['redirect'] = $redirect;
@@ -474,8 +465,7 @@ class UserControllerTest extends TestCase
 
                 $flashMessenger->expects($this->once())
                     ->method('setNamespace')
-                    ->with('lmcuser-login-form')
-                    ->will($this->returnSelf());
+                    ->with('lmcuser-login-form')->willReturnSelf();
 
                 $flashMessenger->expects($this->once())
                     ->method('addMessage');
@@ -489,13 +479,13 @@ class UserControllerTest extends TestCase
                 $redirect->expects($this->once())
                     ->method('toUrl')
                     ->with('user/login' . $redirectQuery)
-                    ->will($this->returnValue($response));
+                    ->willReturn($response);
 
                 $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url');
                 $url->expects($this->once())
                     ->method('fromRoute')
                     ->with($controller::ROUTE_LOGIN)
-                    ->will($this->returnValue('user/login'));
+                    ->willReturn('user/login');
                 $this->pluginManagerPlugins['url'] = $url;
             } else {
                 $this->redirectCallback->expects($this->once())
@@ -504,7 +494,7 @@ class UserControllerTest extends TestCase
 
             $this->options->expects($this->any())
                 ->method('getUseRedirectParameterIfPresent')
-                ->will($this->returnValue((bool) $wantRedirect));
+                ->willReturn((bool) $wantRedirect);
         }
 
         $result = $controller->authenticateAction();
@@ -526,7 +516,7 @@ class UserControllerTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getEnableRegistration')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $result = $controller->registerAction();
 
@@ -556,7 +546,7 @@ class UserControllerTest extends TestCase
 
         $this->options->expects($this->any())
             ->method('getEnableRegistration')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $request = $this->createMock('Laminas\Http\Request');
         $this->helperMakePropertyAccessable($controller, 'request', $request);
@@ -572,7 +562,7 @@ class UserControllerTest extends TestCase
 
         $this->options->expects($this->any())
             ->method('getUseRedirectParameterIfPresent')
-            ->will($this->returnValue((bool) $wantRedirect));
+            ->willReturn((bool) $wantRedirect);
 
         if ($wantRedirect) {
             $params = new Parameters();
@@ -580,7 +570,7 @@ class UserControllerTest extends TestCase
 
             $request->expects($this->any())
                 ->method('getQuery')
-                ->will($this->returnValue($params));
+                ->willReturn($params);
         }
 
 
@@ -588,7 +578,7 @@ class UserControllerTest extends TestCase
         $url->expects($this->at(0))
             ->method('fromRoute')
             ->with($controller::ROUTE_REGISTER)
-            ->will($this->returnValue($route_url));
+            ->willReturn($route_url);
 
         $this->pluginManagerPlugins['url']= $url;
 
@@ -599,7 +589,7 @@ class UserControllerTest extends TestCase
         $prg->expects($this->once())
             ->method('__invoke')
             ->with($route_url . $redirectQuery)
-            ->will($this->returnValue($postRedirectGetReturn));
+            ->willReturn($postRedirectGetReturn);
 
         if ($registerSuccess) {
             $user = new UserIdentity();
@@ -609,20 +599,20 @@ class UserControllerTest extends TestCase
             $userService->expects($this->once())
                 ->method('register')
                 ->with($postRedirectGetReturn)
-                ->will($this->returnValue($user));
+                ->willReturn($user);
 
             $userService->expects($this->any())
                 ->method('getOptions')
-                ->will($this->returnValue($this->options));
+                ->willReturn($this->options);
 
             $this->options->expects($this->once())
                 ->method('getLoginAfterRegistration')
-                ->will($this->returnValue(!empty($loginAfterSuccessWith)));
+                ->willReturn(!empty($loginAfterSuccessWith));
 
             if ($loginAfterSuccessWith) {
                 $this->options->expects($this->once())
                     ->method('getAuthIdentityFields')
-                    ->will($this->returnValue(array($loginAfterSuccessWith)));
+                    ->willReturn(array($loginAfterSuccessWith));
 
 
                 $expectedResult = new \stdClass();
@@ -632,7 +622,7 @@ class UserControllerTest extends TestCase
                 $forwardPlugin->expects($this->once())
                     ->method('dispatch')
                     ->with($controller::CONTROLLER_NAME, array('action' => 'authenticate'))
-                    ->will($this->returnValue($expectedResult));
+                    ->willReturn($expectedResult);
 
                 $this->pluginManagerPlugins['forward']= $forwardPlugin;
             } else {
@@ -649,7 +639,7 @@ class UserControllerTest extends TestCase
                 $redirect->expects($this->once())
                     ->method('toUrl')
                     ->with($route_url . $redirectQuery)
-                    ->will($this->returnValue($response));
+                    ->willReturn($response);
 
                 $this->pluginManagerPlugins['redirect']= $redirect;
 
@@ -657,7 +647,7 @@ class UserControllerTest extends TestCase
                 $url->expects($this->at(1))
                     ->method('fromRoute')
                     ->with($controller::ROUTE_LOGIN)
-                    ->will($this->returnValue($route_url));
+                    ->willReturn($route_url);
             }
         }
 
@@ -734,12 +724,11 @@ class UserControllerTest extends TestCase
 
         $flashMessenger->expects($this->any())
             ->method('setNamespace')
-            ->with('change-password')
-            ->will($this->returnSelf());
+            ->with('change-password')->willReturnSelf();
 
         $flashMessenger->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue($status ? array('test') : array()));
+            ->willReturn($status ? array('test') : array());
 
 
         $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
@@ -749,7 +738,7 @@ class UserControllerTest extends TestCase
         $prg->expects($this->once())
             ->method('__invoke')
             ->with($controller::ROUTE_CHANGEPASSWD)
-            ->will($this->returnValue($postRedirectGetReturn));
+            ->willReturn($postRedirectGetReturn);
 
         if ($postRedirectGetReturn !== false && !($postRedirectGetReturn instanceof Response)) {
             $form->expects($this->once())
@@ -758,7 +747,7 @@ class UserControllerTest extends TestCase
 
             $form->expects($this->once())
                 ->method('isValid')
-                ->will($this->returnValue((bool) $isValid));
+                ->willReturn((bool) $isValid);
 
             if ($isValid) {
                 $userService = $this->createMock('LmcUser\Service\User');
@@ -767,12 +756,12 @@ class UserControllerTest extends TestCase
 
                 $form->expects($this->once())
                     ->method('getData')
-                    ->will($this->returnValue($postRedirectGetReturn));
+                    ->willReturn($postRedirectGetReturn);
 
                 $userService->expects($this->once())
                     ->method('changePassword')
                     ->with($postRedirectGetReturn)
-                    ->will($this->returnValue((bool) $changeSuccess));
+                    ->willReturn((bool) $changeSuccess);
 
 
                 if ($changeSuccess) {
@@ -785,7 +774,7 @@ class UserControllerTest extends TestCase
                     $redirect->expects($this->once())
                         ->method('toRoute')
                         ->with($controller::ROUTE_CHANGEPASSWD)
-                        ->will($this->returnValue($response));
+                        ->willReturn($response);
 
                     $this->pluginManagerPlugins['redirect']= $redirect;
                 }
@@ -852,11 +841,11 @@ class UserControllerTest extends TestCase
 
         $userService->expects($this->once())
             ->method('getAuthService')
-            ->will($this->returnValue($authService));
+            ->willReturn($authService);
 
         $authService->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue($identity));
+            ->willReturn($identity);
         $identity->setEmail('user@example.com');
 
 
@@ -868,7 +857,7 @@ class UserControllerTest extends TestCase
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->once())
             ->method('getPost')
-            ->will($this->returnValue($requestParams));
+            ->willReturn($requestParams);
         $this->helperMakePropertyAccessable($controller, 'request', $request);
 
 
@@ -880,12 +869,11 @@ class UserControllerTest extends TestCase
 
         $flashMessenger->expects($this->any())
             ->method('setNamespace')
-            ->with('change-email')
-            ->will($this->returnSelf());
+            ->with('change-email')->willReturnSelf();
 
         $flashMessenger->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue($status ? array('test') : array()));
+            ->willReturn($status ? array('test') : array());
 
 
         $prg = $this->createMock('Laminas\Mvc\Plugin\Prg\PostRedirectGet');
@@ -895,7 +883,7 @@ class UserControllerTest extends TestCase
         $prg->expects($this->once())
             ->method('__invoke')
             ->with($controller::ROUTE_CHANGEEMAIL)
-            ->will($this->returnValue($postRedirectGetReturn));
+            ->willReturn($postRedirectGetReturn);
 
         if ($postRedirectGetReturn !== false && !($postRedirectGetReturn instanceof Response)) {
             $form->expects($this->once())
@@ -904,13 +892,13 @@ class UserControllerTest extends TestCase
 
             $form->expects($this->once())
                 ->method('isValid')
-                ->will($this->returnValue((bool) $isValid));
+                ->willReturn((bool) $isValid);
 
             if ($isValid) {
                 $userService->expects($this->once())
                     ->method('changeEmail')
                     ->with($postRedirectGetReturn)
-                    ->will($this->returnValue((bool) $changeSuccess));
+                    ->willReturn((bool) $changeSuccess);
 
 
                 if ($changeSuccess) {
@@ -923,7 +911,7 @@ class UserControllerTest extends TestCase
                     $redirect->expects($this->once())
                         ->method('toRoute')
                         ->with($controller::ROUTE_CHANGEEMAIL)
-                        ->will($this->returnValue($response));
+                        ->willReturn($response);
 
                     $this->pluginManagerPlugins['redirect']= $redirect;
                 } else {
@@ -989,7 +977,7 @@ class UserControllerTest extends TestCase
             $serviceLocator->expects($this->once())
                 ->method('get')
                 ->with($serviceName)
-                ->will($this->returnValue($servicePrototype));
+                ->willReturn($servicePrototype);
             $controller->setServiceLocator($serviceLocator);
         } else {
             call_user_func(array($controller, 'set' . $method), $servicePrototype);
@@ -1070,8 +1058,7 @@ class UserControllerTest extends TestCase
 
             $flashMessenger->expects($that->any())
                 ->method('setNamespace')
-                ->with('lmcuser-login-form')
-                ->will($that->returnSelf());
+                ->with('lmcuser-login-form')->willReturnSelf();
         };
         $loginFormCallback[] = function ($that, $controller) {
             $flashMessenger = $that->createMock(
@@ -1081,8 +1068,7 @@ class UserControllerTest extends TestCase
 
             $flashMessenger->expects($that->any())
                 ->method('setNamespace')
-                ->with('lmcuser-login-form')
-                ->will($that->returnSelf());
+                ->with('lmcuser-login-form')->willReturnSelf();
         };
 
 

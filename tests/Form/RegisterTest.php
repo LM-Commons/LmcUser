@@ -15,19 +15,19 @@ class RegisterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
             ->method('getEnableUsername')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->once())
             ->method('getEnableDisplayName')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->any())
             ->method('getUseRegistrationFormCaptcha')
-            ->will($this->returnValue($useCaptcha));
+            ->willReturn($useCaptcha);
         if ($useCaptcha && class_exists('\Laminas\Captcha\AbstractAdapter')) {
             $captcha = $this->getMockForAbstractClass('\Laminas\Captcha\AbstractAdapter');
 
             $options->expects($this->once())
                 ->method('getFormCaptchaOptions')
-                ->will($this->returnValue($captcha));
+                ->willReturn($captcha);
         }
 
         $form = new Form(null, $options);
@@ -55,13 +55,13 @@ class RegisterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
             ->method('getEnableUsername')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->once())
             ->method('getEnableDisplayName')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->any())
             ->method('getUseRegistrationFormCaptcha')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getRegistrationOptions());
@@ -76,13 +76,13 @@ class RegisterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\RegistrationOptionsInterface');
         $options->expects($this->once())
             ->method('getEnableUsername')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->once())
             ->method('getEnableDisplayName')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $options->expects($this->any())
             ->method('getUseRegistrationFormCaptcha')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $captcha = $this->createMock('\Laminas\Form\Element\Captcha');
         $form = new Form(null, $options);

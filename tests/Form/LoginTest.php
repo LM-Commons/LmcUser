@@ -16,7 +16,7 @@ class LoginTest extends TestCase
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue($authIdentityFields));
+            ->willReturn($authIdentityFields);
 
         $form = new Form(null, $options);
 
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
         $options = $this->createMock('LmcUser\Options\AuthenticationOptionsInterface');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
         $form = new Form(null, $options);
 
         $this->assertSame($options, $form->getAuthenticationOptions());

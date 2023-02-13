@@ -35,7 +35,7 @@ class LmcUserDisplayNameTest extends TestCase
     {
         $this->authService->expects($this->once())
             ->method('hasIdentity')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $result = $this->helper->__invoke(null);
 
@@ -50,10 +50,10 @@ class LmcUserDisplayNameTest extends TestCase
         $this->expectException(DomainException::class);
         $this->authService->expects($this->once())
             ->method('hasIdentity')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->authService->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue(new \StdClass));
+            ->willReturn(new \StdClass);
 
         $this->helper->__invoke(null);
     }
@@ -65,14 +65,14 @@ class LmcUserDisplayNameTest extends TestCase
     {
         $this->user->expects($this->once())
             ->method('getDisplayName')
-            ->will($this->returnValue('lmcUser'));
+            ->willReturn('lmcUser');
 
         $this->authService->expects($this->once())
             ->method('hasIdentity')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->authService->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue($this->user));
+            ->willReturn($this->user);
 
         $result = $this->helper->__invoke(null);
 
@@ -86,17 +86,17 @@ class LmcUserDisplayNameTest extends TestCase
     {
         $this->user->expects($this->once())
             ->method('getDisplayName')
-            ->will($this->returnValue(null));
+            ->willReturn(null);
         $this->user->expects($this->once())
             ->method('getUsername')
-            ->will($this->returnValue('lmcUser'));
+            ->willReturn('lmcUser');
 
         $this->authService->expects($this->once())
             ->method('hasIdentity')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->authService->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue($this->user));
+            ->willReturn($this->user);
 
         $result = $this->helper->__invoke(null);
 
@@ -110,20 +110,20 @@ class LmcUserDisplayNameTest extends TestCase
     {
         $this->user->expects($this->once())
             ->method('getDisplayName')
-            ->will($this->returnValue(null));
+            ->willReturn(null);
         $this->user->expects($this->once())
             ->method('getUsername')
-            ->will($this->returnValue(null));
+            ->willReturn(null);
         $this->user->expects($this->once())
             ->method('getEmail')
-            ->will($this->returnValue('lmcUser@lmcUser.com'));
+            ->willReturn('lmcUser@lmcUser.com');
 
         $this->authService->expects($this->once())
             ->method('hasIdentity')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->authService->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue($this->user));
+            ->willReturn($this->user);
 
         $result = $this->helper->__invoke(null);
 

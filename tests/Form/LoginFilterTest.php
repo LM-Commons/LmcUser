@@ -15,7 +15,7 @@ class LoginFilterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
 
         $filter = new Filter($options);
 
@@ -34,7 +34,7 @@ class LoginFilterTest extends TestCase
         $options = $this->createMock('LmcUser\Options\ModuleOptions');
         $options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('email')));
+            ->willReturn(array('email'));
 
         $filter = new Filter($options);
 

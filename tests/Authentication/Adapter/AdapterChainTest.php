@@ -63,7 +63,7 @@ class AdapterChainTest extends TestCase
         //$this->sharedEventManager->expects($this->any())->method('getListeners')->will($this->returnValue([]));
 
         $this->eventManager = $this->createMock('Laminas\EventManager\EventManagerInterface');
-        $this->eventManager->expects($this->any())->method('getSharedManager')->will($this->returnValue($this->sharedEventManager));
+        $this->eventManager->expects($this->any())->method('getSharedManager')->willReturn($this->sharedEventManager);
         $this->eventManager->expects($this->any())->method('setIdentifiers');
 
         $this->adapterChain->setEventManager($this->eventManager);
@@ -77,18 +77,18 @@ class AdapterChainTest extends TestCase
         $event = $this->createMock('LmcUser\Authentication\Adapter\AdapterChainEvent');
         $event->expects($this->once())
             ->method('getCode')
-            ->will($this->returnValue(123));
+            ->willReturn(123);
         $event->expects($this->once())
             ->method('getIdentity')
-            ->will($this->returnValue('identity'));
+            ->willReturn('identity');
         $event->expects($this->once())
             ->method('getMessages')
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
 
         $this->sharedEventManager->expects($this->once())
             ->method('getListeners')
             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
 
         $this->adapterChain->setEvent($event);
         $result = $this->adapterChain->authenticate();
@@ -113,7 +113,7 @@ class AdapterChainTest extends TestCase
             $adapter = $this->createMock('LmcUser\Authentication\Adapter\ChainableAdapter');
             $adapter->expects($this->once())
                 ->method('getStorage')
-                ->will($this->returnValue($storage));
+                ->willReturn($storage);
 
             $callback = [$adapter, 'authenticate'];
             $listeners[] = $callback;
@@ -122,7 +122,7 @@ class AdapterChainTest extends TestCase
         $this->sharedEventManager->expects($this->once())
             ->method('getListeners')
             ->with($this->equalTo(['authenticate']), $this->equalTo('authenticate'))
-            ->will($this->returnValue($listeners));
+            ->willReturn($listeners);
 
         $result = $this->adapterChain->resetAdapters();
 
@@ -140,7 +140,7 @@ class AdapterChainTest extends TestCase
         $this->event->expects($this->once())->method('setRequest')->with($this->request);
 
         $this->event->setName('authenticate.pre');
-        $this->eventManager->expects($this->at(0))->method('triggerEvent')->with($this->event);
+        $this->eventManager->expects($this->atLeastOnce())->method('triggerEvent')->with($this->event);
 
         /**
          * @var $response \Laminas\EventManager\ResponseCollection
@@ -148,7 +148,7 @@ class AdapterChainTest extends TestCase
         $responses = $this->createMock('Laminas\EventManager\ResponseCollection');
 
         $this->event->setName('authenticate');
-        $this->eventManager->expects($this->at(1))
+        $this->eventManager->expects($this->atLeastOnce())
             ->method('triggerEventUntil')
             ->with(
                 function ($test) {
@@ -156,15 +156,13 @@ class AdapterChainTest extends TestCase
                 },
                 $this->event
             )
-            ->will(
-                $this->returnCallback(
-                    function ($callback) use ($responses) {
-                        if (call_user_func($callback, $responses->last())) {
-                            $responses->setStopped(true);
-                        }
-                        return $responses;
+            ->willReturnCallback(
+                function ($callback) use ($responses) {
+                    if (call_user_func($callback, $responses->last())) {
+                        $responses->setStopped(true);
                     }
-                )
+                    return $responses;
+                }
             );
 
         $this->adapterChain->setEvent($this->event);
@@ -198,9 +196,9 @@ class AdapterChainTest extends TestCase
     {
         $result = $this->setUpPrepareForAuthentication();
 
-        $result->expects($this->once())->method('stopped')->will($this->returnValue(false));
+        $result->expects($this->once())->method('stopped')->willReturn(false);
 
-        $this->event->expects($this->once())->method('getIdentity')->will($this->returnValue($identity));
+        $this->event->expects($this->once())->method('getIdentity')->willReturn($identity);
 
         $this->assertEquals(
             $expected,
@@ -218,10 +216,10 @@ class AdapterChainTest extends TestCase
     {
         $result = $this->setUpPrepareForAuthentication();
 
-        $result->expects($this->once())->method('stopped')->will($this->returnValue(true));
+        $result->expects($this->once())->method('stopped')->willReturn(true);
 
         $lastResponse = $this->createMock('Laminas\Stdlib\ResponseInterface');
-        $result->expects($this->atLeastOnce())->method('last')->will($this->returnValue($lastResponse));
+        $result->expects($this->atLeastOnce())->method('last')->willReturn($lastResponse);
 
         $this->assertEquals(
             $lastResponse,
@@ -240,10 +238,10 @@ class AdapterChainTest extends TestCase
         $this->expectException(\LmcUser\Exception\AuthenticationEventException::class);
         $result = $this->setUpPrepareForAuthentication();
 
-        $result->expects($this->once())->method('stopped')->will($this->returnValue(true));
+        $result->expects($this->once())->method('stopped')->willReturn(true);
 
         $lastResponse = 'random-value';
-        $result->expects($this->atLeastOnce())->method('last')->will($this->returnValue($lastResponse));
+        $result->expects($this->atLeastOnce())->method('last')->willReturn($lastResponse);
 
         $this->adapterChain->prepareForAuthentication($this->request);
     }

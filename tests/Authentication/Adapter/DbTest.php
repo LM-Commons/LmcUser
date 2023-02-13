@@ -93,22 +93,22 @@ class DbTest extends TestCase
         $this->authEvent->expects($this->once())
             ->method('setIdentity')
             ->with('LmcUser')
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::SUCCESS)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setMessages')
             ->with(array('Authentication successful.'))
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
 
-        $this->storage->expects($this->at(0))
+        $this->storage->expects($this->exactly(2))
             ->method('read')
-            ->will($this->returnValue(array('is_satisfied' => true)));
-        $this->storage->expects($this->at(1))
-            ->method('read')
-            ->will($this->returnValue(array('identity' => 'LmcUser')));
+            ->willReturnOnConsecutiveCalls(
+                ['is_satisfied' => true],
+                ['identity' => 'LmcUser']
+            );
 
 
         $result = $this->db->authenticate($this->authEvent);
@@ -125,22 +125,21 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array()));
+            ->willReturn(array());
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::FAILURE_IDENTITY_NOT_FOUND)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setMessages')
             ->with(array('A record with the supplied identity could not be found.'))
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
 
         $this->db->setOptions($this->options);
 
         
         $result = $this->db->authenticate($this->authEvent);
-        ;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -156,30 +155,29 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getEnableUserState')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->options->expects($this->once())
             ->method('getAllowedLoginStates')
-            ->will($this->returnValue(array(2, 3)));
+            ->willReturn(array(2, 3));
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::FAILURE_UNCATEGORIZED)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setMessages')
             ->with(array('A record with the supplied identity is not active.'))
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
 
         $this->user->expects($this->once())
             ->method('getState')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
 
         
         $result = $this->db->authenticate($this->authEvent);
-        ;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -195,17 +193,17 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getEnableUserState')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         // Set lowest possible to spent the least amount of resources/time
         $this->options->expects($this->once())
             ->method('getPasswordCost')
-            ->will($this->returnValue(4));
+            ->willReturn(4);
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::FAILURE_CREDENTIAL_INVALID)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once(1))
             ->method('setMessages')
             ->with(array('Supplied credential is invalid.'));
@@ -231,35 +229,35 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getEnableUserState')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $this->options->expects($this->once())
             ->method('getPasswordCost')
-            ->will($this->returnValue(4));
+            ->willReturn(4);
 
         $this->user->expects($this->exactly(2))
             ->method('getPassword')
-            ->will($this->returnValue('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2'));
+            ->willReturn('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2');
         $this->user->expects($this->once())
             ->method('getId')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $this->storage->expects($this->any())
             ->method('getNameSpace')
-            ->will($this->returnValue('test'));
+            ->willReturn('test');
 
         $this->authEvent->expects($this->once())
             ->method('setIdentity')
             ->with(1)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::SUCCESS)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setMessages')
             ->with(array('Authentication successful.'))
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
 
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
@@ -279,42 +277,42 @@ class DbTest extends TestCase
 
         $this->options->expects($this->once())
             ->method('getEnableUserState')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->options->expects($this->once())
             ->method('getAllowedLoginStates')
-            ->will($this->returnValue(array(1, 2, 3)));
+            ->willReturn(array(1, 2, 3));
 
         $this->options->expects($this->once())
             ->method('getPasswordCost')
-            ->will($this->returnValue(4));
+            ->willReturn(4);
 
         $this->user->expects($this->exactly(2))
             ->method('getPassword')
-            ->will($this->returnValue('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2'));
+            ->willReturn('$2y$04$QVAIS1VWJZt6vQkWoWSHMet9ebjdKuKQGcjAEaILVQZjreRw0EAV2');
         $this->user->expects($this->once())
             ->method('getId')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
         $this->user->expects($this->once())
             ->method('getState')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
 
         $this->storage->expects($this->any())
             ->method('getNameSpace')
-            ->will($this->returnValue('test'));
+            ->willReturn('test');
 
         $this->authEvent->expects($this->once())
             ->method('setIdentity')
             ->with(1)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setCode')
             ->with(\Laminas\Authentication\Result::SUCCESS)
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
         $this->authEvent->expects($this->once())
             ->method('setMessages')
             ->with(array('Authentication successful.'))
-            ->will($this->returnValue($this->authEvent));
+            ->willReturn($this->authEvent);
 
         $this->db->setMapper($this->mapper);
         $this->db->setOptions($this->options);
@@ -332,12 +330,12 @@ class DbTest extends TestCase
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('getPassword')
-            ->will($this->returnValue('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm'));
+            ->willReturn('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm');
 
         $bcrypt = $this->createMock('Laminas\Crypt\Password\Bcrypt');
         $bcrypt->expects($this->once())
             ->method('getCost')
-            ->will($this->returnValue('10'));
+            ->willReturn('10');
 
         $method = new \ReflectionMethod(
             'LmcUser\Authentication\Adapter\Db',
@@ -357,7 +355,7 @@ class DbTest extends TestCase
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('getPassword')
-            ->will($this->returnValue('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm'));
+            ->willReturn('$2a$10$x05G2P803MrB3jaORBXBn.QHtiYzGQOBjQ7unpEIge.Mrz6c3KiVm');
         $user->expects($this->once())
             ->method('setPassword')
             ->with('$2a$10$D41KPuDCn6iGoESjnLee/uE/2Xo985sotVySo2HKDz6gAO4hO/Gh6');
@@ -365,11 +363,11 @@ class DbTest extends TestCase
         $bcrypt = $this->createMock('Laminas\Crypt\Password\Bcrypt');
         $bcrypt->expects($this->once())
             ->method('getCost')
-            ->will($this->returnValue('5'));
+            ->willReturn('5');
         $bcrypt->expects($this->once())
             ->method('create')
             ->with('LmcUserNew')
-            ->will($this->returnValue('$2a$10$D41KPuDCn6iGoESjnLee/uE/2Xo985sotVySo2HKDz6gAO4hO/Gh6'));
+            ->willReturn('$2a$10$D41KPuDCn6iGoESjnLee/uE/2Xo985sotVySo2HKDz6gAO4hO/Gh6');
 
         $mapper = $this->createMock('LmcUser\Mapper\User');
         $mapper->expects($this->once())
@@ -444,7 +442,7 @@ class DbTest extends TestCase
         $serviceMapper->expects($this->once())
             ->method('get')
             ->with('lmcuser_module_options')
-            ->will($this->returnValue($this->options));
+            ->willReturn($this->options);
 
         $this->db->setServiceManager($serviceMapper);
 
@@ -478,7 +476,7 @@ class DbTest extends TestCase
         $serviceMapper->expects($this->once())
             ->method('get')
             ->with('lmcuser_user_mapper')
-            ->will($this->returnValue($this->mapper));
+            ->willReturn($this->mapper);
 
         $this->db->setServiceManager($serviceMapper);
 
@@ -507,11 +505,11 @@ class DbTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findByEmail')
             ->with('lmc-user@zf-commons.io')
-            ->will($this->returnValue($this->user));
+            ->willReturn($this->user);
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('email')));
+            ->willReturn(array('email'));
     }
 
     protected function setAuthenticationUser()
@@ -519,36 +517,36 @@ class DbTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findByUsername')
             ->with('LmcUser')
-            ->will($this->returnValue($this->user));
+            ->willReturn($this->user);
 
         $this->options->expects($this->once())
             ->method('getAuthIdentityFields')
-            ->will($this->returnValue(array('username')));
+            ->willReturn(array('username'));
     }
 
     protected function setAuthenticationCredentials($identity = 'LmcUser', $credential = 'LmcUserPassword')
     {
-        $this->storage->expects($this->at(0))
+        $this->storage->expects($this->atLeastOnce())
             ->method('read')
-            ->will($this->returnValue(array('is_satisfied' => false)));
+            ->willReturn(['is_satisfied' => false]);
 
         $post = $this->createMock('Laminas\Stdlib\Parameters');
         $post->expects($this->at(0))
             ->method('get')
             ->with('identity')
-            ->will($this->returnValue($identity));
+            ->willReturn($identity);
         $post->expects($this->at(1))
             ->method('get')
             ->with('credential')
-            ->will($this->returnValue($credential));
+            ->willReturn($credential);
 
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->exactly(2))
             ->method('getPost')
-            ->will($this->returnValue($post));
+            ->willReturn($post);
 
         $this->authEvent->expects($this->exactly(2))
             ->method('getRequest')
-            ->will($this->returnValue($request));
+            ->willReturn($request);
     }
 }
