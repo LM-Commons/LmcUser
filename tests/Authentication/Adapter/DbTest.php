@@ -112,7 +112,6 @@ class DbTest extends TestCase
 
 
         $result = $this->db->authenticate($this->authEvent);
-        ;
         $this->assertNull($result);
     }
 
@@ -213,7 +212,6 @@ class DbTest extends TestCase
 
         
         $result = $this->db->authenticate($this->authEvent);
-        ;
 
         $this->assertFalse($result);
         $this->assertFalse($this->db->isSatisfied());
@@ -264,7 +262,6 @@ class DbTest extends TestCase
 
         
         $result = $this->db->authenticate($this->authEvent);
-        ;
     }
 
     /**
@@ -319,7 +316,6 @@ class DbTest extends TestCase
 
         
         $result = $this->db->authenticate($this->authEvent);
-        ;
     }
 
     /**
