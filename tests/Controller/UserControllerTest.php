@@ -575,10 +575,10 @@ class UserControllerTest extends TestCase
 
 
         $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url');
-        $url->expects($this->at(0))
+        $url->expects($this->atLeastOnce())
             ->method('fromRoute')
-            ->with($controller::ROUTE_REGISTER)
-            ->willReturn($route_url);
+            ->withConsecutive([$controller::ROUTE_REGISTER], [$controller::ROUTE_LOGIN])
+            ->willReturn('/user/register', '/user/login');
 
         $this->pluginManagerPlugins['url']= $url;
 
@@ -644,10 +644,10 @@ class UserControllerTest extends TestCase
                 $this->pluginManagerPlugins['redirect']= $redirect;
 
 
-                $url->expects($this->at(1))
-                    ->method('fromRoute')
-                    ->with($controller::ROUTE_LOGIN)
-                    ->willReturn($route_url);
+//                $url->expects($this->atLeastOnce())
+//                    ->method('fromRoute')
+//                    ->with($controller::ROUTE_LOGIN)
+//                    ->willReturn($route_url);
             }
         }
 

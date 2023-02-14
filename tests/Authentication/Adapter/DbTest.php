@@ -527,14 +527,10 @@ class DbTest extends TestCase
             ->willReturn(['is_satisfied' => false]);
 
         $post = $this->createMock('Laminas\Stdlib\Parameters');
-        $post->expects($this->at(0))
+        $post->expects($this->atLeastOnce())
             ->method('get')
-            ->with('identity')
-            ->willReturn($identity);
-        $post->expects($this->at(1))
-            ->method('get')
-            ->with('credential')
-            ->willReturn($credential);
+            ->withConsecutive(['identity'], ['credential'])
+            ->willReturnOnConsecutiveCalls($identity, $credential);
 
         $request = $this->createMock('Laminas\Http\Request');
         $request->expects($this->exactly(2))

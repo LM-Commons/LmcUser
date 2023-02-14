@@ -58,7 +58,7 @@ class LmcUserLoginWidgetTest extends TestCase
     }
 
     /**
-     * @covers       LmcUser\View\Helper\LmcUserLoginWidget::__invoke
+     * @covers       \LmcUser\View\Helper\LmcUserLoginWidget::__invoke
      * @dataProvider providerTestInvokeWithRender
      */
     public function testInvokeWithRender($option, $expect)
@@ -68,7 +68,7 @@ class LmcUserLoginWidgetTest extends TestCase
          */
         $viewModel = null;
 
-        $this->view->expects($this->at(0))
+        $this->view->expects($this->once())
             ->method('render')
             ->willReturnCallback(
                 function ($vm) use (&$viewModel) {
@@ -90,7 +90,7 @@ class LmcUserLoginWidgetTest extends TestCase
     }
 
     /**
-     * @covers LmcUser\View\Helper\LmcUserLoginWidget::__invoke
+     * @covers \LmcUser\View\Helper\LmcUserLoginWidget::__invoke
      */
     public function testInvokeWithoutRender()
     {

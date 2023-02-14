@@ -345,15 +345,27 @@ class RedirectCallbackTest extends TestCase
             ->method('match')
             ->willReturn(null);
 
-        $this->router->expects($this->at(1))
-            ->method('assemble')
-            ->with([], ['name' => $redirect])
-            ->willThrowException(new \Laminas\Router\Exception\RuntimeException);
+//        $this->router->expects($this->at(1))
+//            ->method('assemble')
+//            ->with([], ['name' => $redirect])
+//            ->willThrowException(new \Laminas\Router\Exception\RuntimeException);
+//
+//        $this->router->expects($this->at(2))
+//            ->method('assemble')
+//            ->with([], ['name' => $route])
+//            ->willReturn($expectedResult);
 
-        $this->router->expects($this->at(2))
+        $matcher = $this->exactly(2);
+        $this->router->expects($matcher)
             ->method('assemble')
-            ->with([], ['name' => $route])
-            ->willReturn($expectedResult);
+            ->withConsecutive([[], ['name' => $redirect]], [[], ['name' => $route]])
+            ->willReturnCallback(function () use ($matcher, $expectedResult) {
+                if ($matcher->getInvocationCount() === 2) {
+                    return $expectedResult;
+                }
+
+                throw new \Laminas\Router\Exception\RuntimeException;
+            });
 
         $this->moduleOptions->expects($this->once())
             ->method('getLoginRedirectRoute')
