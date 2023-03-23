@@ -56,18 +56,20 @@
         "laminas/laminas-captcha" : "Laminas\\Captcha if you want to use the captcha component"
     },
     "autoload": {
-        "psr-0": {
-            "LmcUser": "src/"
-        },
-        "classmap": [
-            "./Module.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-0": {
-            "LmcUserTest": "tests/"
+        "psr-4": {
+            "LmcUser\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "LmcUserTest\\": "tests/"
+        }
+    },
+    "extra": {
+        "laminas": {
+            "module": "LmcUser"
+    }
+  },
     "scripts": {
       "check": [
         "@cs-check",
