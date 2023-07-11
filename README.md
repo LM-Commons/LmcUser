@@ -61,13 +61,13 @@ Installation
 
     ```php
     <?php
-    return array(
-        'modules' => array(
+    return [
+        'modules' => [
             // ...
             'LmcUser',
-        ),
+        ],
         // ...
-    );
+    ];
     ```
 
 
@@ -78,20 +78,20 @@ Installation
 
 ```php
 <?php
-return array(
-    'db' => array(
+return [
+    'db' => [
         'driver'    => 'PdoMysql',
         'hostname'  => 'changeme',
         'database'  => 'changeme',
         'username'  => 'changeme',
         'password'  => 'changeme',
-    ),
-    'service_manager' => array(
-        'factories' => array(
-            'Laminas\Db\Adapter\Adapter' => 'Laminas\Db\Adapter\AdapterServiceFactory',
-        ),
-    ),
-);
+    ],
+    'service_manager' =>[
+        'factories' => [
+            \Laminas\Db\Adapter\Adapter::class => \Laminas\Db\Adapter\AdapterServiceFactory::class,
+        ],
+    ],
+];
 
 ```
 
@@ -196,33 +196,33 @@ module.config.php, or a dedicated recaptcha.config.php):
 
     <?php
     // ./config/autoload/recaptcha.config.php
-    return array(
-        'di'=> array(
-            'instance'=>array(
-                'alias'=>array(
+    return  [
+        'di'=>  [
+            'instance'=> [
+                'alias'=> [
                     // OTHER ELEMENTS....
-                    'recaptcha_element' => 'Laminas\Form\Element\Captcha',
-                ),
-                'recaptcha_element' => array(
-                    'parameters' => array(
+                    'recaptcha_element' => \Laminas\Form\Element\Captcha::class,
+                ],
+                'recaptcha_element' =>  [
+                    'parameters' => [
                         'spec' => 'captcha',
-                        'options'=>array(
+                        'options'=> [
                             'label'      => '',
                             'required'   => true,
                             'order'      => 500,
-                            'captcha'    => array(
+                            'captcha'    =>  [
                                 'captcha' => 'ReCaptcha',
                                 'privkey' => RECAPTCHA_PRIVATE_KEY,
                                 'pubkey'  => RECAPTCHA_PUBLIC_KEY,
-                            ),
-                        ),
-                    ),
-                ),
-                'LmcUser\Form\Register' => array(
-                    'parameters' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                \LmcUser\Form\Register::class => [
+                    'parameters' => [
                         'captcha_element'=>'recaptcha_element',
-                    ),
-                ),
-            ),
-        ),
-    );
+                    ],
+                ],
+            ],
+        ],
+    ];

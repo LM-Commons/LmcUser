@@ -1,4 +1,4 @@
 <div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->lmcUserIdentity()->getEmail()) ?></div>
-<h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->lmcUserDisplayName() ?>!</h3>
+<h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->escapeHtml($this->lmcUserDisplayName()) ?>!</h3>
 <a href="<?php echo $this->url('lmcuser/logout') ?>">[<?php echo $this->translate('Sign Out'); ?>]</a>
 <div style="clear:both;"></div>
