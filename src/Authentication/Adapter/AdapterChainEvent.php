@@ -97,7 +97,6 @@ class AdapterChainEvent extends Event
     public function setRequest(Request $request)
     {
         $this->setParam('request', $request);
-        $this->request = $request;
         return $this;
     }
 }
