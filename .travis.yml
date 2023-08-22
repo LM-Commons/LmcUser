@@ -37,6 +37,18 @@ matrix:
     - php: 8.0
       env:
         - DEPS=latest
+    - php: 8.1
+      env:
+        - DEPS=lowest
+    - php: 8.1
+      env:
+        - DEPS=latest
+    - php: 8.2
+      env:
+        - DEPS=lowest
+    - php: 8.2
+      env:
+        - DEPS=latest
     - php: nightly
       env:
         - DEPS=lowest

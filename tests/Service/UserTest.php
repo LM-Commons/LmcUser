@@ -88,13 +88,14 @@ class UserTest extends TestCase
      */
     public function testRegisterWithUsernameAndDisplayNameUserStateDisabled()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User', 'password' => '123456');
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('setPassword');
         $user->expects($this->once())
-            ->method('getPassword');
+            ->method('getPassword')
+            ->willReturn('123456');
         $user->expects($this->once())
             ->method('setUsername')
             ->with('LmcUser');
@@ -159,13 +160,14 @@ class UserTest extends TestCase
      */
     public function testRegisterWithDefaultUserStateOfZero()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User', 'password' => '123456');
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('setPassword');
         $user->expects($this->once())
-            ->method('getPassword');
+            ->method('getPassword')
+            ->willReturn('123456');
         $user->expects($this->once())
             ->method('setUsername')
             ->with('LmcUser');
@@ -231,13 +233,14 @@ class UserTest extends TestCase
      */
     public function testRegisterWithUserStateDisabled()
     {
-        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User');
+        $expectArray = array('username' => 'LmcUser', 'display_name' => 'Zfc User', 'password' => '123456');
 
         $user = $this->createMock('LmcUser\Entity\User');
         $user->expects($this->once())
             ->method('setPassword');
         $user->expects($this->once())
-            ->method('getPassword');
+            ->method('getPassword')
+            ->willReturn('123456');
         $user->expects($this->once())
             ->method('setUsername')
             ->with('LmcUser');
