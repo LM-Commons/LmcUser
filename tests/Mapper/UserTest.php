@@ -68,6 +68,16 @@ class UserTest extends TestCase
      */
     protected $mockedDbAdapterPlatform;
 
+    /**
+     * @var \Laminas\Db\Adapter\Driver\StatementInterface
+     */
+    protected $mockedDbAdapterStatement;
+
+    /**
+     * @var \Laminas\Db\Sql\Platform\Platform
+     */
+    protected $mockedDbSqlPlatform;
+
     public function setUp():void
     {
         $mapper = new Mapper;

@@ -2,6 +2,7 @@
 
 namespace LmcUserTest\Authentication\Adapter;
 
+use Laminas\Crypt\Password\Bcrypt;
 use Laminas\EventManager\Event;
 use LmcUser\Authentication\Adapter\Db;
 use PHPUnit\Framework\TestCase;
@@ -198,6 +199,15 @@ class DbTest extends TestCase
         $this->options->expects($this->once())
             ->method('getPasswordCost')
             ->willReturn(4);
+
+        $bcrypt = new Bcrypt([
+            'cost' => 4,
+        ]);
+
+        $hash = $bcrypt->create('123456');
+        $this->user->expects($this->once())
+            ->method('getPassword')
+            ->willReturn($hash);
 
         $this->authEvent->expects($this->once())
             ->method('setCode')
