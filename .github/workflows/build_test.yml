@@ -1,0 +1,61 @@
+name: Build
+
+on:
+    push:
+    pull_request:
+
+env:
+  COMPOSER_ARGS: '--no-progress'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        php_version: ['8.1', '8.2', '8.3']
+        deps: ['--prefer-lowest --prefer-dist', '']
+        include:
+          - code-coverage: 'yes'
+            php_version: '8.2'
+            deps: ''
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{matrix.php_version}}
+
+      - name: Show PHP version
+        run: php -v
+
+      - uses: actions/checkout@v4
+        name: Checkout branch
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{matrix.php_version}}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php--${{matrix.php_version}}-
+
+      - name: Install/update dependencies
+        run: composer update ${{matrix.deps}} $COMPOSER_ARGS
+
+      - name: Run PHPUnit test suite
+        if: ${{ matrix.code-coverage != 'yes' }}
+        run: composer run-script test
+
+      - name: Run PHPUnit test suite with coverage
+        if: ${{ matrix.code-coverage == 'yes' }}
+        run: composer run-script test-coverage
+
+      - name: Upload coverage results to Coverall
+        if: ${{ matrix.code-coverage == 'yes' }}
+        uses: coverallsapp/github-action@v2
+
+
