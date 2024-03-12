@@ -1,7 +1,8 @@
 LmcUser
 =======
-[![Build Status](https://travis-ci.com/LM-Commons/LmcUser.svg?branch=master)](https://travis-ci.com/LM-Commons/LmcUser)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/LM-Commons/LmcUser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/LM-Commons/LmcUser/?branch=master)
+[![Latest Stable Version](http://poser.pugx.org/lm-commons/lmc-user/v)](https://packagist.org/packages/lm-commons/lmc-user) 
+[![Total Downloads](http://poser.pugx.org/lm-commons/lmc-user/downloads)](https://packagist.org/packages/lm-commons/lmc-user) 
+[![Build](https://github.com/visto9259/LmcUser/actions/workflows/build_test.yml/badge.svg)](https://github.com/visto9259/LmcUser/actions/workflows/build_test.yml)
 [![Gitter](https://badges.gitter.im/LM-Commons/community.svg)](https://gitter.im/LM-Commons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Based on ZfcUser by Evan Coury and the ZF-Commons team
@@ -43,7 +44,7 @@ Installation
 
 1. Add this project in your composer.json:
 
-    ```json
+    ```
     "require": {  
         "lm-commons/lmc-user": "^3.1"  
     }  
