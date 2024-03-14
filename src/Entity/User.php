@@ -52,7 +52,12 @@ class User implements UserInterface
      */
     public function setId($id)
     {
-        $this->id = (int) $id;
+        if (is_null($id)) {
+            $this->id = $id;
+        }
+        else {
+            $this->id = (int)$id;
+        }
         return $this;
     }
 
