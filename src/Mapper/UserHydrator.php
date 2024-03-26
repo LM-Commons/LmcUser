@@ -61,7 +61,9 @@ class UserHydrator implements HydratorInterface
             throw new Exception\InvalidArgumentException('$object must be an instance of LmcUser\Entity\UserInterface');
         }
 
+      if (isset($data['user_id'])) {
         $data = $this->mapField('user_id', 'id', $data);
+      }
 
         return $this->hydrator->hydrate($data, $object);
     }
