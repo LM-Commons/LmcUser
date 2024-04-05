@@ -47,7 +47,7 @@ class LmcUserAuthentication extends AbstractPlugin
     /**
      * Get authAdapter.
      *
-     * @return LmcUserAuthentication
+     * @return AuthAdapter
      */
     public function getAuthAdapter()
     {
@@ -58,6 +58,8 @@ class LmcUserAuthentication extends AbstractPlugin
      * Set authAdapter.
      *
      * @param authAdapter $authAdapter
+     *
+     * @return LmcUserAuthentication
      */
     public function setAuthAdapter(AuthAdapter $authAdapter)
     {
@@ -79,6 +81,8 @@ class LmcUserAuthentication extends AbstractPlugin
      * Set authService.
      *
      * @param AuthenticationService $authService
+     *
+     * @return LmcUserAuthentication
      */
     public function setAuthService(AuthenticationService $authService)
     {
