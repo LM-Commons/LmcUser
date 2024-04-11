@@ -2,7 +2,11 @@ name: Continuous Integration
 
 on:
     push:
+      paths-ignore:
+        - 'docs/**'
     pull_request:
+      paths-ignore:
+        - 'docs/**'
 
 env:
   COMPOSER_ARGS: '--no-progress'
