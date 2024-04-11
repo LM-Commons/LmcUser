@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://lm-commons.github.io/LmcUser/blog</id>
+    <title>LmcUser Blog</title>
+    <updated>2024-04-11T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://lm-commons.github.io/LmcUser/blog"/>
+    <subtitle>LmcUser Blog</subtitle>
+    <icon>https://lm-commons.github.io/LmcUser/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[New documentation]]></title>
+        <id>https://lm-commons.github.io/LmcUser/blog/new-documentation</id>
+        <link href="https://lm-commons.github.io/LmcUser/blog/new-documentation"/>
+        <updated>2024-04-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This the new documentation site dedicated to the LmcUser module.]]></summary>
+        <content type="html"><![CDATA[<p>This the new documentation site dedicated to the LmcUser module.</p>
+<p>There are no changes to the code, just improvements in the documentation.</p>]]></content>
+        <author>
+            <name>Eric Richer</name>
+            <uri>https://github.com/visto9259</uri>
+        </author>
+        <category label="laminas" term="laminas"/>
+        <category label="PHP" term="PHP"/>
+        <category label="LmcUser" term="LmcUser"/>
+        <category label="authentication" term="authentication"/>
+        <category label="LM-Commons" term="LM-Commons"/>
+    </entry>
+</feed>

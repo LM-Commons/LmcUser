@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>LmcUser Blog</title>
+        <link>https://lm-commons.github.io/LmcUser/blog</link>
+        <description>LmcUser Blog</description>
+        <lastBuildDate>Thu, 11 Apr 2024 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[New documentation]]></title>
+            <link>https://lm-commons.github.io/LmcUser/blog/new-documentation</link>
+            <guid>https://lm-commons.github.io/LmcUser/blog/new-documentation</guid>
+            <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[This the new documentation site dedicated to the LmcUser module.]]></description>
+            <content:encoded><![CDATA[<p>This the new documentation site dedicated to the LmcUser module.</p>
+<p>There are no changes to the code, just improvements in the documentation.</p>]]></content:encoded>
+            <category>laminas</category>
+            <category>PHP</category>
+            <category>LmcUser</category>
+            <category>authentication</category>
+            <category>LM-Commons</category>
+        </item>
+    </channel>
+</rss>
