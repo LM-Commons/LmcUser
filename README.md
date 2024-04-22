@@ -4,7 +4,7 @@ LmcUser
 [![Total Downloads](http://poser.pugx.org/lm-commons/lmc-user/downloads)](https://packagist.org/packages/lm-commons/lmc-user) 
 [![Build](https://github.com/visto9259/LmcUser/actions/workflows/build_test.yml/badge.svg)](https://github.com/visto9259/LmcUser/actions/workflows/build_test.yml)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Flm-commons%2Flmcrbacmvc%2Fproperties%2Fvalues&query=%24%5B%3A1%5D.value&label=Maintenance%20Status)
-[![Gitter](https://badges.gitter.im/LM-Commons/community.svg)](https://gitter.im/LM-Commons/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Static Badge](https://img.shields.io/badge/Chat_on-Slack-blue)](https://join.slack.com/t/lm-commons/shared_invite/zt-2gankt2wj-FTS45hp1W~JEj1tWvDsUHQ)
 
 Based on ZfcUser by Evan Coury and the ZF-Commons team
 
