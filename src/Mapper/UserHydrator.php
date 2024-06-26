@@ -67,15 +67,17 @@ class UserHydrator implements HydratorInterface
     }
 
     /**
-     * @param  string $keyFrom
-     * @param  string $keyTo
+     * @param string $keyFrom
+     * @param string $keyTo
      * @param  array  $array
      * @return array
      */
-    protected function mapField($keyFrom, $keyTo, array $array)
+    protected function mapField(string $keyFrom, string $keyTo, array $array): array
     {
-        $array[$keyTo] = $array[$keyFrom];
-        unset($array[$keyFrom]);
+        if (isset($array[$keyFrom])) {
+            $array[$keyTo] = $array[$keyFrom];
+            unset($array[$keyFrom]);
+        }
 
         return $array;
     }
