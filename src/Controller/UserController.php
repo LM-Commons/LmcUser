@@ -439,7 +439,7 @@ class UserController extends AbstractActionController
     /**
      * Get changeEmailForm.
      *
-     * @return FormInterface
+     * @return ChangeEmailForm
      */
     public function getChangeEmailForm()
     {
