@@ -23,7 +23,7 @@ $settings = [
      * instead of the default one provided. Default is LmcUser\Entity\User.
      * The entity class should implement LmcUser\Entity\UserInterface
      */
-    //'user_entity_class' => \LmcUser\Entity\User::class,
+    //'user_entity_class' => 'LmcUser\Entity\User',
 
     /**
      * Enable registration
@@ -52,7 +52,7 @@ $settings = [
      * Default value: array containing 'LmcUser\Authentication\Adapter\Db' with priority 100
      * Accepted values: array containing services that implement 'LmcUser\Authentication\Adapter\ChainableAdapter'
      */
-    'auth_adapters' => [100 => \LmcUser\Authentication\Adapter\Db::class],
+    'auth_adapters' => [100 => '\LmcUser\Authentication\Adapter\Db'],
 
     /**
      * Enable Display Name
@@ -62,7 +62,7 @@ $settings = [
      *
      * Accepted values: boolean true or false
      */
-    //'enable_display_name' => true,
+    //'enable_display_name' => false,
 
     /**
      * Modes for authentication identity match
@@ -211,7 +211,7 @@ $settings = [
      *
      * Should user's state be used in the registration/login process?
      */
-    //'enable_user_state' => true,
+    //'enable_user_state' => false,
 
     /**
      * Default user state upon registration

@@ -152,16 +152,16 @@ The following options are available:
   registration form. Default is `false`.
 - **auth_identity_fields** - Array value, specifies which fields a user can
   use as the 'identity' field when logging in.  Acceptable values: username, email.
+Default is `false``.
 - **enable_display_name** - Boolean value, enables a display name field on the
   registration form. Default value is `false`.
 - **enable_registration** - Boolean value, Determines if a user should be
   allowed to register. Default value is `true`.
 - **login_after_registration** - Boolean value, automatically logs the user in
-  after they successfully register. Default value is `false`.
+  after they successfully register. Default value is `true`.
 - **use_registration_form_captcha** - Boolean value, determines if a captcha should
-  be utilized on the user registration form. Default value is `true`. (Note,
-  right now this only utilizes a weak Laminas\Text\Figlet CAPTCHA, but I have plans
-  to make all Laminas\Captcha adapters work.)
+  be utilized on the user registration form. Default value is `false`. (Note,
+  right now this only utilizes a weak Laminas\Text\Figlet CAPTCHA.)
 - **login_form_timeout** - Integer value, specify the timeout for the CSRF security
   field of the login form in seconds. Default value is 300 seconds.
 - **user_form_timeout** - Integer value, specify the timeout for the CSRF security
@@ -169,21 +169,21 @@ The following options are available:
 - **use_redirect_parameter_if_present** - Boolean value, if a redirect GET
   parameter is specified, the user will be redirected to the specified URL if
   authentication is successful (if present, a GET parameter will override the
-  login_redirect_route specified below).
+  login_redirect_route specified below). Default is `true`.
 - **login_redirect_route** String value, name of a route in the application
-  which the user will be redirected to after a successful login.
+  which the user will be redirected to after a successful login. Default is `lmcuser`.
 - **logout_redirect_route** String value, name of a route in the application which
-  the user will be redirected to after logging out.
+  the user will be redirected to after logging out. Default is `lmcuser/login`.
 - **password_cost** - This should be an integer between 4 and 31. The number
   represents the base-2 logarithm of the iteration count used for hashing.
-  Default is `10` (about 10 hashes per second on an i5).
+  Default is `14`.
 - **enable_user_state** - Boolean value, enable user state usage. Should user's
-  state be used in the registration/login process?
+  state be used in the registration/login process? Default is `false`.
 - **default_user_state** - Integer value, default user state upon registration.
-  What state user should have upon registration?
+  What state user should have upon registration? Default is `1`.
 - **allowed_login_states** - Array value, states which are allowing user to login.
   When user tries to login, is his/her state one of the following? Include null if
-  you want user's with no state to login as well.
+  you want user's with no state to login as well. Default values are `null` and `1`.
 
 Changing Registration Captcha Element
 -------------------------------------
