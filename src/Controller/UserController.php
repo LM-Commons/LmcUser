@@ -117,8 +117,12 @@ class UserController extends AbstractActionController
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
-            $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
-            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+            // return the view again
+            return array(
+                'loginForm' => $form,
+                'redirect'  => $redirect,
+                'enableRegistration' => $this->getOptions()->getEnableRegistration(),
+            );
         }
 
         // clear adapters
@@ -434,7 +438,7 @@ class UserController extends AbstractActionController
     /**
      * Get changeEmailForm.
      *
-     * @return ChangeEmailForm
+     * @return FormInterface
      */
     public function getChangeEmailForm()
     {
