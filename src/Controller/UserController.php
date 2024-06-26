@@ -117,8 +117,13 @@ class UserController extends AbstractActionController
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
+            // return the view again
             $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
-            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+            return array(
+                'loginForm' => $form,
+                'redirect'  => $redirect,
+                'enableRegistration' => $this->getOptions()->getEnableRegistration(),
+            );
         }
 
         // clear adapters

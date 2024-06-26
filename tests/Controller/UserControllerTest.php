@@ -243,37 +243,11 @@ class UserControllerTest extends TestCase
 
             $this->pluginManagerPlugins['forward']= $forwardPlugin;
         } else {
-            $response = new Response();
-
-            $redirectQuery = $wantRedirect ? '?redirect='. rawurlencode($redirectUrl) : '';
-            $route_url = "/user/login";
-
-
-            $redirect = $this->createMock('Laminas\Mvc\Controller\Plugin\Redirect', array('toUrl'));
-            $redirect->expects($this->any())
-                ->method('toUrl')
-                ->with($route_url . $redirectQuery)
-                ->willReturnCallback(
-                    function ($url) use (&$response) {
-                        $response->getHeaders()->addHeaderLine('Location', $url);
-                        $response->setStatusCode(302);
-
-                        return $response;
-                    }
-                );
-
-            $this->pluginManagerPlugins['redirect']= $redirect;
-
-
-            $response = new Response();
-            $url = $this->createMock('Laminas\Mvc\Controller\Plugin\Url', array('fromRoute'));
-            $url->expects($this->once())
-                ->method('fromRoute')
-                ->with($controller::ROUTE_LOGIN)
-                ->willReturn($route_url);
-
-            $this->pluginManagerPlugins['url']= $url;
-            $TEST = true;
+            $expectedResult = [
+                'loginForm' => $form,
+                'redirect' => $wantRedirect ? $redirectUrl : false,
+                'enableRegistration' => false,
+            ];
         }
 
 
@@ -283,9 +257,8 @@ class UserControllerTest extends TestCase
         if ($isValid) {
             $this->assertSame($expectedResult, $result);
         } else {
-            $this->assertInstanceOf('Laminas\Http\Response', $result);
-            $this->assertEquals($response, $result);
-            $this->assertEquals($route_url . $redirectQuery, $result->getHeaders()->get('Location')->getFieldValue());
+            $this->assertIsArray($result);
+            $this->assertEquals($expectedResult, $result);
         }
     }
 
