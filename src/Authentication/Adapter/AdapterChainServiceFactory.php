@@ -27,6 +27,10 @@ class AdapterChainServiceFactory implements FactoryInterface
             if (is_callable(array($adapter, 'logout'))) {
                 $chain->getEventManager()->attach('logout', array($adapter, 'logout'), $priority);
             }
+
+            if (is_callable(array($adapter, 'reset'))) {
+                $chain->getEventManager()->attach('reset', array($adapter, 'reset'), $priority);
+            }
         }
 
         return $chain;

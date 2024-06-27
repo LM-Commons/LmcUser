@@ -44,6 +44,17 @@ class Db extends AbstractAdapter
     }
 
     /**
+     * Called when authentication adapter is reset
+     * @param AdapterChainEvent $e
+     *
+     */
+    public function reset(AdapterChainEvent $e): void
+    {
+        $this->getStorage()->clear();
+    }
+
+
+    /**
      * @param  AdapterChainEvent $e
      * @return bool
      */

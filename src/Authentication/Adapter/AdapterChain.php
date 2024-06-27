@@ -105,6 +105,9 @@ class AdapterChain implements AdapterInterface
                 }
             }
         }
+        $event = $this->getEvent();
+        $event->setName('reset');
+        $this->getEventManager()->triggerEvent($event);
 
         return $this;
     }
