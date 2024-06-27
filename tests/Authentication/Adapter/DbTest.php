@@ -87,6 +87,16 @@ class DbTest extends TestCase
     }
 
     /**
+     * @covers \LmcUser\Authentication\Adapter\Db::reset
+     */
+    public function testReset()
+    {
+        $this->storage->expects($this->once())
+            ->method('clear');
+        $this->db->reset($this->authEvent);
+    }
+
+    /**
      * @covers \LmcUser\Authentication\Adapter\Db::Authenticate
      */
     public function testAuthenticateWhenSatisfies()

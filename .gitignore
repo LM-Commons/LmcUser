@@ -12,3 +12,4 @@ vendor/*
 #ignoring  NetBeans project files
 /nbproject
 .phpunit.result.cache
+/build
