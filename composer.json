@@ -36,7 +36,7 @@
 		"laminas/laminas-mvc" : "^3.0",
 		"laminas/laminas-servicemanager" : "^3.0",
 		"laminas/laminas-stdlib" : "^3.0",
-		"laminas/laminas-validator" : "^2.13",
+		"laminas/laminas-validator" : "^3.0",
 		"laminas/laminas-db" : "^2.11",
 		"laminas/laminas-view" : "^2.11",
 		"laminas/laminas-session" : "^2.9",
