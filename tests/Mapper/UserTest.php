@@ -2,7 +2,14 @@
 
 namespace LmcUserTest\Mapper;
 
+use Laminas\Db\Adapter\Driver\DriverInterface;
+use Laminas\Db\Adapter\Driver\StatementInterface;
+use Laminas\Db\Adapter\Platform\PlatformInterface;
+use Laminas\Db\Sql\Platform\Platform;
+use Laminas\Db\Sql\Select;
+use Laminas\Db\Sql\Sql;
 use Laminas\Hydrator\ClassMethodsHydrator;
+use LmcUser\Entity\User;
 use LmcUser\Mapper\User as Mapper;
 use LmcUser\Entity\User as Entity;
 use Laminas\Db\ResultSet\HydratingResultSet;
@@ -22,59 +29,59 @@ class UserTest extends TestCase
     /**
      *
      *
-     * @var \Laminas\Db\Adapter\Adapter
+     * @var Adapter
      */
     protected $mockedDbAdapter;
 
     /**
      *
      *
-     * @var \Laminas\Db\Adapter\Adapter
+     * @var Adapter
      */
     protected $realAdapter = array();
 
     /**
      *
      *
-     * @var \Laminas\Db\Sql\Select
+     * @var Select
      */
     protected $mockedSelect;
 
     /**
      *
      *
-     * @var \Laminas\Db\ResultSet\HydratingResultSet
+     * @var HydratingResultSet
      */
     protected $mockedResultSet;
 
     /**
      *
      *
-     * @var \Laminas\Db\Sql\Sql
+     * @var Sql
      */
     protected $mockedDbSql;
 
     /**
      *
      *
-     * @var \Laminas\Db\Adapter\Driver\DriverInterface
+     * @var DriverInterface
      */
     protected $mockedDbAdapterDriver;
 
     /**
      *
      *
-     * @var \Laminas\Db\Adapter\Platform\PlatformInterface
+     * @var PlatformInterface
      */
     protected $mockedDbAdapterPlatform;
 
     /**
-     * @var \Laminas\Db\Adapter\Driver\StatementInterface
+     * @var StatementInterface
      */
     protected $mockedDbAdapterStatement;
 
     /**
-     * @var \Laminas\Db\Sql\Platform\Platform
+     * @var Platform
      */
     protected $mockedDbSqlPlatform;
 
@@ -295,6 +302,29 @@ class UserTest extends TestCase
 
         if (!isset($return)) {
             $this->markTestSkipped("Without real database we dont can test findByEmail / findByUsername / findById");
+        }
+    }
+
+    public function testInsertFind()
+    {
+        $entity = new User();
+        $entity->setEmail('foo@bar.com');
+        $entity->setUsername('foo');
+        $entity->setPassword('foo');
+        $entity->setDisplayName('foo');
+        $entity->setState(1);
+
+        /* @var $entityEqual Entity */
+        /* @var $dbAdapter Adapter */
+        foreach ($this->realAdapter as $dbAdapter) {
+            if (!$dbAdapter) {
+                continue;
+            }
+            $this->mapper->setDbAdapter($dbAdapter);
+            $this->mapper->insert($entity);
+            $this->assertNotNull($entity->getId());
+            $fetchedEntity = $this->mapper->findById($entity->getId());
+            $this->assertEquals($entity, $fetchedEntity);
         }
     }
 
