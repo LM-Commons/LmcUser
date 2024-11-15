@@ -22,6 +22,11 @@
       "name": "Mat Wright",
       "email": "mail@matwright.dev",
       "homepage": "https://matwright.dev/"
+    },
+    {
+      "name": "Eric Richer",
+      "email": "eric.richer@vistoconsulting.com",
+      "homepage": "https://www.vistoconsulting.com/"
     }
   ],
 
@@ -47,10 +52,12 @@
     "laminas/laminas-hydrator" : "^4.1"
   },
   "require-dev" : {
+    "laminas/laminas-captcha" : "^2.6",
     "laminas/laminas-coding-standard": "^3.0",
     "phpunit/phpunit" : "^9.5.4",
     "phpmd/phpmd" : "^2.7.0",
-    "laminas/laminas-captcha" : "^2.6"
+    "psalm/plugin-phpunit": "^0.19",
+    "vimeo/psalm": "^5.26"
   },
   "suggest": {
     "laminas/laminas-captcha" : "Laminas\\Captcha if you want to use the captcha component"
@@ -83,10 +90,11 @@
       "@cs-check",
       "@test"
     ],
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-clover ./build/logs/clover.xml",
     "cs-check": "phpcs",
     "cs-fix": "phpcbf",
-    "test": "phpunit --colors=always",
-    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-    "test-coverage-html": "phpunit --coverage-html ./build/html"
+    "test-coverage-html": "phpunit --coverage-html ./build/html",
+    "static-analysis": "psalm --shepherd --stats"
   }
 }
