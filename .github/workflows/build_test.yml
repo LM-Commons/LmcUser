@@ -32,7 +32,7 @@ jobs:
       - name: Show PHP version
         run: php -v
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         name: Checkout branch
 
       - name: Validate composer.json and composer.lock
