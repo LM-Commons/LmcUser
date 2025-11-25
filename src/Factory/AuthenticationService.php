@@ -8,7 +8,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class AuthenticationService implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceLocator, $requestedName, ?array $options = null)
     {
         return new \Laminas\Authentication\AuthenticationService(
             $serviceLocator->get('LmcUser\Authentication\Storage\Db'),

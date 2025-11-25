@@ -9,7 +9,7 @@ use LmcUser\Service\User;
 
 class UserFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceLocator, $requestedName, ?array $options = null)
     {
         $service = new User();
         $service->setServiceManager($serviceLocator);

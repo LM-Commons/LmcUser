@@ -106,7 +106,7 @@ abstract class AbstractDbMapper extends EventProvider
      * @param  HydratorInterface|null   $hydrator
      * @return HydratingResultSet
      */
-    protected function select(Select $select, UserEntityInterface $entityPrototype = null, HydratorInterface $hydrator = null)
+    protected function select(Select $select, ?UserEntityInterface $entityPrototype = null, ?HydratorInterface $hydrator = null)
     {
         $this->initialize();
         $stmt = $this->getSlaveSql()->prepareStatementForSqlObject($select);
@@ -124,7 +124,7 @@ abstract class AbstractDbMapper extends EventProvider
      * @param  HydratorInterface|null      $hydrator
      * @return ResultInterface
      */
-    protected function insert(UserEntityInterface $entity, $tableName = null, HydratorInterface $hydrator = null)
+    protected function insert(UserEntityInterface $entity, $tableName = null, ?HydratorInterface $hydrator = null)
     {
         $this->initialize();
         $tableName = $tableName ?: $this->tableName;
@@ -143,7 +143,7 @@ abstract class AbstractDbMapper extends EventProvider
      * @param  HydratorInterface|null      $hydrator
      * @return ResultInterface
      */
-    protected function update(UserEntityInterface $entity, $where, $tableName = null, HydratorInterface $hydrator = null)
+    protected function update(UserEntityInterface $entity, $where, $tableName = null, ?HydratorInterface $hydrator = null)
     {
         $this->initialize();
         $tableName = $tableName ?: $this->tableName;
@@ -310,7 +310,7 @@ abstract class AbstractDbMapper extends EventProvider
      * @param  HydratorInterface|null $hydrator
      * @return array
      */
-    protected function entityToArray(UserEntityInterface $entity, HydratorInterface $hydrator = null)
+    protected function entityToArray(UserEntityInterface $entity, ?HydratorInterface $hydrator = null)
     {
         if (!$hydrator) {
             $hydrator = $this->getHydrator();

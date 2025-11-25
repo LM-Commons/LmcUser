@@ -9,7 +9,7 @@ use LmcUser\Validator;
 
 class ChangeEmail implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceManager, $requestedName, ?array $options = null)
     {
         $options = $serviceManager->get('lmcuser_module_options');
         $form = new Form\ChangeEmail(null, $options);

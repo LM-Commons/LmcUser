@@ -8,7 +8,7 @@ use LmcUser\Form;
 
 class Login implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceManager, $requestedName, ?array $options = null)
     {
         $options = $serviceManager->get('lmcuser_module_options');
         $form = new Form\Login(null, $options);

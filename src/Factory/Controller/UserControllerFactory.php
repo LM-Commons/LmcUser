@@ -11,7 +11,7 @@ use LmcUser\Controller\UserController;
 
 class UserControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceManager, $requestedName, ?array $options = null)
     {
         /* @var RedirectCallback $redirectCallback */
         $redirectCallback = $serviceManager->get('lmcuser_redirect_callback');

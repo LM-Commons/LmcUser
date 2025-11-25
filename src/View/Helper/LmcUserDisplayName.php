@@ -21,7 +21,7 @@ class LmcUserDisplayName extends AbstractHelper
      * @throws \LmcUser\Exception\DomainException
      * @return String
      */
-    public function __invoke(User $user = null)
+    public function __invoke(?User $user = null)
     {
         if (null === $user) {
             if ($this->getAuthService()->hasIdentity()) {
