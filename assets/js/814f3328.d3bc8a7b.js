@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdocs=globalThis.webpackChunkdocs||[]).push([[7472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"New documentation","permalink":"/LmcUser/blog/new-documentation","unlisted":false,"date":"2024-04-11T00:00:00.000Z"}]}')}}]);
