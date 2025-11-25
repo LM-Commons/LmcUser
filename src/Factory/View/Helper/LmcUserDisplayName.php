@@ -8,7 +8,7 @@ use LmcUser\View;
 
 class LmcUserDisplayName implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $viewHelper = new View\Helper\LmcUserDisplayName;
         $viewHelper->setAuthService($container->get('lmcuser_auth_service'));

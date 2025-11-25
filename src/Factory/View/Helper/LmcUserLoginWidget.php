@@ -8,7 +8,7 @@ use LmcUser\View;
 
 class LmcUserLoginWidget implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $viewHelper = new View\Helper\LmcUserLoginWidget;
         $viewHelper->setViewTemplate($container->get('lmcuser_module_options')->getUserLoginWidgetViewTemplate());

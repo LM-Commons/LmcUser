@@ -53,7 +53,7 @@ class User extends AbstractDbMapper implements UserInterface
         $this->tableName = $tableName;
     }
 
-    public function insert(UserEntityInterface $entity, $tableName = null, HydratorInterface $hydrator = null)
+    public function insert(UserEntityInterface $entity, $tableName = null, ?HydratorInterface $hydrator = null)
     {
         $result = parent::insert($entity, $tableName, $hydrator);
 
@@ -62,7 +62,7 @@ class User extends AbstractDbMapper implements UserInterface
         return $result;
     }
 
-    public function update(UserEntityInterface $entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
+    public function update(UserEntityInterface $entity, $where = null, $tableName = null, ?HydratorInterface $hydrator = null)
     {
         if (!$where) {
             $where = array('user_id' => $entity->getId());

@@ -9,7 +9,7 @@ use LmcUser\Controller;
 
 class LmcUserAuthentication implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $serviceLocator, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $serviceLocator, $requestedName, ?array $options = null)
     {
         $authService = $serviceLocator->get('lmcuser_auth_service');
         $authAdapter = $serviceLocator->get('LmcUser\Authentication\Adapter\AdapterChain');
