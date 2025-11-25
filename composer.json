@@ -49,7 +49,8 @@
     "laminas/laminas-mvc-plugin-flashmessenger" : "^1.2",
     "laminas/laminas-i18n" : "^2.10",
     "laminas/laminas-mvc-plugin-prg" : "^1.2",
-    "laminas/laminas-hydrator" : "^4.1"
+    "laminas/laminas-hydrator" : "^4.1",
+    "lm-commons/lmc-user-common": "1.0.x-dev"
   },
   "require-dev" : {
     "laminas/laminas-captcha" : "^2.6",
@@ -96,5 +97,11 @@
     "cs-fix": "phpcbf",
     "test-coverage-html": "phpunit --coverage-html ./build/html",
     "static-analysis": "psalm --shepherd --stats"
-  }
+  },
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/LM-Commons/LmcUserCommon.git"
+    }
+  ]
 }

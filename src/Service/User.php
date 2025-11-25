@@ -1,83 +1,77 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LmcUser\Service;
 
-use Psr\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Form\Form;
-use Laminas\ServiceManager\ServiceManager;
 use Laminas\Crypt\Password\Bcrypt;
-use Laminas\Hydrator;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ClassMethodsHydrator;
+use Laminas\Hydrator\HydratorInterface;
+use Lmc\User\Common\Mapper\UserMapperInterface;
+use LmcUser\Entity\UserInterface;
 use LmcUser\EventManager\EventProvider;
-use LmcUser\Mapper\UserInterface as UserMapperInterface;
 use LmcUser\Options\UserServiceOptionsInterface;
+use Psr\Container\ContainerInterface;
 
 class User extends EventProvider
 {
+    protected UserMapperInterface $userMapper;
 
-    /**
-     * @var UserMapperInterface
-     */
-    protected $userMapper;
+    protected AuthenticationService $authService;
 
-    /**
-     * @var AuthenticationService
-     */
-    protected $authService;
+    protected Form $loginForm;
 
-    /**
-     * @var Form
-     */
-    protected $loginForm;
+    protected Form $registerForm;
 
-    /**
-     * @var Form
-     */
-    protected $registerForm;
+    protected Form $changePasswordForm;
 
-    /**
-     * @var Form
-     */
-    protected $changePasswordForm;
+    protected ContainerInterface $serviceManager;
 
-    /**
-     * @var ServiceManager
-     */
-    protected $serviceManager;
+    protected UserServiceOptionsInterface $options;
 
-    /**
-     * @var UserServiceOptionsInterface
-     */
-    protected $options;
+    protected ClassMethodsHydrator $formHydrator;
 
-    /**
-     * @var Hydrator\ClassMethods
-     */
-    protected $formHydrator;
+    public function __construct(
+        UserMapperInterface $userMapper,
+        AuthenticationService $authService,
+        Form $loginForm,
+        Form $registerForm,
+        Form $changePasswordForm,
+        UserServiceOptionsInterface $options,
+        ClassMethodsHydrator $hydrator,
+    ) {
+        $this->userMapper         = $userMapper;
+        $this->authService        = $authService;
+        $this->loginForm          = $loginForm;
+        $this->registerForm       = $registerForm;
+        $this->changePasswordForm = $changePasswordForm;
+        $this->options            = $options;
+        $this->formHydrator       = $hydrator;
+    }
 
     /**
      * createFromForm
      *
-     * @param  array $data
-     * @return \LmcUser\Entity\UserInterface
      * @throws Exception\InvalidArgumentException
      */
-    public function register(array $data)
+    public function register(array $data): bool|UserInterface
     {
         $class = $this->getOptions()->getUserEntityClass();
-        $user  = new $class;
+        $user  = new $class();
         $form  = $this->getRegisterForm();
         $form->setHydrator($this->getFormHydrator());
         $form->bind($user);
         $form->setData($data);
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             return false;
         }
 
         $user = $form->getData();
-        /* @var $user \LmcUser\Entity\UserInterface */
+        /** @var UserInterface $user */
 
-        $bcrypt = new Bcrypt;
+        $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
         $user->setPassword($bcrypt->create($user->getPassword()));
 
@@ -92,82 +86,68 @@ class User extends EventProvider
         if ($this->getOptions()->getEnableUserState()) {
             $user->setState($this->getOptions()->getDefaultUserState());
         }
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'form' => $form));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $user, 'form' => $form]);
         $this->getUserMapper()->insert($user);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'form' => $form));
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['user' => $user, 'form' => $form]);
         return $user;
     }
 
     /**
      * change the current users password
-     *
-     * @param  array $data
-     * @return boolean
      */
-    public function changePassword(array $data)
+    public function changePassword(array $data): bool
     {
         $currentUser = $this->getAuthService()->getIdentity();
 
         $oldPass = $data['credential'];
         $newPass = $data['newCredential'];
 
-        $bcrypt = new Bcrypt;
+        $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
 
-        if (!$bcrypt->verify($oldPass, $currentUser->getPassword())) {
+        if (! $bcrypt->verify($oldPass, $currentUser->getPassword())) {
             return false;
         }
 
         $pass = $bcrypt->create($newPass);
         $currentUser->setPassword($pass);
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $currentUser, 'data' => $data]);
         $this->getUserMapper()->update($currentUser);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['user' => $currentUser, 'data' => $data]);
 
         return true;
     }
 
-    public function changeEmail(array $data)
+    public function changeEmail(array $data): bool
     {
         $currentUser = $this->getAuthService()->getIdentity();
 
-        $bcrypt = new Bcrypt;
+        $bcrypt = new Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
 
-        if (!$bcrypt->verify($data['credential'], $currentUser->getPassword())) {
+        if (! $bcrypt->verify($data['credential'], $currentUser->getPassword())) {
             return false;
         }
 
         $currentUser->setEmail($data['newIdentity']);
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['user' => $currentUser, 'data' => $data]);
         $this->getUserMapper()->update($currentUser);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $currentUser, 'data' => $data));
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['user' => $currentUser, 'data' => $data]);
 
         return true;
     }
 
     /**
      * getUserMapper
-     *
-     * @return UserMapperInterface
      */
-    public function getUserMapper()
+    public function getUserMapper(): UserMapperInterface
     {
-        if (null === $this->userMapper) {
-            $this->userMapper = $this->getServiceManager()->get('lmcuser_user_mapper');
-        }
         return $this->userMapper;
     }
 
-    /**
-     * setUserMapper
-     *
-     * @param  UserMapperInterface $userMapper
-     * @return User
-     */
-    public function setUserMapper(UserMapperInterface $userMapper)
+    public function setUserMapper(UserMapperInterface $userMapper): static
     {
         $this->userMapper = $userMapper;
         return $this;
@@ -175,111 +155,65 @@ class User extends EventProvider
 
     /**
      * getAuthService
-     *
-     * @return AuthenticationService
      */
-    public function getAuthService()
+    public function getAuthService(): AuthenticationService
     {
-        if (null === $this->authService) {
-            $this->authService = $this->getServiceManager()->get('lmcuser_auth_service');
-        }
         return $this->authService;
     }
 
     /**
      * setAuthenticationService
-     *
-     * @param  AuthenticationService $authService
-     * @return User
      */
-    public function setAuthService(AuthenticationService $authService)
+    public function setAuthService(AuthenticationService $authService): static
     {
         $this->authService = $authService;
         return $this;
     }
 
-    /**
-     * @return Form
-     */
-    public function getRegisterForm()
+    public function getRegisterForm(): Form
     {
-        if (null === $this->registerForm) {
-            $this->registerForm = $this->getServiceManager()->get('lmcuser_register_form');
-        }
         return $this->registerForm;
     }
 
-    /**
-     * @param  Form $registerForm
-     * @return User
-     */
-    public function setRegisterForm(Form $registerForm)
+    public function setRegisterForm(Form $registerForm): static
     {
         $this->registerForm = $registerForm;
         return $this;
     }
 
-    /**
-     * @return Form
-     */
-    public function getChangePasswordForm()
+    public function getChangePasswordForm(): Form
     {
-        if (null === $this->changePasswordForm) {
-            $this->changePasswordForm = $this->getServiceManager()->get('lmcuser_change_password_form');
-        }
         return $this->changePasswordForm;
     }
 
-    /**
-     * @param  Form $changePasswordForm
-     * @return User
-     */
-    public function setChangePasswordForm(Form $changePasswordForm)
+    public function setChangePasswordForm(Form $changePasswordForm): static
     {
         $this->changePasswordForm = $changePasswordForm;
         return $this;
     }
 
-    /**
-     * get service options
-     *
-     * @return UserServiceOptionsInterface
-     */
-    public function getOptions()
+    public function getOptions(): UserServiceOptionsInterface
     {
-        if (!$this->options instanceof UserServiceOptionsInterface) {
-            $this->setOptions($this->getServiceManager()->get('lmcuser_module_options'));
-        }
         return $this->options;
     }
 
     /**
      * set service options
-     *
-     * @param UserServiceOptionsInterface $options
      */
-    public function setOptions(UserServiceOptionsInterface $options)
+    public function setOptions(UserServiceOptionsInterface $options): void
     {
         $this->options = $options;
     }
 
     /**
      * Retrieve service manager instance
-     *
-     * @return ServiceManager
      */
-    public function getServiceManager()
+    public function getServiceManager(): ContainerInterface
     {
         return $this->serviceManager;
     }
 
-    /**
-     * Set service manager instance
-     *
-     * @param  ContainerInterface $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ContainerInterface $serviceManager)
+    public function setServiceManager(ContainerInterface $serviceManager): static
     {
         $this->serviceManager = $serviceManager;
         return $this;
@@ -287,22 +221,15 @@ class User extends EventProvider
 
     /**
      * Return the Form Hydrator
-     *
-     * @return \Laminas\Hydrator\HydratorInterface
      */
-    public function getFormHydrator()
+    public function getFormHydrator(): HydratorInterface
     {
-        if (!$this->formHydrator instanceof Hydrator\HydratorInterface) {
-            $this->setFormHydrator($this->getServiceManager()->get('lmcuser_register_form_hydrator'));
-        }
-
         return $this->formHydrator;
     }
 
     /**
      * Set the Form Hydrator to use
      *
-     * @param  Hydrator\HydratorInterface $formHydrator
      * @return User
      */
     public function setFormHydrator(Hydrator\HydratorInterface $formHydrator)

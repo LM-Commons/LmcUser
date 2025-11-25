@@ -1,48 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LmcUser\Controller;
 
+use InvalidArgumentException;
 use Laminas\Form\FormInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\Stdlib\ResponseInterface as Response;
 use Laminas\Stdlib\Parameters;
+use Laminas\Stdlib\ResponseInterface as Response;
 use Laminas\View\Model\ViewModel;
-use LmcUser\Service\User as UserService;
 use LmcUser\Options\UserControllerOptionsInterface;
+use LmcUser\Service\User as UserService;
+
+use function in_array;
+use function is_callable;
+use function rawurlencode;
 
 class UserController extends AbstractActionController
 {
-    const ROUTE_CHANGEPASSWD = 'lmcuser/changepassword';
-    const ROUTE_LOGIN        = 'lmcuser/login';
-    const ROUTE_REGISTER     = 'lmcuser/register';
-    const ROUTE_CHANGEEMAIL  = 'lmcuser/changeemail';
+    public const ROUTE_CHANGEPASSWD = 'lmcuser/changepassword';
+    public const ROUTE_LOGIN        = 'lmcuser/login';
+    public const ROUTE_REGISTER     = 'lmcuser/register';
+    public const ROUTE_CHANGEEMAIL  = 'lmcuser/changeemail';
+    public const CONTROLLER_NAME    = 'lmcuser';
 
-    const CONTROLLER_NAME    = 'lmcuser';
-
-    /**
-     * @var UserService
-     */
+    /** @var UserService */
     protected $userService;
 
-    /**
-     * @var FormInterface
-     */
+    /** @var FormInterface */
     protected $loginForm;
 
-    /**
-     * @var FormInterface
-     */
+    /** @var FormInterface */
     protected $registerForm;
 
-    /**
-     * @var FormInterface
-     */
+    /** @var FormInterface */
     protected $changePasswordForm;
 
-    /**
-     * @var FormInterface
-     */
+    /** @var FormInterface */
     protected $changeEmailForm;
 
     /**
@@ -51,19 +47,13 @@ class UserController extends AbstractActionController
      */
     protected $failedLoginMessage = 'Authentication failed. Please try again.';
 
-    /**
-     * @var UserControllerOptionsInterface
-     */
+    /** @var UserControllerOptionsInterface */
     protected $options;
 
-    /**
-     * @var callable $redirectCallback
-     */
+    /** @var callable $redirectCallback */
     protected $redirectCallback;
 
-    /**
-     * @var ServiceLocatorInterface
-     */
+    /** @var ServiceLocatorInterface */
     protected $serviceLocator;
 
     /**
@@ -71,8 +61,8 @@ class UserController extends AbstractActionController
      */
     public function __construct($redirectCallback)
     {
-        if (!is_callable($redirectCallback)) {
-            throw new \InvalidArgumentException('You must supply a callable redirectCallback');
+        if (! is_callable($redirectCallback)) {
+            throw new InvalidArgumentException('You must supply a callable redirectCallback');
         }
         $this->redirectCallback = $redirectCallback;
     }
@@ -82,7 +72,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        if (!$this->lmcUserAuthentication()->hasIdentity()) {
+        if (! $this->lmcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute(static::ROUTE_LOGIN);
         }
         return new ViewModel();
@@ -106,31 +96,31 @@ class UserController extends AbstractActionController
             $redirect = false;
         }
 
-        if (!$request->isPost()) {
-            return array(
-                'loginForm' => $form,
-                'redirect'  => $redirect,
+        if (! $request->isPost()) {
+            return [
+                'loginForm'          => $form,
+                'redirect'           => $redirect,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-            );
+            ];
         }
 
         $form->setData($request->getPost());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             // return the view again
             $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
-            return array(
-                'loginForm' => $form,
-                'redirect'  => $redirect,
+            return [
+                'loginForm'          => $form,
+                'redirect'           => $redirect,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-            );
+            ];
         }
 
         // clear adapters
         $this->lmcUserAuthentication()->getAuthAdapter()->resetAdapters();
         $this->lmcUserAuthentication()->getAuthService()->clearIdentity();
 
-        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
+        return $this->forward()->dispatch(static::CONTROLLER_NAME, ['action' => 'authenticate']);
     }
 
     /**
@@ -156,7 +146,7 @@ class UserController extends AbstractActionController
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
-        $adapter = $this->lmcUserAuthentication()->getAuthAdapter();
+        $adapter  = $this->lmcUserAuthentication()->getAuthAdapter();
         $redirect = $this->params()->fromPost('redirect', $this->params()->fromQuery('redirect', false));
 
         $result = $adapter->prepareForAuthentication($this->getRequest());
@@ -168,12 +158,12 @@ class UserController extends AbstractActionController
 
         $auth = $this->lmcUserAuthentication()->getAuthService()->authenticate($adapter);
 
-        if (!$auth->isValid()) {
+        if (! $auth->isValid()) {
             $this->flashMessenger()->setNamespace('lmcuser-login-form')->addMessage($this->failedLoginMessage);
             $adapter->resetAdapters();
             return $this->redirect()->toUrl(
-                $this->url()->fromRoute(static::ROUTE_LOGIN) .
-                ($redirect ? '?redirect='. rawurlencode($redirect) : '')
+                $this->url()->fromRoute(static::ROUTE_LOGIN)
+                . ($redirect ? '?redirect=' . rawurlencode($redirect) : '')
             );
         }
 
@@ -193,13 +183,13 @@ class UserController extends AbstractActionController
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
         // if registration is disabled
-        if (!$this->getOptions()->getEnableRegistration()) {
-            return array('enableRegistration' => false);
+        if (! $this->getOptions()->getEnableRegistration()) {
+            return ['enableRegistration' => false];
         }
 
         $request = $this->getRequest();
         $service = $this->getUserService();
-        $form = $this->getRegisterForm();
+        $form    = $this->getRegisterForm();
 
         if ($this->getOptions()->getUseRedirectParameterIfPresent() && $request->getQuery()->get('redirect')) {
             $redirect = $request->getQuery()->get('redirect');
@@ -209,29 +199,29 @@ class UserController extends AbstractActionController
 
         $redirectUrl = $this->url()->fromRoute(static::ROUTE_REGISTER)
             . ($redirect ? '?redirect=' . rawurlencode($redirect) : '');
-        $prg = $this->prg($redirectUrl, true);
+        $prg         = $this->prg($redirectUrl, true);
 
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
-                'registerForm' => $form,
+            return [
+                'registerForm'       => $form,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-                'redirect' => $redirect,
-            );
+                'redirect'           => $redirect,
+            ];
         }
 
         $post = $prg;
         $user = $service->register($post);
 
-        $redirect = isset($prg['redirect']) ? $prg['redirect'] : null;
+        $redirect = $prg['redirect'] ?? null;
 
-        if (!$user) {
-            return array(
-                'registerForm' => $form,
+        if (! $user) {
+            return [
+                'registerForm'       => $form,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-                'redirect' => $redirect,
-            );
+                'redirect'           => $redirect,
+            ];
         }
 
         if ($service->getOptions()->getLoginAfterRegistration()) {
@@ -243,11 +233,11 @@ class UserController extends AbstractActionController
             }
             $post['credential'] = $post['password'];
             $request->setPost(new Parameters($post));
-            return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
+            return $this->forward()->dispatch(static::CONTROLLER_NAME, ['action' => 'authenticate']);
         }
 
         // TODO: Add the redirect parameter here...
-        return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+        return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect=' . rawurlencode($redirect) : ''));
     }
 
     /**
@@ -256,13 +246,13 @@ class UserController extends AbstractActionController
     public function changepasswordAction()
     {
         // if the user isn't logged in, we can't change password
-        if (!$this->lmcUserAuthentication()->hasIdentity()) {
+        if (! $this->lmcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
         $form = $this->getChangePasswordForm();
-        $prg = $this->prg(static::ROUTE_CHANGEPASSWD);
+        $prg  = $this->prg(static::ROUTE_CHANGEPASSWD);
 
         $fm = $this->flashMessenger()->setNamespace('change-password')->getMessages();
         if (isset($fm[0])) {
@@ -274,26 +264,26 @@ class UserController extends AbstractActionController
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
-                'status' => $status,
+            return [
+                'status'             => $status,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
         $form->setData($prg);
 
-        if (!$form->isValid()) {
-            return array(
-                'status' => false,
+        if (! $form->isValid()) {
+            return [
+                'status'             => false,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
-        if (!$this->getUserService()->changePassword($form->getData())) {
-            return array(
-                'status' => false,
+        if (! $this->getUserService()->changePassword($form->getData())) {
+            return [
+                'status'             => false,
                 'changePasswordForm' => $form,
-            );
+            ];
         }
 
         $this->flashMessenger()->setNamespace('change-password')->addMessage(true);
@@ -303,12 +293,12 @@ class UserController extends AbstractActionController
     public function changeEmailAction()
     {
         // if the user isn't logged in, we can't change email
-        if (!$this->lmcUserAuthentication()->hasIdentity()) {
+        if (! $this->lmcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
-        $form = $this->getChangeEmailForm();
+        $form    = $this->getChangeEmailForm();
         $request = $this->getRequest();
         $request->getPost()->set('identity', $this->getUserService()->getAuthService()->getIdentity()->getEmail());
 
@@ -323,29 +313,29 @@ class UserController extends AbstractActionController
         if ($prg instanceof Response) {
             return $prg;
         } elseif ($prg === false) {
-            return array(
-                'status' => $status,
+            return [
+                'status'          => $status,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $form->setData($prg);
 
-        if (!$form->isValid()) {
-            return array(
-                'status' => false,
+        if (! $form->isValid()) {
+            return [
+                'status'          => false,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $change = $this->getUserService()->changeEmail($prg);
 
-        if (!$change) {
+        if (! $change) {
             $this->flashMessenger()->setNamespace('change-email')->addMessage(false);
-            return array(
-                'status' => false,
+            return [
+                'status'          => false,
                 'changeEmailForm' => $form,
-            );
+            ];
         }
 
         $this->flashMessenger()->setNamespace('change-email')->addMessage(true);
@@ -355,10 +345,9 @@ class UserController extends AbstractActionController
     /**
      * Getters/setters for DI stuff
      */
-
     public function getUserService()
     {
-        if (!$this->userService) {
+        if (! $this->userService) {
             $this->userService = $this->serviceLocator->get('lmcuser_user_service');
         }
         return $this->userService;
@@ -372,20 +361,20 @@ class UserController extends AbstractActionController
 
     public function getRegisterForm()
     {
-        if (!$this->registerForm) {
+        if (! $this->registerForm) {
             $this->setRegisterForm($this->serviceLocator->get('lmcuser_register_form'));
         }
         return $this->registerForm;
     }
 
-    public function setRegisterForm(FormInterface$registerForm)
+    public function setRegisterForm(FormInterface $registerForm)
     {
         $this->registerForm = $registerForm;
     }
 
     public function getLoginForm()
     {
-        if (!$this->loginForm) {
+        if (! $this->loginForm) {
             $this->setLoginForm($this->serviceLocator->get('lmcuser_login_form'));
         }
         return $this->loginForm;
@@ -399,7 +388,7 @@ class UserController extends AbstractActionController
 
     public function getChangePasswordForm()
     {
-        if (!$this->changePasswordForm) {
+        if (! $this->changePasswordForm) {
             $this->setChangePasswordForm($this->serviceLocator->get('lmcuser_change_password_form'));
         }
         return $this->changePasswordForm;
@@ -414,7 +403,6 @@ class UserController extends AbstractActionController
     /**
      * set options
      *
-     * @param  UserControllerOptionsInterface $options
      * @return UserController
      */
     public function setOptions(UserControllerOptionsInterface $options)
@@ -430,7 +418,7 @@ class UserController extends AbstractActionController
      */
     public function getOptions()
     {
-        if (!$this->options instanceof UserControllerOptionsInterface) {
+        if (! $this->options instanceof UserControllerOptionsInterface) {
             $this->setOptions($this->serviceLocator->get('lmcuser_module_options'));
         }
         return $this->options;
@@ -443,7 +431,7 @@ class UserController extends AbstractActionController
      */
     public function getChangeEmailForm()
     {
-        if (!$this->changeEmailForm) {
+        if (! $this->changeEmailForm) {
             $this->setChangeEmailForm($this->serviceLocator->get('lmcuser_change_email_form'));
         }
         return $this->changeEmailForm;
