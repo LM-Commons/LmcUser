@@ -1426,16 +1426,16 @@
         },
         {
             "name": "laminas/laminas-router",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-router.git",
-                "reference": "ec4b33834199bcf04c1b90b98c10f53c9e77e046"
+                "reference": "ea8903a42be5cf4256cbe6035dfad8dd3fbde3f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-router/zipball/ec4b33834199bcf04c1b90b98c10f53c9e77e046",
-                "reference": "ec4b33834199bcf04c1b90b98c10f53c9e77e046",
+                "url": "https://api.github.com/repos/laminas/laminas-router/zipball/ea8903a42be5cf4256cbe6035dfad8dd3fbde3f1",
+                "reference": "ea8903a42be5cf4256cbe6035dfad8dd3fbde3f1",
                 "shasum": ""
             },
             "require": {
@@ -1493,7 +1493,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2025-11-09T16:54:18+00:00"
+            "time": "2026-02-13T21:34:51+00:00"
         },
         {
             "name": "laminas/laminas-servicemanager",
@@ -2247,16 +2247,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.2",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
                 "shasum": ""
             },
             "require": {
@@ -2303,9 +2303,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.6"
             },
-            "time": "2026-01-13T14:02:24+00:00"
+            "time": "2026-02-27T10:28:38+00:00"
         }
     ],
     "packages-dev": [
